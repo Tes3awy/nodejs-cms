@@ -1,0 +1,28 @@
+<div class="container">
+  <a class="navbar-brand" href="/">Tes</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      {{#if user}}
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fas fa-home"></i> Home</a>
+        </li>
+      {{else}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="signinDropdown" role="button" data-toggle="dropdown">
+            Join us
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/auth/login">
+              <i class="fas fa-sign-in-alt"></i>&nbsp; Login</a>
+            <a class="dropdown-item" href="/auth/register">
+              <i class="fas fa-plus"></i>&nbsp; Register</a>
+          </div>
+        </li>
+      {{/if}}
+    </ul>
+  </div>
+</div>
