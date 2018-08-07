@@ -24,7 +24,7 @@ gulp.task('autoprefix', () => {
   return gulp
     .src('public/css/main.css')
     .pipe(postcss(plugins))
-    .pipe(gulp.dest('public/css'))
+    .pipe(gulp.dest('public/css'));
 });
 
 gulp.task('copy-js', () => {

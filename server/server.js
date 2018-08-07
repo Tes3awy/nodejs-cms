@@ -10,17 +10,18 @@ const bodyParser = require('body-parser');
 
 const session = require('express-session');
 
-const passport = require('passport');
 const { passportConfig } = require('./middlewares/passport');
-
-const flash = require('connect-flash');
+const passport = require('passport');
 
 const hbs = require('express-handlebars');
 
-const favicon = require('serve-favicon')
+const favicon = require('serve-favicon');
 
 const routes = require('./routes/index');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+
+const flash = require('connect-flash');
 
 // const morgan = require('morgan');
 
@@ -69,6 +70,7 @@ app.set('view engine', 'hbs');
 // Routes
 app.use('/', routes);
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
   res.locals.user = req.user || null;

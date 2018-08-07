@@ -32,3 +32,13 @@ p {
 .input-group-append {
   cursor: pointer;
 }
+
+.email-input-class {
+  color: rgba(73, 80, 87, 0.8);
+}
+
+.position-text {
+  display: inline-block;
+  background-color: rebeccapurple;
+  padding: 12px;
+}

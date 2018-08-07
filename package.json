@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "start": "SET NODE_ENV=development && nodemon server/server.js"
+    "start": "export NODE_ENV=development && nodemon server/server.js || set NODE_ENV=developemt && nodemon server/server.js"
   },
   "keywords": [],
   "author": "Osama Abbas <oabbas2512@gmail.com> (https://tes3awy.github.io/)",
@@ -20,7 +20,7 @@
     "express-validator": "^5.3.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
-    "mongoose": "^5.2.6",
+    "mongoose": "^5.2.7",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
@@ -31,7 +31,7 @@
     "cssnano": "^4.0.5",
     "gulp": "^3.9.1",
     "gulp-plumber": "^1.2.0",
-    "gulp-postcss": "^7.0.1",
+    "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.1",
     "gulp-wait": "0.0.2"

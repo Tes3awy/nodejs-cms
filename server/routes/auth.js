@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
+const _ = require('lodash');
+
 const { mongoose } = require('./../db/mongoose');
 const { User } = require('./../models/User');
 const bcrypt = require('bcryptjs');
 
-const passport = require('passport');
 const { passportConfig } = require('./../middlewares/passport');
+const passport = require('passport');
+
+const { check, validationResult, body } = require('express-validator/check');
 
 const authenticate = require('./../middlewares/authenticate');
 
@@ -14,7 +18,8 @@ const authenticate = require('./../middlewares/authenticate');
 router.get('/register', (req, res) => {
   res.render('auth/register', {
     layout: 'login-register',
-    showTitle: 'Register page'
+    showTitle: 'Register page',
+    message: req.flash('error')
   });
 });
 
@@ -27,42 +32,57 @@ router.get('/login', (req, res) => {
 });
 
 // POST /auth/register
-router.post('/register', (req, res) => {
-    const email = req.body.email;
+router.post('/register', [check('name', 'Name cannot be less than 3 characters').isLength({ min: 3 }), check('username', 'Username cannot be less than 3 characters').isLength({ min: 3 }),check('email', 'This is not an email address!!!').isEmail(), check('password', 'Password cannot be less than 5 characters').isLength({min: 5}), check('password', 'Passwords do not match').custom((password, { req }) => {
+  if (password !== req.body.confPassword) {
+    // req.flash('error', 'Passwords do not match');
+  }
+}) ], (req, res) => {
+  let errors = validationResult(req);
 
-    User.findOne({ email: email })
-      .then(user => {
-        if (user) {
-          return res.redirect('/auth/register');
-        }
+  if (!errors.isEmpty()) {
+    errors = _.map(errors.array(), (errs) => { return _.pick(errs, 'msg'); });
+    console.log(errors);
+    req.flash('error', errors);
+    return res.redirect('/auth/register');
+  }
 
-        const newUser = new User({
-          name: req.body.name,
-          email: req.body.email,
-          username: req.body.username,
-          password: req.body.password
-        });
+  const email = req.body.email;
+  const name = req.body.name;
+  const username = req.body.username;
+  const password = req.body.password;
 
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) {
-              throw err;
-            }
+  User.findOne({ email }).then(user => {
+      if (user) {
+        req.flash('error', 'Email is already registered!!!');
+        return res.redirect('/auth/register');
+      }
 
-            newUser.password = hash;
-
-            newUser.save().then(user => {
-                return res.redirect('/auth/login');
-              }).catch(err => {
-                throw err;
-              });
-          });
-        });
-      }).catch(err => {
-        throw err;
+      const newUser = new User({
+        name,
+        email,
+        username,
+        password
       });
-  },
-);
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) {
+            throw err;
+          }
+
+          newUser.password = hash;
+
+          newUser.save().then(user => {
+              return res.redirect('/auth/login');
+            }).catch(err => {
+              throw err;
+            });
+        });
+      });
+    }).catch(err => {
+      throw err;
+    });
+});
 
 // POST /auth/login
 router.post('/login', passport.authenticate('local', {

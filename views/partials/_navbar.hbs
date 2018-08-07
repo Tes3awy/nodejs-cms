@@ -10,6 +10,18 @@
           <a class="nav-link" href="/">
             <i class="fas fa-home"></i> Home</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/profile">
+            <i class="fas fa-user"></i> Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logout">
+            Logout <i class="fas fa-sign-out-alt"></i></a>
+        </li>
+        <li class="nav-item bg-primary">
+          <a class="nav-link text-white" href="javascript:;">
+            Welcome {{user.name}}</a>
+        </li>
       {{else}}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="signinDropdown" role="button" data-toggle="dropdown">
