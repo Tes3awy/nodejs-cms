@@ -26,6 +26,7 @@ const flash = require('connect-flash');
 // const morgan = require('morgan');
 
 const _ = require('lodash');
+const moment = require('moment');
 
 const keys = require('./../config/credentials');
 const publicPath = './../public';
@@ -66,6 +67,9 @@ app.engine('hbs',
       },
       capitalize(name) {
         return _.startCase(_.toLower(name));
+      },
+      getToday() {
+        return moment().format('MMMM Do YYYY');
       }
     }
   })
