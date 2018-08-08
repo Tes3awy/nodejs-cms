@@ -16,7 +16,7 @@ p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
   max-width: 330px;
   padding-left: 15px;
@@ -43,14 +43,108 @@ p {
   padding: 12px;
 }
 
-button[class="close"] {
+button[class='close'] {
   font-size: 1.2rem;
 }
 
-input[name="name"] {
+input[name='name'] {
   text-transform: capitalize;
 }
 
 .alert {
-  padding: .75rem .75rem;
+  padding: 0.75rem 0.75rem;
+}
+
+.main-card:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.post-col:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.post {
+  border-top: 0;
+  border-bottom: 0;
+  border-right: 0;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-left: 10px solid rebeccapurple;
+}
+
+.posts-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  border: 0;
+  border-color: transparent;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.posts-list-item {
+  display: inline-block;
+}
+
+.post-img {
+  width: 30%;
+}
+
+.post-img img {
+  width: 100%;
+}
+
+.post-desc {
+  vertical-align: middle;
+  width: 69%;
+  position: relative;
+}
+
+.post-desc .desc {
+  height: 100%;
+  padding: 15px 10px;
+  /* border-left: 1px dashed rebeccapurple; */
+}
+
+.post-tag {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: #fff;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: darkgray;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    box-orient: vertical;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .navbar-brand {
+    margin-bottom: 2px;
+    margin-right: 0;
+  }
+  .nav-name {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .post-desc {
+    width: 100%;
+  }
+  .post-img img {
+    width: auto;
+  }
+  .post-img {
+    width: 100%;
+    text-align: center;
+  }
 }

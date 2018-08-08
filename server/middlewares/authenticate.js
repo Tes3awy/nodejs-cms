@@ -1,8 +1,8 @@
 var authenticate = (req, res, next) => {
-  if(!req.isAuthenticated()) {
-    return res.redirect('/auth/login');
+  if(req.user) {
+    return next();
   }
-  next();
+  res.redirect('/auth/login');
 };
 
 module.exports = authenticate;

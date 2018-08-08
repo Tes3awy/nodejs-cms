@@ -1,7 +1,9 @@
-<div class="container">
+<div class="container navbar-container">
   <a class="navbar-brand" href="/">Tes Official Website</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-    <span class="navbar-toggler-icon"></span>
+  <button class="navbar-toggler hamburger hamburger--squeeze" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav ml-auto">
@@ -15,10 +17,14 @@
             <i class="fas fa-user"></i> Profile</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/user/dashboard">
+            <i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/auth/logout">
             Logout <i class="fas fa-sign-out-alt"></i></a>
         </li>
-        <li class="nav-item bg-primary text-center">
+        <li class="nav-item bg-primary text-center nav-name">
           <a class="nav-link text-white" href="javascript:;">
             Welcome {{capitalize user.name}}</a>
         </li>

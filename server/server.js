@@ -20,8 +20,13 @@ const favicon = require('serve-favicon');
 const routes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const postsRoutes = require('./routes/posts');
+
+const methodOverride = require('method-override');
 
 const flash = require('connect-flash');
+
+const helmet = require('helmet');
 
 // const morgan = require('morgan');
 
@@ -43,9 +48,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Session Middleware
 app.use(session({
   secret: keys.session.secret,
+  name: 'sessionid',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 86400000 }
+  cookie: { secure: 'auto', maxAge: 86400000 }
 }));
 // Passport Middlewares
 app.use(passport.initialize());
@@ -75,14 +81,21 @@ app.engine('hbs',
   })
 );
 app.set('view engine', 'hbs');
+// Method Override
+app.use(methodOverride('_method'));
+// Helmet (For Security)
+app.use(helmet());
 
 // Routes
 app.use('/', routes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/posts', postsRoutes);
 
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
+  // res.locals.success = req.flash('success');
+  // res.locals.error = req.flash('error');
   next();
 });
 
