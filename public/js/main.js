@@ -30,5 +30,5 @@ $(".post-tag").one('click', function() {
   toastr.options.progressBar = true;
   toastr.options.preventDuplicates = true;
   toastr.options.positionClass = "toast-bottom-center";
-  toastr.success('You liked the post <i class="fas fa-smile-beam"></i>', {timeOut: 4000});
+  toastr.success('You liked the post <i class="far fa-smile-beam"></i>', {timeOut: 4000});
 });
