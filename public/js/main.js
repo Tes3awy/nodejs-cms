@@ -27,4 +27,8 @@ $('.navbar-toggler').on('click', function() {
 
 $(".post-tag").one('click', function() {
   $(this).find('i').toggleClass('fa-meh fa-smile-beam text-warning text-success');
+  toastr.options.progressBar = true;
+  toastr.options.preventDuplicates = true;
+  toastr.options.positionClass = "toast-bottom-center";
+  toastr.success('You liked the post <i class="fas fa-smile-beam"></i>', {timeOut: 4000});
 });

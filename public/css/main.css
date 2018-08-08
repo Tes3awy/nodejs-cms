@@ -34,7 +34,7 @@ p {
 }
 
 .email-input-class {
-  color: rgba(73, 80, 87, 0.8);
+  color: rgba(73, 80, 87, 0.95);
 }
 
 .position-text {
@@ -69,7 +69,7 @@ input[name='name'] {
   border-right: 0;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
-  border-left: 10px solid rebeccapurple;
+  border-left: 8px solid rebeccapurple;
 }
 
 .posts-list {
@@ -87,6 +87,7 @@ input[name='name'] {
 }
 
 .post-img {
+  vertical-align: top;
   width: 30%;
 }
 
@@ -103,13 +104,12 @@ input[name='name'] {
 .post-desc .desc {
   height: 100%;
   padding: 15px 10px;
-  /* border-left: 1px dashed rebeccapurple; */
 }
 
-.post-tag {
+.post-tag-wrapper {
   position: absolute;
   top: -15px;
-  right: -15px;
+  right: -19px;
   background-color: #fff;
   width: 35px;
   height: 35px;
@@ -117,8 +117,8 @@ input[name='name'] {
   text-align: center;
   border-radius: 50%;
   font-size: 1rem;
-  color: darkgray;
   cursor: pointer;
+  overflow: visible;
 }
 
 @media (max-width: 768px) {
@@ -137,14 +137,20 @@ input[name='name'] {
     padding-left: 15px;
     padding-right: 15px;
   }
+  .post {
+    overflow: hidden;
+  }
   .post-desc {
     width: 100%;
-  }
-  .post-img img {
-    width: auto;
   }
   .post-img {
     width: 100%;
     text-align: center;
+  }
+  .post-tag-wrapper {
+    right: 0;
+  }
+  .post-tag {
+    border-radius: 50%;
   }
 }

@@ -49,7 +49,8 @@ gulp.task('copy-js', () => {
   return gulp
     .src([
       'node_modules/jquery/dist/jquery.min.js',
-      'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+      'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+      'node_modules/toastr/build/toastr.min.js'
     ])
     .pipe(gulp.dest('public/js'));
 });
@@ -57,7 +58,7 @@ gulp.task('copy-js', () => {
 gulp.task('copy-css', () => {
   return gulp
     .src([
-      ''
+      // 'node_modules/toastr/build/toastr.css'
     ])
     .pipe(gulp.dest('public/css'));
 });
@@ -68,4 +69,4 @@ gulp.task('watch', () => {
   gulp.watch('public/sass/vendor/hamburgers/**', ['compile:ham']);
 });
 
-gulp.task('default', ['copy-js']);
+gulp.task('default', ['copy-js', 'copy-css']);

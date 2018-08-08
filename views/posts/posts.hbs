@@ -1,4 +1,3 @@
-
 {{#each posts}}
 {{/each}}
 
@@ -8,21 +7,24 @@
         <div class="card shadow post">
             <ul class="posts-list">
                 <li class="posts-list-item post-img">
-                    <img src="/favicon.ico" alt="Post Image">
+                    <img src="https://source.unsplash.com/random/" alt="Post Image">
                 </li>
                 <li class="posts-list-item post-desc">
                     <div class="desc">
                         <h2 class="text-dark">Title</h2>
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum, nemo, voluptas modi praesentium
                             vel esse aut ipsa debitis eveniet neque iure, molestiae officia nobis sit asperiores! Illo, dicta
-                            obcaecati!</p>
+                            obcaecati!
+                        </p>
                         <p class="text-right mb-0">
                             <a class="btn btn-secondary" href="#">Read more</a>
                         </p>
                     </div>
                     {{!-- Post extra features --}}
-                    <div class="post-tag shadow" title="Likes: ">
-                        <i class="far fa-meh text-warning"></i>
+                    <div class="post-tag-wrapper">
+                        <div class="post-tag shadow" title="Likes: ">
+                            <i class="far fa-meh text-warning"></i>
+                        </div>
                     </div>
                 </li>
             </ul>
