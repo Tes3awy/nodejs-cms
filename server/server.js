@@ -25,6 +25,8 @@ const flash = require('connect-flash');
 
 // const morgan = require('morgan');
 
+const _ = require('lodash');
+
 const keys = require('./../config/credentials');
 const publicPath = './../public';
 const port = process.env.PORT || 3000;
@@ -61,6 +63,9 @@ app.engine('hbs',
     helpers: {
       getCurrentYear() {
         return new Date().getFullYear();
+      },
+      capitalize(name) {
+        return _.startCase(_.toLower(name));
       }
     }
   })

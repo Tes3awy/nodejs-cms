@@ -10,7 +10,7 @@ const bcrypt = require('bcryptjs');
 const { passportConfig } = require('./../middlewares/passport');
 const passport = require('passport');
 
-const { check, validationResult, body } = require('express-validator/check');
+const { check, validationResult } = require('express-validator/check');
 
 const authenticate = require('./../middlewares/authenticate');
 
@@ -27,44 +27,44 @@ router.get('/register', (req, res) => {
 router.get('/login', (req, res) => {
   res.render('auth/login', {
     layout: 'login-register',
-    showTitle: 'Login page'
+    showTitle: 'Login page',
+    message: req.flash('error')
   });
 });
 
 // POST /auth/register
-router.post('/register', [check('name', 'Name cannot be less than 3 characters').isLength({ min: 3 }), check('username', 'Username cannot be less than 3 characters').isLength({ min: 3 }),check('email', 'This is not an email address!!!').isEmail(), check('password', 'Password cannot be less than 5 characters').isLength({min: 5}), check('password', 'Passwords do not match').custom((password, { req }) => {
-  if (password !== req.body.confPassword) {
-    // req.flash('error', 'Passwords do not match');
-  }
-}) ], (req, res) => {
+router.post('/register', [
+  check('name', 'Name must be at least 5 characters').isLength({ min: 5 }),
+  check('email', 'This is not an email address!!!').isEmail(),
+  check('password', 'Password cannot be less than 5 characters').isLength({min: 5}),
+  check('confPassword', 'Confirm password must have the same value as the password!!!').custom((value, { req }) => value === req.body.password)
+], (req, res) => {
+
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     errors = _.map(errors.array(), (errs) => { return _.pick(errs, 'msg'); });
-    console.log(errors);
     req.flash('error', errors);
     return res.redirect('/auth/register');
   }
 
   const email = req.body.email;
   const name = req.body.name;
-  const username = req.body.username;
   const password = req.body.password;
 
   User.findOne({ email }).then(user => {
       if (user) {
-        req.flash('error', 'Email is already registered!!!');
+        req.flash('error', { msg: 'Email is already registered!!!' });
         return res.redirect('/auth/register');
       }
 
       const newUser = new User({
         name,
         email,
-        username,
         password
       });
 
-      bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.genSalt(10, (_err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) {
             throw err;

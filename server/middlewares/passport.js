@@ -15,7 +15,7 @@ passport.use(
     (req, email, password, done) => {
       User.findOne({ email }).then((user) => {
         if (!user) {
-         return done(null, false, { message: 'Email is not registered!!!' });
+         return done(null, false, req.flash('error', { msg: 'Email is not registered!!!' }));
        }
         bcrypt.compare(password, user.password, (err, res) => {
           if (err) {
@@ -24,7 +24,7 @@ passport.use(
           if (res) {
             return done(null, user);
           }
-          return done(null, false, { message: 'Password is incorrect!!!' });
+          return done(null, false, req.flash('error', { msg: 'Password is incorrect!!!' }));
         });
       });
     }
