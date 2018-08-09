@@ -11,6 +11,7 @@ $('.input-group-append').on('click', function() {
     input.attr('type', 'password');
   }
 });
+
 // Autocomplete Email Init
 $('input[type="email"]').emailautocomplete({
   suggClass: 'email-input-class',
@@ -25,10 +26,11 @@ $('.navbar-toggler').on('click', function() {
   });
 });
 
+// Post Like `Button-like` feature
 $(".post-tag").one('click', function() {
   $(this).find('i').toggleClass('fa-meh fa-smile-beam text-warning text-success');
   toastr.options.progressBar = true;
   toastr.options.preventDuplicates = true;
   toastr.options.positionClass = "toast-bottom-center";
-  toastr.success('You liked the post <i class="far fa-smile-beam"></i>', {timeOut: 4000});
+  toastr.success('You liked the post <i class="fas fa-smile-beam"></i>', {timeOut: 4000});
 });
