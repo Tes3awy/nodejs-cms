@@ -76,6 +76,9 @@ app.engine('hbs',
       },
       getToday() {
         return moment().format('MMMM Do YYYY');
+      },
+      trimString(content) {
+        return content.substring(0, 150);
       }
     }
   })

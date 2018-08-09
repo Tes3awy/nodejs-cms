@@ -16,7 +16,7 @@ p {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
   max-width: 330px;
   padding-left: 15px;
@@ -64,12 +64,19 @@ input[name='name'] {
 }
 
 .post {
-  border-top: 0;
-  border-bottom: 0;
-  border-right: 0;
+  border: 0;
+  position: relative;
+}
+
+.post-border-style {
+  width: 8px;
+  background-color: rebeccapurple;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
-  border-left: 8px solid rebeccapurple;
+  position: absolute;
+  left: -8px;
+  top: 0;
+  height: 100%;
 }
 
 .posts-list {
@@ -104,6 +111,16 @@ input[name='name'] {
 .post-desc .desc {
   height: 100%;
   padding: 15px 10px;
+}
+
+.custom-file-label,
+.custom-file-label:after {
+  line-height: 2;
+}
+
+.custom-file-label:after {
+  width: 75px;
+  text-align: center;
 }
 
 .post-tag-wrapper {
@@ -152,5 +169,8 @@ input[name='name'] {
   }
   .post-tag {
     border-radius: 50%;
+  }
+  .post-border-style {
+    display: none;
   }
 }

@@ -1,34 +1,36 @@
-{{#each posts}}
-{{/each}}
+<div class="my-3 text-right">
+    <a class="btn btn-primary" href="/posts/add">Add post</a>
+</div>
 
 <div class="row">
-    {{!-- Loop starts here --}}
-    <div class="col-sm-6 post-col">
-        <div class="card shadow post">
-            <ul class="posts-list">
-                <li class="posts-list-item post-img">
-                    <img src="https://source.unsplash.com/random/" alt="Post Image">
-                </li>
-                <li class="posts-list-item post-desc">
-                    <div class="desc">
-                        <h2 class="text-dark">Title</h2>
-                        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum, nemo, voluptas modi praesentium
-                            vel esse aut ipsa debitis eveniet neque iure, molestiae officia nobis sit asperiores! Illo, dicta
-                            obcaecati!
-                        </p>
-                        <p class="text-right mb-0">
-                            <a class="btn btn-secondary" href="#">Read more</a>
-                        </p>
-                    </div>
-                    {{!-- Post extra features --}}
-                    <div class="post-tag-wrapper">
-                        <div class="post-tag shadow" title="Likes: ">
-                            <i class="far fa-meh text-warning"></i>
+    {{#each posts}}
+        {{!-- Loop starts here --}}
+        <div class="col-sm-6 post-col">
+            <div class="card shadow post">
+                <ul class="posts-list">
+                    <li class="posts-list-item post-img">
+                        <img src="/uploads/{{this.image}}" alt="{{this.title}} Image">
+                    </li>
+                    <li class="posts-list-item post-desc">
+                        <div class="desc">
+                            <h2 class="text-dark">{{this.title}}</h2>
+                            <p class="text-dark">{{trimString this.content}}...</p>
+                            <p class="text-right mb-0">
+                                <a class="btn btn-secondary" href="#">Read more</a>
+                            </p>
+                            <p class="text-muted mb-0">{{this.createdAt}}</p>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                        {{!-- Post extra features --}}
+                        <div class="post-tag-wrapper">
+                            <div class="post-tag shadow" title="Likes: ">
+                                <i class="far fa-meh text-warning"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="post-border-style"></div>
+            </div>
         </div>
-    </div>
-    {{!-- Loops ends here --}}
+        {{!-- Loop ends here --}}
+    {{/each}}
 </div>

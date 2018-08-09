@@ -34,8 +34,8 @@ router.get('/login', (req, res) => {
 
 // POST /auth/register
 router.post('/register', [
-  check('name', 'Name must be at least 5 characters').isLength({ min: 5 }),
-  check('email', 'This is not an email address!!!').isEmail(),
+  check('name', 'Name must be at least 5 characters').isLength({ min: 5 }).escape('name'),
+  check('email', 'This is not an email address!!!').isEmail().normalizeEmail('email', {'all_lowercase': false, 'gmail_remove_dots': false}).escape('email'),
   check('password', 'Password cannot be less than 5 characters').isLength({min: 5}),
   check('confPassword', 'Confirm password must have the same value as the password!!!').custom((value, { req }) => value === req.body.password)
 ], (req, res) => {

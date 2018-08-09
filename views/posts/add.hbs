@@ -1,0 +1,36 @@
+<div class="row d-flex align-items-center">
+    <div class="col-sm-12 mx-auto">
+        <form action="/posts/add" method="POST" enctype="multipart/form-data">
+            <h2 class="mb-3">Add post</h2>
+            {{#if message}}
+                {{#each message}}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span>{{msg}}</span>
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {{/each}}
+            {{/if}}
+            <div class="form-group">
+                <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10">
+                <small class="text-muted title-count"></small>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control post-comp" name="content" rows="8" placeholder="Post content" minlength="300"></textarea>
+                <small class="text-muted content-count"></small>
+            </div>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputFile" accept="image/*" name="image">
+                    <label class="custom-file-label" for="inputFile">Choose image file</label>
+                </div>
+            </div>
+            <small class="text-muted">Anything except <span class="text-danger">image</span> will fail the
+                <span class="text-danger">form</span> from submitting</small>
+            <div class="text-right">
+                <input class="btn btn-info" type="submit" value="Add post">
+            </div>
+        </form>
+    </div>
+</div>

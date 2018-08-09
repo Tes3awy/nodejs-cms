@@ -34,3 +34,11 @@ $(".post-tag").one('click', function() {
   toastr.options.positionClass = "toast-bottom-center";
   toastr.success('You liked the post <i class="fas fa-smile-beam"></i>', {timeOut: 4000});
 });
+
+// Count Characters in `Add Post` page
+$('.post-comp').on('input keyup', function(){
+  var charsCount = $(this).val().replace(/\s/g, '').length;
+  var countArea = $(this).siblings();
+  countArea.text(charsCount + " characters");
+  countArea.text(charsCount + " characters");
+});
