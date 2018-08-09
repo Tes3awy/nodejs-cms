@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const PostSchema = new mongoose.Schema({
     userId: {
@@ -20,8 +21,8 @@ const PostSchema = new mongoose.Schema({
         required: true
     },
     createdAt: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: moment().format('LLL')
     }
 });
 

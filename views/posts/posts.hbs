@@ -2,35 +2,43 @@
     <a class="btn btn-primary" href="/posts/add">Add post</a>
 </div>
 
-<div class="row">
-    {{#each posts}}
-        {{!-- Loop starts here --}}
-        <div class="col-sm-6 post-col">
-            <div class="card shadow post">
-                <ul class="posts-list">
-                    <li class="posts-list-item post-img">
-                        <img src="/uploads/{{this.image}}" alt="{{this.title}} Image">
-                    </li>
-                    <li class="posts-list-item post-desc">
-                        <div class="desc">
-                            <h2 class="text-dark">{{this.title}}</h2>
-                            <p class="text-dark">{{trimString this.content}}...</p>
-                            <p class="text-right mb-0">
-                                <a class="btn btn-secondary" href="#">Read more</a>
-                            </p>
-                            <p class="text-muted mb-0">{{this.createdAt}}</p>
-                        </div>
-                        {{!-- Post extra features --}}
-                        <div class="post-tag-wrapper">
-                            <div class="post-tag shadow" title="Likes: ">
-                                <i class="far fa-meh text-warning"></i>
+{{#if posts}}
+    <div class="row">
+        {{#each posts}}
+            {{!-- Loop starts here --}}
+            <div class="col-sm-6 post-col">
+                <div class="card shadow post">
+                    <ul class="posts-list">
+                        <li class="posts-list-item post-img">
+                            <img src="/uploads/{{this.image}}" alt="{{this.title}} Image">
+                        </li>
+                        <li class="posts-list-item post-desc">
+                            <div class="desc">
+                                <h2 class="text-dark">{{this.title}}</h2>
+                                <p class="text-dark">{{trimString this.content}}...</p>
+                                <p class="text-right mb-0">
+                                    <a class="btn btn-secondary" href="#">Read more</a>
+                                </p>
+                                <p class="text-muted mb-0">{{this.createdAt}}</p>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="post-border-style"></div>
+                            {{!-- Post extra features --}}
+                            <div class="post-tag-wrapper">
+                                <div class="post-tag shadow" title="Likes: ">
+                                    <i class="far fa-meh text-warning"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="post-border-style"></div>
+                </div>
             </div>
+            {{!-- Loop ends here --}}
+        {{/each}}
+    </div>
+{{else}}
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <h3 class="display-4 text-center text-danger">No posts found!!!</h3>
         </div>
-        {{!-- Loop ends here --}}
-    {{/each}}
-</div>
+    </div>
+{{/if}}

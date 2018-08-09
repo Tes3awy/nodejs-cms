@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     done(null, path.join(__dirname, './../../uploads/'));
   },
   filename: (req, file, done) => {
-    console.log(file);
+    // console.log(file);
     done(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   }
 });
@@ -81,13 +81,10 @@ router.post('/add', authenticate, upload.single('image'), (req, res) => {
 
   newPost.save().then(post => {
     if(!post) {
-      console.log('Unable to add post!!!');
       return req.flash('error', 'Unable to add post!!!');
     }
-    console.log('Added post successfully');
     req.flash('success', 'Added post successfully');
   }).catch((err) => {
-    console.log(`Unable to add post!!!: ${err}`);
     return req.flash('error', `Unable to add post!!!: ${err}`);
   });
 
