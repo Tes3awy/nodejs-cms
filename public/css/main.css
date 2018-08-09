@@ -9,6 +9,7 @@ p {
 
 .main-navbar {
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .form-access {
@@ -43,6 +44,14 @@ p {
   padding: 12px;
 }
 
+.profile-container {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
 button[class='close'] {
   font-size: 1.2rem;
 }
@@ -59,13 +68,17 @@ input[name='name'] {
   margin-bottom: 15px;
 }
 
-.post-col:not(:last-child) {
-  margin-bottom: 15px;
+.post-col {
+  margin-bottom: 35px;
 }
 
 .post {
   border: 0;
   position: relative;
+}
+
+.post-title {
+  margin-bottom: 25px;
 }
 
 .post-border-style {
@@ -85,8 +98,7 @@ input[name='name'] {
   margin-bottom: 0;
   border: 0;
   border-color: transparent;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  position: relative;
 }
 
 .posts-list-item {
@@ -94,7 +106,6 @@ input[name='name'] {
 }
 
 .post-img {
-  vertical-align: top;
   width: 30%;
 }
 
@@ -102,15 +113,24 @@ input[name='name'] {
   width: 100%;
 }
 
+#previewImageContainer img {
+  max-width: 25%;
+  max-height: 25%;
+}
+
 .post-desc {
   vertical-align: middle;
   width: 69%;
-  position: relative;
+  /* position: relative; */
 }
 
 .post-desc .desc {
   height: 100%;
-  padding: 15px 10px;
+  padding: 20px 15px;
+}
+
+.add-post-btn-container {
+  margin-bottom: 30px;
 }
 
 .custom-file-label,
@@ -125,8 +145,8 @@ input[name='name'] {
 
 .post-tag-wrapper {
   position: absolute;
-  top: -15px;
-  right: -19px;
+  top: -18px;
+  right: -8px;
   background-color: #fff;
   width: 35px;
   height: 35px;
@@ -136,6 +156,20 @@ input[name='name'] {
   font-size: 1rem;
   cursor: pointer;
   overflow: visible;
+}
+
+a[data-toggle='lightbox'] {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.ekko-lightbox .modal-body {
+  padding: 0;
+}
+
+.ekko-lightbox .modal-content {
+  border: 0;
 }
 
 @media (max-width: 768px) {
@@ -154,8 +188,14 @@ input[name='name'] {
     padding-left: 15px;
     padding-right: 15px;
   }
-  .post {
-    overflow: hidden;
+  .navbar::after {
+    content: '';
+    position: absolute;
+    right: 34%;
+    bottom: 0;
+    width: 30%;
+    height: 2px;
+    background-color: rebeccapurple;
   }
   .post-desc {
     width: 100%;
@@ -166,6 +206,7 @@ input[name='name'] {
   }
   .post-tag-wrapper {
     right: 0;
+    top: -18px;
   }
   .post-tag {
     border-radius: 50%;

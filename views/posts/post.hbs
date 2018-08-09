@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-sm-8 mx-auto">
+    <div class="post-container">
+      <div class="post-title mb-2">
+        <h2>{{post.title}}</h2>
+        <p class="text-right text-info mb-0">{{post.createdAt}}</p>
+      </div>
+      <div class="post-body">
+        <div class="post-image-container text-center my-3">
+          <a href="/uploads/{{post.image}}" data-toggle="lightbox">
+          <img class="img-fluid" src="/uploads/{{post.image}}" alt="{{post.title}} Image" title="{{post.title}} Image">
+        </a>
+        </div>
+        <div class="post-body-content">
+          {{post.content}}
+        </div>
+        <hr>
+        <h3>Comments</h3>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,8 @@
-<div class="row d-flex align-items-center">
-    <div class="col-sm-12 mx-auto">
-        <form action="/posts/add" method="POST" enctype="multipart/form-data">
-            <h2 class="mb-3">Add post</h2>
+<div class="row">
+    <div class="col-sm-8 mx-auto">
+        <form action="/posts/add" method="POST" enctype="multipart/form-data" runat="server">
+            <h2 class="mb-0">Add post</h2>
+            <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
             {{#if message}}
                 {{#each message}}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -22,11 +23,15 @@
             </div>
             <div class="input-group">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputFile" accept="image/*" name="image">
-                    <label class="custom-file-label" for="inputFile">Choose image file</label>
+                    <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image">
+                    <label class="custom-file-label" for="inputImage">Choose image file</label>
                 </div>
             </div>
-            <small class="text-muted">Anything except <span class="text-danger">image</span> will fail the
+            <small class="text-monospace d-block pt-2" id="image-name"></small>
+            <div class="mb-2" id="previewImageContainer">
+                <img src="#" id="#previewImage" title="Image to upload">
+            </div>
+            <small class="text-muted d-block mb-2">Anything except <span class="text-danger">image</span> will fail the
                 <span class="text-danger">form</span> from submitting</small>
             <div class="text-right">
                 <input class="btn btn-info" type="submit" value="Add post">

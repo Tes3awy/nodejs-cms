@@ -42,3 +42,31 @@ $('.post-comp').on('input keyup', function(){
   countArea.text(charsCount + " characters");
   countArea.text(charsCount + " characters");
 });
+
+// Lightbox for /posts images
+$('a[data-toggle="lightbox"]').on('click', function(e) {
+  e.preventDefault();
+  $(this).ekkoLightbox();
+});
+
+// Add post image name before upload
+$('#inputImage').on('change', function() {
+  $('#image-name').text(this.files && this.files.length ? this.files[0].name : '');
+});
+
+// Preview post image before upload
+$('#previewImageContainer').hide();
+$("#inputImage").on('change', function() {
+  $('#previewImageContainer').slideDown(300);
+  document.getElementById('#previewImage').src = window.URL.createObjectURL(this.files[0])
+});
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.load = function(e) {
+      $('#previewImage').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}

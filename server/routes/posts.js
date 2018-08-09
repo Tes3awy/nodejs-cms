@@ -13,10 +13,9 @@ const { Post } = require('./../models/Post');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, done) => {
-    done(null, path.join(__dirname, '/uploads/'));
+    done(null, path.join(__dirname, './../../public/uploads/'));
   },
   filename: (req, file, done) => {
-    // console.log(file);
     done(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   }
 });
@@ -28,7 +27,6 @@ const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
 router.get('/', authenticate, (req, res) => {
-  // const userId = req.user.id;
   Post.find({}).then((posts) => {
     res.render('posts/posts', {
       showTitle: 'Posts',
@@ -56,13 +54,13 @@ router.get('/add', authenticate, (req, res) => {
 // POST /posts/add
 router.post('/add', authenticate, upload.single('image'), (req, res) => {
 
-  // let errors = validationResult(req);
+  let errors = validationResult(req);
 
-  // if (!errors.isEmpty()) {
-  //   errors = _.map(errors.array(), (errs) => { return _.pick(errs, 'msg'); });
-  //   req.flash('error', errors);
-  //   return res.redirect('/posts/add');
-  // }
+  if (!errors.isEmpty()) {
+    errors = _.map(errors.array(), (errs) => { return _.pick(errs, 'msg'); });
+    req.flash('error', errors);
+    return res.redirect('/posts/add');
+  }
 
   const userId = req.user.id;
 
@@ -89,6 +87,20 @@ router.post('/add', authenticate, upload.single('image'), (req, res) => {
   });
 
   res.redirect('/posts');
+});
+
+// GET /post (Single post)
+router.get('/post/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+
+  Post.findById(id).then(post => {
+      res.render('posts/post', {
+        post,
+        showTitle: post.title
+      });
+  }).catch(err => {
+    return req.flash('error', 'Unable to find post');
+  });
 });
 
 module.exports = router;

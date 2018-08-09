@@ -1,4 +1,4 @@
-<div class="my-3 text-right">
+<div class="text-right add-post-btn-container">
     <a class="btn btn-primary" href="/posts/add">Add post</a>
 </div>
 
@@ -6,18 +6,20 @@
     <div class="row">
         {{#each posts}}
             {{!-- Loop starts here --}}
-            <div class="col-sm-6 post-col">
+            <div class="col-12 post-col">
                 <div class="card shadow post">
                     <ul class="posts-list">
                         <li class="posts-list-item post-img">
-                            <img src="/uploads/{{this.image}}" alt="{{this.title}} Image">
+                            <a href="/uploads/{{this.image}}" data-toggle="lightbox">
+                                <img class="post-image" src="/uploads/{{this.image}}" alt="{{this.title}} Image">
+                            </a>
                         </li>
                         <li class="posts-list-item post-desc">
                             <div class="desc">
-                                <h2 class="text-dark">{{this.title}}</h2>
+                                <h2 class="post-title text-dark">{{this.title}}</h2>
                                 <p class="text-dark">{{trimString this.content}}...</p>
                                 <p class="text-right mb-0">
-                                    <a class="btn btn-secondary" href="#">Read more</a>
+                                    <a class="btn btn-secondary" href="/posts/post/{{this.id}}">Read more</a>
                                 </p>
                                 <p class="text-muted mb-0">{{this.createdAt}}</p>
                             </div>

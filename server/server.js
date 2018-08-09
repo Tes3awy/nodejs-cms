@@ -78,7 +78,7 @@ app.engine('hbs',
         return moment().format('MMMM Do YYYY');
       },
       trimString(content) {
-        return content.substring(0, 150);
+        return content.substring(0, 300);
       }
     }
   })
