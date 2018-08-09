@@ -13,7 +13,7 @@ const { Post } = require('./../models/Post');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, done) => {
-    done(null, path.join(__dirname, './../../uploads/'));
+    done(null, path.join(__dirname, '/uploads/'));
   },
   filename: (req, file, done) => {
     // console.log(file);
