@@ -51,7 +51,8 @@ gulp.task('copy-js', () => {
       'node_modules/jquery/dist/jquery.min.js',
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
       'node_modules/toastr/build/toastr.min.js',
-      'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js'
+      'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
+      'node_modules/codemirror/lib/codemirror.js',
     ])
     .pipe(gulp.dest('public/js'));
 });
@@ -60,7 +61,9 @@ gulp.task('copy-css', () => {
   return gulp
     .src([
       // 'node_modules/toastr/build/toastr.css'
-      'node_modules/ekko-lightbox/dist/ekko-lightbox.css'
+      // 'node_modules/ekko-lightbox/dist/ekko-lightbox.css'
+      'node_modules/codemirror/lib/codemirror.css',
+      'node_modules/codemirror/theme/oceanic-next.css'
     ])
     .pipe(gulp.dest('public/css'));
 });
