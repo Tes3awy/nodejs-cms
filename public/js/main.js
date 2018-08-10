@@ -1,10 +1,7 @@
 // Show/Hide Password Fields
 $('.input-group-append').on('click', function() {
   var input = $(this).siblings();
-  $(this)
-    .find('.input-group-text')
-    .find('i')
-    .toggleClass('fa-eye fa-eye-slash');
+  $(this).find('.input-group-text').find('i').toggleClass('fa-eye fa-eye-slash');
   if (input.attr('type') === 'password') {
     input.attr('type', 'text');
   } else {
@@ -32,7 +29,7 @@ $(".post-tag").one('click', function() {
   toastr.options.progressBar = true;
   toastr.options.preventDuplicates = true;
   toastr.options.positionClass = "toast-bottom-center";
-  toastr.success('You liked the post <i class="fas fa-smile-beam"></i>', {timeOut: 4000});
+  toastr.success('You liked the post <i class="fas fa-smile-beam"></i>', {timeOut: 3000});
 });
 
 // Count Characters in `Add Post` page
@@ -61,6 +58,41 @@ $("#inputImage").on('change', function() {
   document.getElementById('#previewImage').src = window.URL.createObjectURL(this.files[0])
 });
 
+$(document).ready( function() {
+  // Summernote Init
+  if($('#summernote')[0]) {
+    $('#summernote').summernote({
+      placeholder: 'Starting typing your post',
+      tabsize: 2,
+      height: 200,
+      code: 'html_tags_string_from_db',
+      disableDragAndDrop: true,
+      codemirror: {
+        theme: 'oceanic-next'
+      },
+      toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['fontsize', ['fontsize', 'fontname']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['insert',['ltr','rtl', 'hr']],
+        ['misc', ['undo', 'redo']],
+        ['codeview', ['codeview']]
+      ],
+      callbacks: {
+        onPaste: function (e) {
+          var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+          e.preventDefault();
+          document.execCommand('insertText', false, bufferText);
+        }
+      }
+    });
+  }
+});
+
+// Custom Functions
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
