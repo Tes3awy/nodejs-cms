@@ -7,6 +7,10 @@ p {
   font-family: 'Montserrat', sans-serif;
 }
 
+main {
+  margin-bottom: 55px;
+}
+
 .main-navbar {
   margin-bottom: 2rem;
   position: relative;
@@ -48,6 +52,7 @@ p {
   top: 50%;
   left: 50%;
   position: absolute;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 90%;
 }
@@ -118,6 +123,10 @@ input[name='name'] {
   max-height: 25%;
 }
 
+input[type='file'] {
+  cursor: pointer;
+}
+
 .post-desc {
   vertical-align: middle;
   width: 69%;
@@ -146,7 +155,7 @@ input[name='name'] {
 .post-tag-wrapper {
   position: absolute;
   top: -18px;
-  right: -8px;
+  right: -18px;
   background-color: #fff;
   width: 35px;
   height: 35px;
@@ -170,6 +179,57 @@ a[data-toggle='lightbox'] {
 
 .ekko-lightbox .modal-content {
   border: 0;
+}
+
+i.fa-chevron-right {
+  vertical-align: middle;
+  padding-left: 10px;
+}
+
+#addPostIcon {
+  padding-right: 10px;
+}
+
+/* Social Media List */
+.post-shares {
+  margin-top: 15px;
+}
+.social-media-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.social-media-item {
+  display: inline-block;
+  background-color: #663399;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 50%;
+  text-align: center;
+}
+.social-media-item:not(:last-child) {
+  margin-right: 5px;
+}
+
+.social-media-link {
+  color: #FFF;
+  font-size: .8rem;
+}
+
+.social-media-link:hover {
+  text-decoration: none;
+  color: #FFF;
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  line-height: 3.5;
+  /* background: -webkit-gradient(linear, right top, left top, from(#764bc7), to(#663399));
+  background: linear-gradient(to left, #764bc7, #663399); */
 }
 
 @media (max-width: 768px) {
@@ -213,5 +273,8 @@ a[data-toggle='lightbox'] {
   }
   .post-border-style {
     display: none;
+  }
+  .post-shares {
+    text-align: center;
   }
 }
