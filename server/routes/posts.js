@@ -66,9 +66,9 @@ router.post('/add', authenticate, upload.single('image'), (req, res) => {
 
   const body = req.body;
 
-  const title = body.title;
-  const content = body.content;
-  const image = req.file.filename;
+  const title = _.escape(body.title);
+  const content = _.escape(body.content);
+  const image = _.escape(req.file.filename);
 
   const newPost = new Post({
     userId,
@@ -95,8 +95,10 @@ router.get('/post/:id', authenticate, (req, res) => {
 
   Post.findById(id).then(post => {
       res.render('posts/post', {
-        post,
-        showTitle: post.title
+        layout: 'postsLayout',
+        showTitle: post.title,
+        user: req.user,
+        post
       });
   }).catch(err => {
     return req.flash('error', 'Unable to find post');
