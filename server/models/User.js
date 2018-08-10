@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -15,14 +16,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  likesCount: {
-    type: Number,
-    required: false,
-    default: null
-  },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: moment().format('ll')
   }
 });
 
