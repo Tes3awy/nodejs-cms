@@ -3,19 +3,53 @@
     <div class="post-container">
       <div class="post-title mb-2">
         <h2>{{post.title}}</h2>
-        <p class="text-right text-info mb-0">{{post.createdAt}}</p>
+        <div class="post-created text-right">
+          <p class="text-right text-info mb-0 d-inline-block">{{post.createdAt}}</p>
+        </div>
+        {{!-- Social Media Shares --}}
+        <div class="post-shares">
+          <ul class="social-media-list">
+            <li class="social-media-item">
+              <a class="social-media-link" href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            </li>
+            <li class="social-media-item">
+              <a class="social-media-link" href="#" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            </li>
+            <li class="social-media-item">
+              <a class="social-media-link" href="#" title="Share via Mail"><i class="fas fa-envelope"></i></a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="post-body">
         <div class="post-image-container text-center my-3">
           <a href="/uploads/{{post.image}}" data-toggle="lightbox">
-          <img class="img-fluid" src="/uploads/{{post.image}}" alt="{{post.title}} Image" title="{{post.title}} Image">
-        </a>
+            <img class="img-fluid" src="/uploads/{{post.image}}" alt="{{post.title}} Image" title="{{post.title}} Image">
+          </a>
         </div>
         <div class="post-body-content">
           {{post.content}}
         </div>
         <hr>
-        <h3>Comments</h3>
+        <h2>Comments</h2>
+        <hr class="bg-primary" style="max-width: 12%; margin-left: 0;">
+        <section class="mb-3" id="disqus_thread"></section>
+        {{!-- Disqus --}}
+        <script>
+          var disqus_config = function () {
+            this.page.url = window.location.href; // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = window.location.href.substr(window.location.href.lastIndexOf('/') + 1); // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+          (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://tes9.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
       </div>
     </div>
   </div>

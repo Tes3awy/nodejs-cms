@@ -1,5 +1,5 @@
 <div class="text-right add-post-btn-container">
-    <a class="btn btn-primary" href="/posts/add">Add post</a>
+    <a class="btn btn-primary" href="/posts/add" title="Add new post"><i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
 </div>
 
 {{#if posts}}
@@ -11,21 +11,25 @@
                     <ul class="posts-list">
                         <li class="posts-list-item post-img">
                             <a href="/uploads/{{this.image}}" data-toggle="lightbox">
-                                <img class="post-image" src="/uploads/{{this.image}}" alt="{{this.title}} Image">
+                                <img class="post-image" src="/uploads/{{this.image}}" alt="{{this.title}}" title="{{this.title}}">
                             </a>
                         </li>
                         <li class="posts-list-item post-desc">
                             <div class="desc">
                                 <h2 class="post-title text-dark">{{this.title}}</h2>
                                 <p class="text-dark">{{trimString this.content}}...</p>
-                                <p class="text-right mb-0">
-                                    <a class="btn btn-secondary" href="/posts/post/{{this.id}}">Read more</a>
+                                <p class="text-right mb-2">
+                                    <a class="btn btn-secondary" href="/posts/post/{{this.id}}">Read more <i class="fas fa-chevron-right"></i></a>
                                 </p>
-                                <p class="text-muted mb-0">{{this.createdAt}}</p>
+                                <p class="d-inline-block text-muted mb-0">{{this.createdAt}} - </p>
+                                <p class="d-inline-block text-muted mb-0">
+                                    <i class="text-info fas fa-comments" title="{{this.title}} comments"></i>
+                                    <a class="text-muted" href="/posts/post/{{this.id}}#disqus_thread">0 Comments</a>
+                                </p>
                             </div>
                             {{!-- Post extra features --}}
                             <div class="post-tag-wrapper">
-                                <div class="post-tag shadow" title="Likes: ">
+                                <div class="post-tag shadow" title="Likes: 2">
                                     <i class="far fa-meh text-warning"></i>
                                 </div>
                             </div>
