@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   createdAt: {
-    type: Date,
+    type: String,
     default: moment().format('ll')
   }
 });
