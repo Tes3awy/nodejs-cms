@@ -32,6 +32,7 @@ const helmet = require('helmet');
 
 const _ = require('lodash');
 const moment = require('moment');
+const sanitizeHtml = require('sanitize-html');
 
 const keys = require('./../config/credentials');
 const publicPath = './../public';
@@ -79,6 +80,16 @@ app.engine('hbs',
       },
       trimString(content) {
         return content.substring(0, 300);
+      },
+      htmlDecode(content) {
+        var content = _.unescape(content);
+        return sanitizeHtml(content, {
+          allowedTags: ['b', 'i', 'em', 'strong', 'a'],
+          allowedAttributes: {
+            'a': ['href', 'title', 'target'],
+            'img': ['alt', 'title', 'src']
+          }
+        });
       }
     }
   })
@@ -88,19 +99,19 @@ app.set('view engine', 'hbs');
 app.use(methodOverride('_method'));
 // Helmet (For Security)
 app.use(helmet());
-
-// Routes
-app.use('/', routes);
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
-app.use('/posts', postsRoutes);
-
+// Global Vars
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
   // res.locals.success = req.flash('success');
   // res.locals.error = req.flash('error');
   next();
 });
+// Routes
+app.use('/', routes);
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+app.use('/posts', postsRoutes);
+
 
 // Serving
 app.listen(port, '0.0.0.0', () => {
