@@ -3,7 +3,7 @@ const router = express.Router();
 
 const authenticate = require('./../middlewares/authenticate');
 
-router.get('/', authenticate, (req, res) => {
+router.get('/', (req, res) => {
   // if (req.session.views) {
   //   req.session.views++;
   // } else {

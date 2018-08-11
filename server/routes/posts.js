@@ -6,16 +6,17 @@ const router = express.Router();
 const _ = require('lodash');
 
 const { check, validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
 const { mongoose } = require('./../db/mongoose');
 const { Post } = require('./../models/Post');
 
 const multer = require('multer');
 const storage = multer.diskStorage({
-  destination: (req, file, done) => {
+  destination: (_req, _file, done) => {
     done(null, path.join(__dirname, './../../public/uploads/'));
   },
-  filename: (req, file, done) => {
+  filename: (_req, file, done) => {
     done(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   }
 });
@@ -26,8 +27,8 @@ const upload = multer({
 const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
-router.get('/', authenticate, (req, res) => {
-  Post.find({}).then((posts) => {
+router.get('/', (req, res) => {
+  Post.find({}).sort('asc').then((posts) => {
     res.render('posts/posts', {
       showTitle: 'Posts',
       layout: 'postsLayout',
@@ -52,12 +53,18 @@ router.get('/add', authenticate, (req, res) => {
 });
 
 // POST /posts/add
-router.post('/add', authenticate, upload.single('image'), (req, res) => {
+router.post('/add', authenticate, upload.single('image'), [
+  check('title').isLength({ min: 10 }).trim().escape().withMessage('Title cannot be less than 10 characters'),
+  check('content').isLength({ min: 100}).trim().escape().withMessage('Content cannot be less than 100 characters'),
+  check('image').isEmpty().withMessage('Image cannot be empty'),
+  sanitizeBody('content')
+],(req, res) => {
 
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     errors = _.map(errors.array(), (errs) => { return _.pick(errs, 'msg'); });
+    console.log(errors);
     req.flash('error', errors);
     return res.redirect('/posts/add');
   }
@@ -66,9 +73,9 @@ router.post('/add', authenticate, upload.single('image'), (req, res) => {
 
   const body = req.body;
 
-  const title = _.escape(body.title);
-  const content = _.escape(body.content);
-  const image = _.escape(req.file.filename);
+  const title = body.title;
+  const content = body.content;
+  const image = req.file.filename;
 
   const newPost = new Post({
     userId,
@@ -90,7 +97,7 @@ router.post('/add', authenticate, upload.single('image'), (req, res) => {
 });
 
 // GET /post (Single post)
-router.get('/post/:id', authenticate, (req, res) => {
+router.get('/post/:id', (req, res) => {
   const id = req.params.id;
 
   Post.findById(id).then(post => {
