@@ -104,6 +104,22 @@ router.get('/post/:id', (req, res) => {
       res.render('posts/post', {
         layout: 'postsLayout',
         showTitle: post.title,
+        user: req.user.id,
+        post
+      });
+  }).catch(err => {
+    return req.flash('error', 'Unable to find post');
+  });
+});
+
+// GET /post/edit (Edit post)
+router.get('/post/edit/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+
+  Post.findById(id).then(post => {
+      res.render('posts/edit', {
+        layout: 'postsLayout',
+        showTitle: `Edit - ${post.title}`,
         user: req.user,
         post
       });

@@ -11,6 +11,7 @@ const { passportConfig } = require('./../middlewares/passport');
 const passport = require('passport');
 
 const { check, validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
 const authenticate = require('./../middlewares/authenticate');
 
@@ -28,14 +29,15 @@ router.get('/login', (req, res) => {
   res.render('auth/login', {
     layout: 'login-register',
     showTitle: 'Login page',
-    message: req.flash('error')
+    message: req.flash('error'),
+    success: req.flash('success')
   });
 });
 
 // POST /auth/register
 router.post('/register', [
-  check('name', 'Name must be at least 5 characters').isLength({ min: 5 }).escape('name'),
-  check('email', 'This is not an email address!!!').isEmail().normalizeEmail('email', {'all_lowercase': false, 'gmail_remove_dots': false}).escape('email'),
+  check('name', 'Name must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
+  check('email', 'This is not an email address!!!').isEmail().normalizeEmail({'all_lowercase': false, 'gmail_remove_dots': false, 'outlookdotcom_lowercase': false}).escape().trim(),
   check('password', 'Password cannot be less than 5 characters').isLength({min: 5}),
   check('confPassword', 'Confirm password must have the same value as the password!!!').custom((value, { req }) => value === req.body.password)
 ], (req, res) => {
@@ -94,7 +96,7 @@ router.post('/login', passport.authenticate('local', {
 // GET /auth/logout
 router.get('/logout', authenticate, (req, res) => {
   req.logout();
-  req.flash('success', 'Bye bye');
+  req.flash('success', 'Bye bye. See you soon!');
   res.redirect('/auth/login');
 });
 
