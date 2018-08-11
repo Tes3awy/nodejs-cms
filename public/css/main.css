@@ -1,6 +1,7 @@
 /* Main CSS File */
 body {
   font-size: 75%;
+  position: relative;
 }
 
 p {
@@ -39,22 +40,13 @@ main {
 }
 
 .email-input-class {
-  color: rgba(73, 80, 87, 0.95);
+  color: #495057;
 }
 
 .position-text {
   display: inline-block;
-  background-color: rebeccapurple;
+  background-color: #663399;
   padding: 12px;
-}
-
-.profile-container {
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 90%;
 }
 
 button[class='close'] {
@@ -82,13 +74,9 @@ input[name='name'] {
   position: relative;
 }
 
-.post-title {
-  margin-bottom: 25px;
-}
-
 .post-border-style {
   width: 8px;
-  background-color: rebeccapurple;
+  background-color: #663399;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   position: absolute;
@@ -166,6 +154,20 @@ input[type='file'] {
   cursor: pointer;
   overflow: visible;
 }
+.post-shares {
+  margin-top: 15px;
+}
+.post-likes {
+  position: absolute;
+  top: 35px;
+  right: 18px;
+  background-color: #FFF;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  text-align: center;
+  border-radius: 50%;
+}
 
 a[data-toggle='lightbox'] {
   display: block;
@@ -191,9 +193,6 @@ i.fa-chevron-right {
 }
 
 /* Social Media List */
-.post-shares {
-  margin-top: 15px;
-}
 .social-media-list {
   list-style-type: none;
   padding-left: 0;
@@ -201,12 +200,8 @@ i.fa-chevron-right {
 }
 .social-media-item {
   display: inline-block;
-  background-color: #663399;
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
-  border-radius: 50%;
-  text-align: center;
+  vertical-align: top;
+  cursor: pointer;
 }
 .social-media-item:not(:last-child) {
   margin-right: 5px;
@@ -228,17 +223,16 @@ i.fa-chevron-right {
   bottom: 0;
   width: 100%;
   line-height: 3.5;
-  /* background: -webkit-gradient(linear, right top, left top, from(#764bc7), to(#663399));
-  background: linear-gradient(to left, #764bc7, #663399); */
+  z-index: 300;
 }
 
 @media (max-width: 768px) {
   .navbar-container {
-    box-orient: vertical;
     -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
+            box-orient: vertical;
     -ms-flex-direction: column;
-    flex-direction: column;
+        flex-direction: column;
+    -webkit-box-direction: normal;
   }
   .navbar-brand {
     margin-bottom: 2px;
@@ -255,7 +249,7 @@ i.fa-chevron-right {
     bottom: 0;
     width: 30%;
     height: 2px;
-    background-color: rebeccapurple;
+    background-color: #663399;
   }
   .post-desc {
     width: 100%;
