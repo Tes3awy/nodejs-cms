@@ -24,16 +24,44 @@ $('.navbar-toggler').on('click', function() {
 });
 
 // Post Like `Button-like` feature
-$(".post-tag").one('click', function() {
-  $(this).find('i').toggleClass('fa-meh fa-smile-beam text-warning text-success');
-  toastr.options.progressBar = true;
-  toastr.options.preventDuplicates = true;
-  toastr.options.positionClass = "toast-bottom-center";
-  toastr.success('You liked the post <i class="fas fa-smile-beam"></i>', {timeOut: 3000});
+$(".post-tag").one('click', function(e) {
+  const $el = $(e.currentTarget);
+  console.log($el);
+  const $uniqueId = $el.attr('id');
+  const $i = $el.find('i');
+  console.log($i);
+
+  $i.toggleClass('fa-meh fa-smile-beam text-warning text-success');
+
+  // toastr.options.progressBar = false;
+  // toastr.options.preventDuplicates = true;
+  // toastr.options.positionClass = "toast-bottom-center";
+  // toastr.options.showDuration = 300;
+  // toastr.options.hideDuration = 500;
+  // toastr.options.timeOut = 1000;
+  // toastr.success('You liked the post <i class="fas fa-smile-beam"></i>');
+
+  var likeState = $i.hasClass('fa-smile-beam');
+  localStorage.setItem(`likeState-${$uniqueId}`, likeState);
+
+  $(document).ready(function() {
+    const $postTags = $('.post-tag');
+    $postTags.each((el) => {
+      const $el = $(el);
+      const $uniqueId = $el.attr('id');
+      const $i = $el.find('i');
+
+      // Now you apply the state stored in local sotrage to your buttons.
+      const likedStorage = localStorage.getItem(`likeState-${$uniqueId}`);
+      if(likedStorage && $i.hasClass('fa-smile-beam')) {
+        $i.removeClass('fa-meh text-warning');
+      }
+    });
+  });
 });
 
 // Count Characters in `Add Post` page
-$('.post-comp').on('input keyup', function(){
+$('.post-comp').on('input keyup', function() {
   var charsCount = $(this).val().replace(/\s/g, '').length;
   var countArea = $(this).siblings();
   countArea.text(charsCount + " characters");
