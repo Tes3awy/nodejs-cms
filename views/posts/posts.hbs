@@ -1,7 +1,10 @@
+
+{{#if user}}
 <div class="text-right add-post-btn-container">
-    <a class="btn btn-primary" href="/posts/add" title="Add new post">
+    <a class="btn btn-info" href="/posts/add" title="Add new post">
         <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
 </div>
+{{/if}}
 
 {{#if posts}}
     <div class="row">
@@ -9,7 +12,7 @@
             {{!-- Loop starts here --}}
             <div class="col-12 post-col">
                 <div class="card shadow post">
-                    <div class="box">
+                    <div class="box" title="Featured">
                         <div class="ribbon">
                             <span>Featured</span>
                         </div>
@@ -23,7 +26,7 @@
                         <li class="posts-list-item post-desc">
                             <div class="desc">
                                 <h2 class="post-title text-dark">{{this.title}}</h2>
-                                <p class="text-dark">{{trimString this.content}}...</p>
+                                <p class="text-dark">{{htmlDecode this.content}}...</p>
                                 <p class="text-right mb-2">
                                     <a class="btn btn-secondary" href="/posts/post/{{this.id}}">Read more
                                         <i class="fas fa-chevron-right"></i>
@@ -37,9 +40,12 @@
                             </div>
                             {{!-- Post extra features --}}
                             <div class="post-tag-wrapper">
-                                <div class="post-tag shadow" title="Likes: 2">
+                                <div class="post-tag shadow" id="{{this.id}}">
                                     <i class="far fa-meh text-warning"></i>
                                 </div>
+                                {{!-- <div class="post-likes shadow" title="Likes: 2">
+                                    <i class="fas fa-heart text-danger"></i>
+                                </div> --}}
                             </div>
                         </li>
                     </ul>

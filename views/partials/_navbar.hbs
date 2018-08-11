@@ -1,5 +1,5 @@
 <div class="container navbar-container">
-  <a class="navbar-brand" href="/">Tes Official Website</a>
+  <a class="navbar-brand" href="/" title="Tes Official Website">Tes Official Website</a>
   <button class="navbar-toggler hamburger hamburger--squeeze" type="button" data-toggle="collapse" data-target="#navbarResponsive">
     <span class="hamburger-box">
       <span class="hamburger-inner"></span>
@@ -7,36 +7,38 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/" title="Home">
+          <i class="fas fa-home"></i> Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/posts" title="Articles">
+          <i class="far fa-file-alt"></i> Articles</a>
+      </li>
       {{#if user}}
         <li class="nav-item">
-          <a class="nav-link" href="/">
-            <i class="fas fa-home"></i> Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/posts">
-            <i class="far fa-file-alt"></i> Posts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/user/profile">
+          <a class="nav-link" href="/user/profile" title="Profile">
             <i class="fas fa-user"></i> Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/logout">
-            Logout <i class="fas fa-sign-out-alt"></i></a>
+          <a class="nav-link" href="/auth/logout" title="Logout">
+            Logout
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
         </li>
         <li class="nav-item bg-primary text-center nav-name">
-          <a class="nav-link text-white" href="/user/profile">
+          <a class="nav-link text-white" href="/user/profile" title="Welcome {{capitalize user.name}}">
             Welcome {{capitalize user.name}}</a>
         </li>
       {{else}}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="signinDropdown" role="button" data-toggle="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="signinDropdown" role="button" data-toggle="dropdown" title="Join us">
             Join us
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/auth/login">
+            <a class="dropdown-item" href="/auth/login" title="Login with your account">
               <i class="fas fa-sign-in-alt"></i>&nbsp; Login</a>
-            <a class="dropdown-item" href="/auth/register">
+            <a class="dropdown-item" href="/auth/register" title="Register new account">
               <i class="fas fa-plus"></i>&nbsp; Register</a>
           </div>
         </li>

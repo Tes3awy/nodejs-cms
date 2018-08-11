@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Tes | {{showTitle}}</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        {{> _styles}}
-    </head>
+    <!-- You can use Open Graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+    <meta property="og:url" content="/posts">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{showTitle}}">
+    {{!-- <meta property="og:description" content="Your description"> --}}
+    <meta property="og:image" content="/favicon.ico">
+    <title>Tes | {{showTitle}}</title>
 
-    <body>
-        <nav class="navbar navbar-expand-md navbar-light bg-light main-navbar">
-            {{> _navbar}}
-        </nav>
-        <main>
-            <div class="container">
-                {{{ body }}}
-            </div>
-        </main>
+    {{> _styles}}
+  </head>
 
-        {{> _footer}}
-        {{> _libraries}}
-    </body>
+  <body>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.1';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <nav class="navbar navbar-expand-md navbar-light bg-light main-navbar">
+      {{> _navbar}}
+    </nav>
+    <main>
+      <div class="container">
+        {{{ body }}}
+      </div>
+    </main>
+
+    {{> _footer}} {{> _libraries}}
+  </body>
 
 </html>
