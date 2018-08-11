@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-sm-8 mx-auto">
+    <form action="/posts?_method=PUT" method="POST" enctype="multipart/form-data" runat="server">
+      <input type="hidden" name="_method" value="PUT">
+      <h2 class="mb-0">Edit post</h2>
+      <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
+      {{#if message}}
+        {{#each message}}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span>{{msg}}</span>
+            <button type="button" class="close" data-dismiss="alert">
+              <span>&times;</span>
+            </button>
+          </div>
+        {{/each}}
+      {{/if}}
+
+      {{#if post}}
+        {{!-- Title --}}
+        <div class="form-group">
+          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{post.title}}">
+          <small class="text-muted title-count"></small>
+        </div>
+        {{!-- Summernote Textarea --}}
+        <div class="form-group">
+          <textarea id="summernote" class="form-control post-comp" name="content" placeholder="Post content" minlength="300">{{post.content}}</textarea>
+          <small class="text-muted content-count"></small>
+        </div>
+        {{!-- File Upload --}}
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image">
+            <label class="custom-file-label" for="inputImage">Choose image file</label>
+          </div>
+        </div>
+        {{!-- Image Preview and Name --}}
+        <small class="text-monospace d-block pt-2" id="image-name"></small>
+        <div class="mb-2" id="previewImageContainerUpdate">
+          <img src="/uploads/{{post.image}}" id="#previewImage" title="Current post image" width="300" height="150">
+        </div>
+        {{!-- Warning --}}
+        <small class="text-muted d-block mb-2">Anything except
+          <span class="text-danger">image</span> will fail the
+          <span class="text-danger">form</span> from submitting</small>
+        <div class="text-right">
+          <input class="btn btn-info" type="submit" value="Submit edits">
+        </div>
+      {{/if}}
+    </form>
+  </div>
+</div>
