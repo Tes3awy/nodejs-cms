@@ -22,7 +22,7 @@ const postcss = require('gulp-postcss');
 gulp.task('autoprefix', () => {
   let plugins = [autoprefixer({ browsers: ['last 2 versions'], cascade: true })];
   return gulp
-    .src('public/css/main.css')
+    .src(['public/css/main.css', 'public/css/ribbon.css'])
     .pipe(postcss(plugins))
     .pipe(gulp.dest('public/css'));
 });
@@ -70,7 +70,7 @@ gulp.task('copy-css', () => {
 
 gulp.task('watch', () => {
   // gulp.watch('node_modules/bootstrap/scss/**/*.scss', ['compile:sass']);
-  gulp.watch('public/css/main.css', ['autoprefix']);
+  gulp.watch(['public/css/main.css', 'public/css/ribbon.css'], ['autoprefix']);
   gulp.watch('public/sass/vendor/hamburgers/**', ['compile:ham']);
 });
 
