@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const _ = require('lodash');
+const moment = require('moment');
 
 const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
@@ -28,13 +29,13 @@ const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
 router.get('/', (req, res) => {
-  Post.find({}).sort('asc').then((posts) => {
+  Post.find({}).sort('desc').then((posts) => {
     res.render('posts/posts', {
-      showTitle: 'Posts',
+      showTitle: 'Articles',
       layout: 'postsLayout',
       user: req.user,
-      message: req.flash('error'),
-      posts
+      posts,
+      message: req.flash('error')
     });
   }).catch(err => {
     req.flash('error', 'Unable to fetch posts');
@@ -45,7 +46,7 @@ router.get('/', (req, res) => {
 // GET /posts/add
 router.get('/add', authenticate, (req, res) => {
   res.render('posts/add', {
-    showTitle: 'Add post',
+    showTitle: 'Add article',
     layout: 'postsLayout',
     message: req.flash('error'),
     user: req.user
@@ -78,10 +79,10 @@ router.post('/add', authenticate, upload.single('image'), [
   const image = req.file.filename;
 
   const newPost = new Post({
-    userId,
     title,
     content,
-    image
+    image,
+    userId
   });
 
   newPost.save().then(post => {
@@ -104,7 +105,7 @@ router.get('/post/:id', (req, res) => {
       res.render('posts/post', {
         layout: 'postsLayout',
         showTitle: post.title,
-        user: req.user.id,
+        user: req.user,
         post
       });
   }).catch(err => {

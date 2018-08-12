@@ -1,7 +1,7 @@
 <p class="text-right text-muted">{{getToday}}</p>
 <h1 class="mb-4">Home Page</h1>
 
-<div class="row">
+<div class="row main-cards-row">
     <div class="col-md-3 main-card">
         <div class="card text-white bg-primary shadow">
             <div class="card-body">
@@ -37,5 +37,48 @@
 </div>
 
 <div class="container">
-
+    <div class="row">
+        <div class="col-sm-6">
+            <canvas id="myChart" width="100%" height="100%"></canvas>
+            <script>
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["Users", "Articles", "Views"],
+                        datasets: [{
+                            label: 'Site Analysis',
+                            data: [{{ users }}, {{ posts }}, 1],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255,99,132,1)'
+                    ],
+                    borderWidth: 1
+                }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function (label, index, labels) {
+                                    // when the floored value is the same as the value we have a whole number
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
+                                },
+                            }
+                        }]
+                    }
+                }
+                });
+            </script>
+        </div>
+    </div>
 </div>

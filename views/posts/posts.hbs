@@ -2,7 +2,7 @@
 {{#if user}}
 <div class="text-right add-post-btn-container">
     <a class="btn btn-info" href="/posts/add" title="Add new post">
-        <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
+        <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new article</a>
 </div>
 {{/if}}
 
@@ -26,13 +26,15 @@
                         <li class="posts-list-item post-desc">
                             <div class="desc">
                                 <h2 class="post-title text-dark">{{this.title}}</h2>
-                                <p class="text-dark">{{htmlDecode this.content}}...</p>
+                                <div class="text-dark">
+                                    {{{trimString this.content}}}...
+                                </div>
                                 <p class="text-right mb-2">
                                     <a class="btn btn-secondary" href="/posts/post/{{this.id}}">Read more
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 </p>
-                                <p class="d-inline-block text-muted mb-0">{{this.createdAt}} - </p>
+                                <p class="d-inline-block text-muted mb-0">{{getPrettyDate this.createdAt}} - </p>
                                 <p class="d-inline-block text-muted mb-0">
                                     <i class="text-info fas fa-comments" title="{{this.title}} comments"></i>
                                     <a class="text-muted" href="/posts/post/{{this.id}}#disqus_thread">0 Comments</a>

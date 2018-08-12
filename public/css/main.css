@@ -65,6 +65,10 @@ input[name='name'] {
   margin-bottom: 15px;
 }
 
+.main-cards-row {
+  margin-bottom: 25px;
+}
+
 .post-col {
   margin-bottom: 35px;
 }

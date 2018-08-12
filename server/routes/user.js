@@ -10,11 +10,4 @@ router.get('/profile', authenticate, (req, res) => {
   });
 });
 
-router.get('/dashboard', authenticate, (req, res) => {
-  res.render('user/dashboard', {
-    showTitle: 'Dashboard',
-    user: req.user
-  });
-});
-
 module.exports = router;

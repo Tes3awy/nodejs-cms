@@ -51,8 +51,8 @@ app.use(session({
   secret: keys.session.secret,
   name: 'sessionid',
   resave: false,
-  saveUninitialized: false,
-  cookie: { secure: 'auto', maxAge: 86400000 }
+  saveUninitialized: true,
+  cookie: { secure: false, maxAge: 3600000, expires: new Date(Date.now() + 3600000) }
 }));
 // Passport Middlewares
 app.use(passport.initialize());
@@ -62,13 +62,15 @@ app.use(flash());
 // Morgan
 // app.use(morgan('dev'));
 // HBS
-app.engine('hbs',
-  hbs({
+app.engine('hbs', hbs({
     defaultLayout: 'main',
     extname: '.hbs',
     partialsDir: 'views/partials',
     layoutsDir: 'views/layouts',
     helpers: {
+      getPrettyDate(date) {
+        return moment(date).format('LLL');
+      },
       getCurrentYear() {
         return new Date().getFullYear();
       },
@@ -79,17 +81,18 @@ app.engine('hbs',
         return moment().format('MMMM Do YYYY');
       },
       trimString(content) {
-        return content.substring(0, 300);
+        var content = _.unescape(content).toString();
+        return content.substring(0, 250);
       },
-      htmlDecode(content) {
-        var content = _.unescape(content);
-        return sanitizeHtml(content, {
+      htmlDecode(text) {
+        var text = sanitizeHtml(text, {
           allowedTags: ['b', 'i', 'em', 'strong', 'a'],
           allowedAttributes: {
             'a': ['href', 'title', 'target'],
             'img': ['alt', 'title', 'src']
           }
         });
+        return _.unescape(text);
       },
       if_eq(a, b, opts) {
         if(a === b) {
