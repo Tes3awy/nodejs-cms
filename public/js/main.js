@@ -90,7 +90,7 @@ $(document).ready( function() {
   // Summernote Init
   if($('#summernote')[0]) {
     $('#summernote').summernote({
-      placeholder: 'Starting typing your post',
+      placeholder: 'Starting typing your new article',
       tabsize: 2,
       height: 200,
       code: 'html_tags_string_from_db',

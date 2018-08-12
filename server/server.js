@@ -57,6 +57,13 @@ app.use(session({
 // Passport Middlewares
 app.use(passport.initialize());
 app.use(passport.session());
+// Global Vars
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  // res.locals.success = req.flash('success');
+  // res.locals.error = req.flash('error');
+  next();
+});
 // Flash Middleware
 app.use(flash());
 // Morgan
@@ -86,10 +93,10 @@ app.engine('hbs', hbs({
       },
       htmlDecode(text) {
         var text = sanitizeHtml(text, {
-          allowedTags: ['b', 'i', 'em', 'strong', 'a'],
-          allowedAttributes: {
-            'a': ['href', 'title', 'target'],
-            'img': ['alt', 'title', 'src']
+          allowedTags: false,
+          allowedAttributes: false,
+          parser: {
+            lowerCaseTags: true
           }
         });
         return _.unescape(text);
@@ -109,13 +116,6 @@ app.set('view engine', 'hbs');
 app.use(methodOverride('_method'));
 // Helmet (For Security)
 app.use(helmet());
-// Global Vars
-app.use((req, res, next) => {
-  res.locals.user = req.user || null;
-  // res.locals.success = req.flash('success');
-  // res.locals.error = req.flash('error');
-  next();
-});
 // Routes
 app.use('/', routes);
 app.use('/auth', authRoutes);
@@ -123,7 +123,7 @@ app.use('/user', userRoutes);
 app.use('/posts', postsRoutes);
 
 
-// Serving
+// Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server started on port ${port}`);
 });

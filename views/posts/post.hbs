@@ -6,7 +6,7 @@
           <i class="fas fa-chevron-left pr-2"></i> Back</a>
       </div>
       <div class="post-title">
-        <h2>{{post.title}}</h2>
+        <h2>{{{htmlDecode post.title}}}</h2>
         <div class="post-created text-right">
           <p class="text-right text-info mb-0 d-inline-block">{{getPrettyDate post.createdAt}}</p>
         </div>
@@ -18,25 +18,19 @@
               <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             </li>
             <li class="social-media-item">
-              <div class="fb-share-button" data-href="/posts" data-layout="button_count" data-size="small" data-mobile-iframe="true">
-                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+              <div class="fb-share-button" data-href="http://localhost:3000/posts/post/{{post.id}}" data-layout="button_count" data-size="small"
+                data-mobile-iframe="true">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fposts%2Fpost%2F{{post.id}}&amp;src=sdkpreparse"
                   class="fb-xfbml-parse-ignore">Share</a>
               </div>
             </li>
             <li class="social-media-item">
-              {{!-- <script src="https://apis.google.com/js/platform.js" async defer></script> --}}
-              <div class="g-plus" data-action="share" data-annotation="bubble" data-href="/posts/post/{{post.id}}?key=AIzaSyCSInH_wRti3xy9Rwe7FBdZMjuFBajuukE"></div>
-              <script type="text/javascript">
-                (function () {
-                  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                  po.src = 'https://apis.google.com/js/platform.js';
-                  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                })();
-              </script>
+              <script src="https://apis.google.com/js/platform.js" async defer></script>
+              <div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://localhost:3000/posts/post/{{post.id}}?key=AIzaSyCSInH_wRti3xy9Rwe7FBdZMjuFBajuukE"></div>
             </li>
             <li class="social-media-item">
               <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-              <script type="IN/Share"></script>
+              <script type="IN/Share" data-url="http://localhost:3000/posts/post/{{post.id}}"></script>
             </li>
           </ul>
         </div>
@@ -52,7 +46,8 @@
         </div>
         {{#if_eq user.id post.userId}}
           <div class="post-edit text-right mt-3">
-            <a class="btn btn-warning" href="/posts/post/edit/{{post.id}}"><i class="fas fa-marker pr-2"></i> Edit post</a>
+            <a class="btn btn-warning" href="/posts/post/edit/{{post.id}}">
+              <i class="fas fa-marker pr-2"></i> Edit post</a>
           </div>
         {{/if_eq}}
         <hr>

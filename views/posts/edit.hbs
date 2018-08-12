@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-8 mx-auto">
-    <form action="/posts?_method=PUT" method="POST" enctype="multipart/form-data" runat="server">
+    <form action="/posts/post/edit/{{post.id}}?_method=PUT" method="POST" enctype="multipart/form-data" runat="server">
       <input type="hidden" name="_method" value="PUT">
       <h2 class="mb-0">Edit post</h2>
       <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
@@ -16,9 +16,20 @@
       {{/if}}
 
       {{#if post}}
+        {{!-- Check Featured article or not --}}
+        <div class="form-group">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
+            <label class="form-check-label" for="featured">Featured article</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" required>
+            <label class="form-check-label" for="notFeatured">Not</label>
+          </div>
+        </div>
         {{!-- Title --}}
         <div class="form-group">
-          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{post.title}}">
+          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{{htmlDecode post.title}}}">
           <small class="text-muted title-count"></small>
         </div>
         {{!-- Summernote Textarea --}}
@@ -29,7 +40,7 @@
         {{!-- File Upload --}}
         <div class="input-group">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image">
+            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" value="/uploads/{{post.image}}">
             <label class="custom-file-label" for="inputImage">Choose image file</label>
           </div>
         </div>

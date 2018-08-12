@@ -9,14 +9,6 @@ const { Post } = require('./../models/Post');
 const { User } = require('./../models/User');
 
 router.get('/', (req, res) => {
-  // if (req.session.views) {
-  //   return req.session.views++;
-  // }
-  // req.session.views = 1
-  // var pathname = parseurl(req).pathname;
-  // console.log('pathname:', pathname);
-  // console.log('req.sessionID:', req.sessionID);
-  // console.log('req.session.cookie:', req.session.cookie);
   var getPostsCount = () => {
     return Post.countDocuments({}).then(posts => {
       return posts;
@@ -43,7 +35,7 @@ router.get('/', (req, res) => {
       showTitle: 'Homepage',
       posts,
       users,
-      // views: req.session.views
+      user: req.user
     });
   });
 });

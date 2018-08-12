@@ -221,6 +221,10 @@ i.fa-chevron-right {
   color: #FFF;
 }
 
+.modal-dialog, .modal-title {
+  color: #495057;
+}
+
 /* Footer */
 .footer {
   position: fixed;

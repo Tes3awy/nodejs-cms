@@ -1,9 +1,9 @@
 
 {{#if user}}
-<div class="text-right add-post-btn-container">
-    <a class="btn btn-info" href="/posts/add" title="Add new post">
-        <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new article</a>
-</div>
+    <div class="text-right add-post-btn-container">
+        <a class="btn btn-info" href="/posts/add" title="Add new post">
+            <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new article</a>
+    </div>
 {{/if}}
 
 {{#if posts}}
@@ -12,11 +12,13 @@
             {{!-- Loop starts here --}}
             <div class="col-12 post-col">
                 <div class="card shadow post">
-                    <div class="box" title="Featured">
-                        <div class="ribbon">
-                            <span>Featured</span>
+                    {{#if featured}}
+                        <div class="box" title="Featured">
+                            <div class="ribbon">
+                                <span>Featured</span>
+                            </div>
                         </div>
-                    </div>
+                    {{/if}}
                     <ul class="posts-list">
                         <li class="posts-list-item post-img">
                             <a href="/uploads/{{this.image}}" data-toggle="lightbox">
@@ -25,19 +27,24 @@
                         </li>
                         <li class="posts-list-item post-desc">
                             <div class="desc">
-                                <h2 class="post-title text-dark">{{this.title}}</h2>
+                                <h2 class="post-title text-dark">{{htmlDecode this.title}}</h2>
                                 <div class="text-dark">
                                     {{{trimString this.content}}}...
                                 </div>
-                                <p class="text-right mb-2">
+                                <p class="text-right my-2">
                                     <a class="btn btn-secondary" href="/posts/post/{{this.id}}">Read more
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 </p>
                                 <p class="d-inline-block text-muted mb-0">{{getPrettyDate this.createdAt}} - </p>
                                 <p class="d-inline-block text-muted mb-0">
-                                    <i class="text-info fas fa-comments" title="{{this.title}} comments"></i>
-                                    <a class="text-muted" href="/posts/post/{{this.id}}#disqus_thread">0 Comments</a>
+                                    <i class="text-info fas fa-comments comments"></i>
+                                    <a class="text-muted" title="{{this.title}} comments" href="/posts/post/{{this.id}}#disqus_thread">0 Comments</a>
+                                </p>
+                                <span class="text-dark">-</span>
+                                <p class="d-inline-block text-muted mb-0">
+                                    <i class="text-success fas fa-eye views"></i>
+                                    <a class="text-muted" title="{{this.title}} views">0 Views</a>
                                 </p>
                             </div>
                             {{!-- Post extra features --}}
@@ -45,9 +52,6 @@
                                 <div class="post-tag shadow" id="{{this.id}}">
                                     <i class="far fa-meh text-warning"></i>
                                 </div>
-                                {{!-- <div class="post-likes shadow" title="Likes: 2">
-                                    <i class="fas fa-heart text-danger"></i>
-                                </div> --}}
                             </div>
                         </li>
                     </ul>
