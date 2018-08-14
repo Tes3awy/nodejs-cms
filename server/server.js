@@ -87,7 +87,7 @@ app.engine('hbs', hbs({
       getToday() {
         return moment().format('MMMM Do YYYY');
       },
-      htmlDecode(text) {
+      contentDecode(text) {
         var text = sanitizeHtml(text, {
           allowedTags: false,
           allowedAttributes: false,
@@ -96,6 +96,16 @@ app.engine('hbs', hbs({
           }
         });
         return _.unescape(text);
+      },
+      htmlDecode(text) {
+        var text = sanitizeHtml(text, {
+          allowedTags: false,
+          allowedAttributes: false,
+          parser: {
+            lowerCaseTags: true
+          }
+        });
+        return _.unescape(_.truncate(text, { length: 200 }));
       },
       if_eq(a, b, opts) {
         if(a === b) {

@@ -135,25 +135,21 @@ router.get('/post/:id', (req, res) => {
 router.get('/post/edit/:id', authenticate, (req, res) => {
   const id = req.params.id;
 
-  // Post.findById(id).then(post => {
-  //   var postImage = post.image;
-  //   console.log('Image path:', `${uploadPath}${postImage}`);
-  //   fs.readFile(`${uploadPath}${postImage}`, (err, data) => {
-  //     if (err) {
-  //       throw err;
-  //     };
-  //     console.log('image from database', data);
-  //   });
-  // }).catch(err => {
-  //   console.log('Unable to find article', err);
-  // });
-
   Post.findById(id).then(post => {
-    res.render('posts/edit', {
-      layout: 'postsLayout',
-      showTitle: `Edit - ${post.title}`,
-      user: req.user,
-      post
+    var postImage = post.image;
+    fs.readFile(`${uploadPath}${postImage}`, (err, image) => {
+      if (err) {
+        throw err;
+      };
+      var buf = Buffer.from(image, 'base64');
+      console.log('buf:', buf);
+      res.render('posts/edit', {
+        layout: 'postsLayout',
+        showTitle: `Edit - ${post.title}`,
+        user: req.user,
+        post,
+        buf
+      });
     });
   }).catch(err => {
     req.flash('error', 'Unable to edit article!!!');
@@ -162,21 +158,8 @@ router.get('/post/edit/:id', authenticate, (req, res) => {
 });
 
 // PUT /post/edit (PUT Edit post)
-// [ check('image').isMimeType('image/*').withMessage('This is not an image file') ]
 router.put('/post/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const id = req.params.id;
-
-    Post.findById(id).then(post => {
-      var postImage = post.image;
-      fs.readFile(`${uploadPath}/${postImage}`, (err, image) => {
-        if (err) {
-          throw err
-        };
-        console.log('image from database', image);
-      });
-    }).catch(err => {
-      console.log('Unable to find article', err);
-    });
 
     const body = req.body;
 
