@@ -125,6 +125,23 @@ $(document).ready( function() {
   });
 });
 
+// var $imageInp = $('.custom-file-input').val();
+// if($imageInp === "") {
+//   var $imageVal = $("#hiddenInpImg").val();
+//   console.log('Same Image name:', '/uploads/' + $imageVal);
+// }
+// // Check when editing article if there is a new uploaded image or not.
+// $(document).on('chnage', '#inputImage', function() {
+//   var $imageInp = $('.custom-file-input').val();
+//   if($imageInp === "") {
+//     var $imageVal = $("#hiddenInpImg").val();
+//     console.log('Same Image name:', $imageVal);
+//   } else {
+//     var $uploadedImg = $("#inputImage").href.substr($("#inputImage").href.lastIndexOf('/') + 1);
+//     console.log('Uploaded Image name:', $uploadedImg);
+//   }
+// });
+
 // Custom Functions
 function readURL(input) {
   if (input.files && input.files[0]) {

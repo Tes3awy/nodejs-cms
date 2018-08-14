@@ -40,7 +40,7 @@
         {{!-- File Upload --}}
         <div class="input-group">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" value="/uploads/{{post.image}}">
+            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image">
             <label class="custom-file-label" for="inputImage">Choose image file</label>
           </div>
         </div>
@@ -48,6 +48,7 @@
         <small class="text-monospace d-block pt-2" id="image-name"></small>
         <div class="mb-2" id="previewImageContainerUpdate">
           <img src="/uploads/{{post.image}}" id="#previewImage" title="Current post image" width="300" height="150">
+          <input type="hidden" value="{{post.image}}" id="hiddenInpImg">
         </div>
         {{!-- Warning --}}
         <small class="text-muted d-block mb-2">Anything except

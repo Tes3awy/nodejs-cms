@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 const express = require('express');
 const router = express.Router();
@@ -13,12 +14,16 @@ const { mongoose } = require('./../db/mongoose');
 const { Post } = require('./../models/Post');
 const { User } = require('./../models/User');
 
+const uploadPath = path.join(__dirname, './../../public/uploads/');
+
 const multer = require('multer');
 const storage = multer.diskStorage({
-  destination: (_req, _file, done) => {
-    done(null, path.join(__dirname, './../../public/uploads/'));
+  destination: (_req, file, done) => {
+    // console.log('Destination file:', file);
+    done(null, uploadPath);
   },
   filename: (_req, file, done) => {
+    // console.log('Filename file:', file);
     done(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   },
 });
@@ -130,6 +135,19 @@ router.get('/post/:id', (req, res) => {
 router.get('/post/edit/:id', authenticate, (req, res) => {
   const id = req.params.id;
 
+  // Post.findById(id).then(post => {
+  //   var postImage = post.image;
+  //   console.log('Image path:', `${uploadPath}${postImage}`);
+  //   fs.readFile(`${uploadPath}${postImage}`, (err, data) => {
+  //     if (err) {
+  //       throw err;
+  //     };
+  //     console.log('image from database', data);
+  //   });
+  // }).catch(err => {
+  //   console.log('Unable to find article', err);
+  // });
+
   Post.findById(id).then(post => {
     res.render('posts/edit', {
       layout: 'postsLayout',
@@ -144,8 +162,21 @@ router.get('/post/edit/:id', authenticate, (req, res) => {
 });
 
 // PUT /post/edit (PUT Edit post)
+// [ check('image').isMimeType('image/*').withMessage('This is not an image file') ]
 router.put('/post/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const id = req.params.id;
+
+    Post.findById(id).then(post => {
+      var postImage = post.image;
+      fs.readFile(`${uploadPath}/${postImage}`, (err, image) => {
+        if (err) {
+          throw err
+        };
+        console.log('image from database', image);
+      });
+    }).catch(err => {
+      console.log('Unable to find article', err);
+    });
 
     const body = req.body;
 
@@ -163,5 +194,24 @@ router.put('/post/edit/:id', authenticate, upload.single('image'), (req, res) =>
     });
   }
 );
+
+// DELETE /post/delete (DELETE Edit post)
+router.delete('/post/delete/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+  Post.findByIdAndRemove(id).then(post => {
+    if(post) {
+      fs.unlink(`${uploadPath}${post.image}`, (err) => {
+        if(err) {
+          throw err;
+        }
+        req.flash('success', 'Article deleted successfully');
+        return res.redirect('/posts');
+      });
+    }
+  }).catch(err => {
+    req.flash('error', 'Unable to delete article!!!');
+    return res.redirect('/posts');
+  });
+});
 
 module.exports = router;

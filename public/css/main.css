@@ -78,6 +78,10 @@ input[name='name'] {
   position: relative;
 }
 
+.post-actions {
+  display: inline-block;
+}
+
 .post-border-style {
   width: 8px;
   background-color: #663399;

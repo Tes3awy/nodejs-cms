@@ -87,10 +87,6 @@ app.engine('hbs', hbs({
       getToday() {
         return moment().format('MMMM Do YYYY');
       },
-      trimString(content) {
-        var content = _.unescape(content).toString();
-        return content.substring(0, 250);
-      },
       htmlDecode(text) {
         var text = sanitizeHtml(text, {
           allowedTags: false,
