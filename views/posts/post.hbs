@@ -44,7 +44,7 @@
         <div class="post-body-content">
           {{{htmlDecode post.content}}}
         </div>
-        {{#if_eq user.id post.userId}}
+        {{#if_eq post.userId user.id}}
           <div class="post-edit text-right mt-3">
             <a class="btn btn-warning" href="/posts/post/edit/{{post.id}}">
               <i class="fas fa-marker pr-2"></i> Edit post</a>

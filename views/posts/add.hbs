@@ -3,8 +3,8 @@
         <form action="/posts/add" method="POST" enctype="multipart/form-data" runat="server">
             <h2 class="mb-0">Add new article</h2>
             <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
-            {{#if message}}
-                {{#each message}}
+            {{#if error}}
+                {{#each error}}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <span>{{msg}}</span>
                         <button type="button" class="close" data-dismiss="alert">
@@ -16,7 +16,7 @@
             {{!-- Check Featured article or not --}}
             <div class="form-group">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="featured" id="featured" value="{{post.featured}}" required>
+                    <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
                     <label class="form-check-label" for="featured">Featured article</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -26,18 +26,18 @@
             </div>
             {{!-- Title --}}
             <div class="form-group">
-                <input class="form-control post-comp" type="text" name="title" placeholder="Article title" minlength="10">
+                <input class="form-control post-comp" type="text" name="title" placeholder="Article title" minlength="10" required>
                 <small class="text-muted title-count"></small>
             </div>
-            {{!-- Summernote Textarea --}}
+            {{!-- TinyMCE Textarea --}}
             <div class="form-group">
-                <textarea id="summernote" class="form-control post-comp" name="content" placeholder="Article content" minlength="300"></textarea>
-                <small class="text-muted content-count"></small>
+                <textarea id="tinymce" class="form-control post-comp" name="content" placeholder="Article content" minlength="300"></textarea>
+                <small class="text-muted content-count">Must be <span class="text-success">300 characters</span> or more</small>
             </div>
             {{!-- File Upload --}}
             <div class="input-group">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image">
+                    <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" required>
                     <label class="custom-file-label" for="inputImage">Choose article image</label>
                 </div>
             </div>

@@ -83,41 +83,46 @@ $('#inputImage').on('change', function() {
 $('#previewImageContainer').hide();
 $("#inputImage").on('change', function() {
   $('#previewImageContainer').slideDown(300);
-  document.getElementById('#previewImage').src = window.URL.createObjectURL(this.files[0])
+  document.getElementById('#previewImage').src = window.URL.createObjectURL(this.files[0]);
 });
 
+// TinyMCE Init
 $(document).ready( function() {
-  // Summernote Init
-  if($('#summernote')[0]) {
-    $('#summernote').summernote({
-      placeholder: 'Starting typing your new article',
-      tabsize: 2,
-      height: 200,
-      code: 'html_tags_string_from_db',
-      disableDragAndDrop: true,
-      codemirror: {
-        theme: 'oceanic-next'
-      },
-      toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['fontsize', ['fontsize', 'fontname']],
-        ['font', ['strikethrough', 'superscript', 'subscript']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['insert',['ltr','rtl', 'hr']],
-        ['misc', ['undo', 'redo']],
-        ['codeview', ['codeview']]
-      ],
-      callbacks: {
-        onPaste: function (e) {
-          var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-          e.preventDefault();
-          document.execCommand('insertText', false, bufferText);
-        }
-      }
-    });
-  }
+  tinymce.init({
+    selector: 'textarea#tinymce',
+    skins: 'vendor/tinymce/skins/lightgray',
+    hidden_input: false,
+    toolbar: 'removeformat | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | ltr rtl | bullist numlist | link | emoticons | spellchecker | pastetext | code codesample | print preview',
+    plugins : 'contextmenu autosave advlist autolink link lists charmap print preview emoticons colorpicker spellchecker wordcount directionality textcolor colorpicker',
+    contextmenu: 'copy cut paste link spellchecker',
+    mobile: {
+      theme: 'mobile',
+      plugins: [ 'autosave', 'lists', 'autolink' ],
+      toolbar: [ 'undo', 'redo' , 'bold' , 'italic' ]
+    },
+    mentions_fetch: function (query, success) {
+      //Fetch your full user list from somewhere
+      var users = getUserDataFromTheServer();
+
+      //query.term is the text the user typed after the '@'
+      users = users.filter(function (user) {
+        return user.name.indexOf(query.term.toLowerCase()) === 0;
+      });
+
+      users = users.slice(0, 10);
+
+      window.setTimeout(function () {
+        success(users);
+      }, 0);
+    },
+    paste_as_text: true,
+    browser_spellcheck: true,
+    gecko_spellcheck: false,
+    branding: false,
+    elementpath: false,
+    height : 200,
+    paste_filter_drop: false
+  });
 });
 
 // Custom Functions

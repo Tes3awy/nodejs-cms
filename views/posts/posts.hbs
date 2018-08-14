@@ -6,6 +6,25 @@
     </div>
 {{/if}}
 
+{{#if success}}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{!-- <i class="far fa-thumbs-up"></i> --}}
+        <span><i class="far fa-check-circle"></i> {{success}}</span>
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    </div>
+{{/if}}
+
+{{#if error}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span><i class="fas fa-exclamation-triangle"></i> {{error}}</span>
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    </div>
+{{/if}}
+
 {{#if posts}}
     <div class="row">
         {{#each posts}}
@@ -55,6 +74,7 @@
                             </div>
                         </li>
                     </ul>
+                    {{!-- Left purple border --}}
                     <div class="post-border-style"></div>
                 </div>
             </div>

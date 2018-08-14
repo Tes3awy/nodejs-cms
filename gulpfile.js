@@ -52,10 +52,16 @@ gulp.task('copy-js', () => {
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
       'node_modules/toastr/build/toastr.min.js',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
-      'node_modules/codemirror/lib/codemirror.js',
-      'node_modules/chart.js/dist/Chart.bundle.min.js'
+      'node_modules/chart.js/dist/Chart.bundle.min.js',
     ])
     .pipe(gulp.dest('public/js'));
+});
+
+gulp.task('tinymce', () => {
+  return gulp.src([
+    'node_modules/tinymce/**'
+  ])
+  .pipe(gulp.dest('public/js/vendor/tinymce'))
 });
 
 gulp.task('copy-css', () => {
@@ -63,8 +69,6 @@ gulp.task('copy-css', () => {
     .src([
       // 'node_modules/toastr/build/toastr.css'
       // 'node_modules/ekko-lightbox/dist/ekko-lightbox.css'
-      'node_modules/codemirror/lib/codemirror.css',
-      'node_modules/codemirror/theme/oceanic-next.css'
     ])
     .pipe(gulp.dest('public/css'));
 });

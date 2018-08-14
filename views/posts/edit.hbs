@@ -4,8 +4,8 @@
       <input type="hidden" name="_method" value="PUT">
       <h2 class="mb-0">Edit post</h2>
       <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
-      {{#if message}}
-        {{#each message}}
+      {{#if error}}
+        {{#each error}}
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <span>{{msg}}</span>
             <button type="button" class="close" data-dismiss="alert">
@@ -32,11 +32,11 @@
           <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{{htmlDecode post.title}}}">
           <small class="text-muted title-count"></small>
         </div>
-        {{!-- Summernote Textarea --}}
+        {{!-- TinyMCE Textarea --}}
         <div class="form-group">
-          <textarea id="summernote" class="form-control post-comp" name="content" placeholder="Post content" minlength="300">{{post.content}}</textarea>
-          <small class="text-muted content-count"></small>
+          <textarea id="tinymce" class="form-control post-comp" name="content" placeholder="Post content" minlength="300">{{post.content}}</textarea>
         </div>
+        <small class="text-muted content-count"></small>
         {{!-- File Upload --}}
         <div class="input-group">
           <div class="custom-file">
