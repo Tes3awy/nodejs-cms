@@ -34,7 +34,7 @@
         </div>
         {{!-- TinyMCE Textarea --}}
         <div class="form-group">
-          <textarea id="tinymce" class="form-control post-comp" name="content" placeholder="Post content" minlength="300">{{post.content}}</textarea>
+          <textarea id="tinymce" class="form-control post-comp" name="content" placeholder="Post content" minlength="300">{{contentDecode post.content}}</textarea>
         </div>
         <small class="text-muted content-count"></small>
         {{!-- File Upload --}}

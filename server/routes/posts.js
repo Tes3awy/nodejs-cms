@@ -35,7 +35,7 @@ const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
 router.get('/', (req, res) => {
-  Post.find({}).sort('desc').then(posts => {
+  Post.find({}).sort({ featured: -1, createdAt: -1 }).then(posts => {
     res.render('posts/posts', {
       showTitle: 'Articles',
       layout: 'postsLayout',
@@ -134,22 +134,12 @@ router.get('/post/:id', (req, res) => {
 // GET /post/edit (GET Edit post)
 router.get('/post/edit/:id', authenticate, (req, res) => {
   const id = req.params.id;
-
   Post.findById(id).then(post => {
-    var postImage = post.image;
-    fs.readFile(`${uploadPath}${postImage}`, (err, image) => {
-      if (err) {
-        throw err;
-      };
-      var buf = Buffer.from(image, 'base64');
-      console.log('buf:', buf);
       res.render('posts/edit', {
         layout: 'postsLayout',
         showTitle: `Edit - ${post.title}`,
         user: req.user,
         post,
-        buf
-      });
     });
   }).catch(err => {
     req.flash('error', 'Unable to edit article!!!');
@@ -166,15 +156,28 @@ router.put('/post/edit/:id', authenticate, upload.single('image'), (req, res) =>
     const title = body.title;
     const content = body.content;
     const featured = body.featured;
-    const image = req.file.filename;
+    let image;
 
-    Post.findOneAndUpdate(id, { $set: { title, content, featured, image } }, { new: true }).then(post => {
-      req.flash('success', 'Edits submitted successfully');
-      return res.redirect('/posts');
-    }).catch(err => {
-      req.flash('error', 'Unable to edit article');
-      return res.redirect('/posts');
-    });
+    if(!req.file) {
+      findImgById(req.params.id).then(dbImg => {
+        Post.findOneAndUpdate(id, { $set: { title, content, featured, dbImg } }, { new: true }).then(post => {
+          req.flash('success', 'Edits submitted successfully');
+          return res.redirect('/posts');
+        }).catch(err => {
+          req.flash('error', 'Unable to edit article');
+          return res.redirect('/posts');
+        });
+      });
+    } else {
+      image = req.file.filename;
+      Post.findOneAndUpdate(id, { $set: { title, content, featured, image } }, { new: true }).then(post => {
+        req.flash('success', 'Edits submitted successfully');
+        return res.redirect('/posts');
+      }).catch(err => {
+        req.flash('error', 'Unable to edit article');
+        return res.redirect('/posts');
+      });
+    }
   }
 );
 

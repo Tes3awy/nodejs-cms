@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
+const mongoosePaginate = require('mongoose-paginate');
 
 const PostSchema = new mongoose.Schema({
   userId: {
@@ -40,11 +40,22 @@ const PostSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
+  }
 });
+
+// Mongoose Plugins
+PostSchema.plugin(mongoosePaginate);
 
 const Post = mongoose.model('Post', PostSchema);
 
+// Functions
+var findImgById = (id) => {
+  return Post.findById(id).then(post => {
+    return post.image;
+  });
+}
+
 module.exports = {
-  Post
+  Post,
+  findImgById
 };
