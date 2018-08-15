@@ -7,6 +7,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  gravatar: {
+    type: String,
+    required: true,
+    trim: true
+  },
   name: {
     type: String,
     required: true,
@@ -15,6 +20,15 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  hash: {
+    type: String,
+    required: true,
+    trim: true
   },
   createdAt: {
     type: String,

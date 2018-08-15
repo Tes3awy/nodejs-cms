@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const nodemailer = require('nodemailer');
+
 const _ = require('lodash');
 
 const { mongoose } = require('./../db/mongoose');
@@ -12,6 +14,10 @@ const passport = require('passport');
 
 const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
+
+const gravatar = require('gravatar');
+
+const keys = require('./../../config/credentials');
 
 const authenticate = require('./../middlewares/authenticate');
 
@@ -52,19 +58,25 @@ router.post('/register', [
 
   const email = req.body.email;
   const name = req.body.name;
+  const image = gravatar.url(email, {s: '200', r: 'pg', d: 'retro'}, false);
   const password = req.body.password;
+
+  var hash = _.random(0, 1000, false) + 54;
+  var link = `${req.protocol}://${req.get('host')}/auth/verify/${hash}`;
+
+  const newUser = new User({
+    name,
+    email,
+    gravatar: image,
+    password,
+    hash
+  });
 
   User.findOne({ email }).then(user => {
       if (user) {
         req.flash('error', { msg: 'Email is already registered!!!' });
         return res.redirect('/auth/register');
       }
-
-      const newUser = new User({
-        name,
-        email,
-        password
-      });
 
       bcrypt.genSalt(10, (_err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -75,15 +87,59 @@ router.post('/register', [
           newUser.password = hash;
 
           newUser.save().then(user => {
-              return res.redirect('/auth/login');
-            }).catch(err => {
-              throw err;
-            });
+            req.flash('success', 'Registered successfully. Verify your account and you are ready to login.')
+            return res.redirect('/auth/login');
+          }).catch(err => {
+            throw err;
+          });
         });
       });
     }).catch(err => {
       throw err;
     });
+
+    nodemailer.createTestAccount((err, account) => {
+      // create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: keys.account.user,
+          pass: keys.account.pass
+        }
+      });
+
+      // setup email data with unicode symbols
+      let mailOptions = {
+        from: '"Tes official website" <no_reply@tes3awy.com>', //sender address
+        to: `${email}`, // list of receivers
+        subject: 'Please verify your email account', //subject line
+        text: 'Verify your account', // plain text body
+        html: `Hello,<br> Please Click on the link to verify your email address.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
+      };
+
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, (error, info) => {
+        if(error) {
+          return console.log('Send mail error:', error);
+        }
+        console.log('Message sent: %s', info.messageId);
+        // Preview only available when sending through an Ethereal account
+        console.log('Preview url: %s', nodemailer.getTestMessageUrl(info));
+        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+      });
+    });
+});
+
+router.get('/verify/:hash', (req, res) => {
+  var hash = req.params.hash;
+  console.log('verify hash: %s', hash);
+  // Compare both hashes
+  // Get this user from DB to change `active` to true
+  req.flash('Account verified.');
+  return res.redirect('/auth/login');
 });
 
 // POST /auth/login

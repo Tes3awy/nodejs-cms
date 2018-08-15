@@ -11,7 +11,7 @@ const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
 const { mongoose } = require('./../db/mongoose');
-const { Post } = require('./../models/Post');
+const { Post, findImgById } = require('./../models/Post');
 const { User } = require('./../models/User');
 
 const uploadPath = path.join(__dirname, './../../public/uploads/');

@@ -15,8 +15,11 @@ passport.use(
     (req, email, password, done) => {
       User.findOne({ email }).then((user) => {
         if (!user) {
-         return done(null, false, req.flash('error', { msg: 'Email is not registered!!!' }));
-       }
+          return done(null, false, req.flash('error', { msg: 'Email is not registered!!!' }));
+        }
+        if(user.active === false) {
+          return done(null, false, req.flash('error', { msg: 'Your email address is not yet verified' }));
+        }
         bcrypt.compare(password, user.password, (err, res) => {
           if (err) {
             throw err;

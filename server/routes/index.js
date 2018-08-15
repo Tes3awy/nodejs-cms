@@ -1,6 +1,3 @@
-const path = require('path');
-const parseurl = require('parseurl');
-
 const express = require('express');
 const router = express.Router();
 

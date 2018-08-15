@@ -48,6 +48,13 @@ PostSchema.plugin(mongoosePaginate);
 
 const Post = mongoose.model('Post', PostSchema);
 
+// PostSchema.methods.findImgById = function findImageById(id) {
+//   var Post = this;
+//   return Post.findById(id).then(post => {
+//     return post.image;
+//   });
+// }
+
 // Functions
 var findImgById = (id) => {
   return Post.findById(id).then(post => {

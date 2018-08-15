@@ -6,7 +6,7 @@
     </span>
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto navbar-menu">
       <li class="nav-item">
         <a class="nav-link" href="/" title="Home">
           <i class="fas fa-home"></i> Home</a>
@@ -29,6 +29,9 @@
         <li class="nav-item bg-primary text-center nav-name">
           <a class="nav-link text-white" href="/user/profile" title="Welcome {{capitalize user.name}}">
             Welcome {{capitalize user.name}}</a>
+        </li>
+        <li class="nav-item">
+          <img class="rounded-circle" src="{{user.gravatar}}" alt="{{capitalize user.name}} Image" title="{{capitalize user.name}} Image" width="34" height="34">
         </li>
       {{else}}
         <li class="nav-item dropdown">
