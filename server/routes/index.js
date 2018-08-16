@@ -37,4 +37,12 @@ router.get('/', (req, res) => {
   });
 });
 
+// GET /about
+router.get('/about', (req, res) => {
+  res.render('about', {
+    showTitle: 'About page',
+    user: req.user
+  });
+});
+
 module.exports = router;

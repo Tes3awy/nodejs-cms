@@ -19,11 +19,9 @@ const uploadPath = path.join(__dirname, './../../public/uploads/');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (_req, file, done) => {
-    // console.log('Destination file:', file);
     done(null, uploadPath);
   },
   filename: (_req, file, done) => {
-    // console.log('Filename file:', file);
     done(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   },
 });
@@ -119,11 +117,17 @@ router.get('/:id', (req, res) => {
   const id = req.params.id;
 
   Post.findById(id).then(post => {
-    res.render('posts/post', {
-      layout: 'postsLayout',
-      showTitle: post.title,
-      user: req.user,
-      post
+    User.findById(post.userId).then(author => {
+        res.render('posts/post', {
+          layout: 'postsLayout',
+          showTitle: post.title,
+          user: req.user,
+          post,
+          author
+      });
+    }).catch(err => {
+      req.flash('error', 'Unable to find author');
+      return res.redirect(`/posts/${posr.id}`);
     });
   }).catch(err => {
     req.flash('error', 'Unable to find article');
@@ -142,12 +146,12 @@ router.get('/edit/:id', authenticate, (req, res) => {
         post,
     });
   }).catch(err => {
-    req.flash('error', 'Unable to edit article!!!');
+    req.flash('error', 'Unable to find article to edit!!!');
     return res.redirect('/posts');
   });
 });
 
-// PUT /post/edit (PUT Edit post)
+// PUT /post/edit (Edit post)
 router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const id = req.params.id;
 

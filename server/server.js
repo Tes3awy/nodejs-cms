@@ -81,9 +81,6 @@ app.engine('hbs', hbs({
       getCurrentYear() {
         return new Date().getFullYear();
       },
-      capitalize(name) {
-        return _.startCase(_.toLower(name));
-      },
       getToday() {
         return moment().format('MMMM Do YYYY');
       },
@@ -105,7 +102,7 @@ app.engine('hbs', hbs({
             lowerCaseTags: true
           }
         });
-        return _.unescape(_.truncate(text, { length: 200 }));
+        return _.unescape(_.truncate(text, { length: 250 }));
       },
       if_eq(a, b, opts) {
         if(a === b) {
