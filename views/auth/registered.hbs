@@ -13,6 +13,14 @@
       </div>
     {{/each}}
   {{/if}}
+  {{#if success}}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <span>{{success}} <i class="far fa-smile-beam"></i></span>
+      <button type="button" class="close" data-dismiss="alert">
+        <span>&times;</span>
+      </button>
+    </div>
+  {{/if}}
   <div class="form-group">
     <input type="email" class="form-control email-input-class" value="{{user.email}}" placeholder="Email address" name="email" required autofocus>
   </div>
@@ -28,9 +36,6 @@
   </div>
   <div class="text-center">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-  </div>
-  <div class="text-center pt-2">
-    <a class="text-warning" href="/auth/register">Don't have an account yet?</a>
   </div>
   <p class="mt-5 mb-3 text-muted text-center">Tes Official &copy; Copyright - 2011 - {{getCurrentYear}}. All rights reserved.</p>
 </form>

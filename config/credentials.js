@@ -2,12 +2,11 @@ var session = {
   secret: 'thisisalocalsecretkeyfordrcegtest'
 };
 
-var account = {
-  user: 'lyloavikk2kyvx2q@ethereal.email',
-  pass: '5AmFpVwacqZYuwNDU8'
+var verify = {
+  secret: 'thisisasecretkeyforemailverification'
 }
 
 module.exports = {
   session,
-  account
+  verify
 };

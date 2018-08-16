@@ -9,6 +9,8 @@ const { mongoose } = require('./../db/mongoose');
 const { User } = require('./../models/User');
 const bcrypt = require('bcryptjs');
 
+const CryptoJS = require("crypto-js");
+
 const { passportConfig } = require('./../middlewares/passport');
 const passport = require('passport');
 
@@ -26,8 +28,17 @@ router.get('/register', (req, res) => {
   res.render('auth/register', {
     layout: 'login-register',
     showTitle: 'Register page',
-    message: req.flash('error')
+    error: req.flash('error')
   });
+});
+
+router.get('/registered', (req, res) => {
+  res.render('auth/registered', {
+    layout: 'login-register',
+    showTitle: 'Register page',
+    error: req.flash('error'),
+    success: req.flash('success')
+  })
 });
 
 // GET /auth/login
@@ -35,7 +46,7 @@ router.get('/login', (req, res) => {
   res.render('auth/login', {
     layout: 'login-register',
     showTitle: 'Login page',
-    message: req.flash('error'),
+    error: req.flash('error'),
     success: req.flash('success')
   });
 });
@@ -57,19 +68,20 @@ router.post('/register', [
   }
 
   const email = req.body.email;
-  const name = req.body.name;
+  const name = _.startCase(_.toLower(req.body.name));
   const image = gravatar.url(email, {s: '200', r: 'pg', d: 'retro'}, false);
   const password = req.body.password;
 
-  var hash = _.random(0, 1000, false) + 54;
-  var link = `${req.protocol}://${req.get('host')}/auth/verify/${hash}`;
+  // Encrypt
+  var ciphertext = encodeURIComponent(CryptoJS.AES.encrypt(email, keys.verify.secret));
+  var link = `${req.protocol}://${req.get('host')}/auth/verify/${ciphertext}`;
 
   const newUser = new User({
     name,
     email,
     gravatar: image,
     password,
-    hash
+    hash: ciphertext
   });
 
   User.findOne({ email }).then(user => {
@@ -88,7 +100,7 @@ router.post('/register', [
 
           newUser.save().then(user => {
             req.flash('success', 'Registered successfully. Verify your account and you are ready to login.')
-            return res.redirect('/auth/login');
+            return res.redirect('/auth/registered');
           }).catch(err => {
             throw err;
           });
@@ -99,24 +111,28 @@ router.post('/register', [
     });
 
     nodemailer.createTestAccount((err, account) => {
+      acc = {
+        user: 'oabbas@vm.com.eg',
+        pass: 'vme123'
+      }
       // create reusable transporter object using the default SMTP transport
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        secure: false, // true for 465, false for other ports
+      let smtpConfig = {
+        host: 'vmegypt.webserversystems.com',
+        port: 465,
+        secure: true, // true for 465, false for other ports
         auth: {
-          user: keys.account.user,
-          pass: keys.account.pass
+          user: acc.user,
+          pass: acc.pass
         }
-      });
+      }
+      let transporter = nodemailer.createTransport(smtpConfig);
 
       // setup email data with unicode symbols
       let mailOptions = {
-        from: '"Tes official website" <no_reply@tes3awy.com>', //sender address
+        from: '"Tes official website" <oabbas@vm.com.eg>', //sender address
         to: `${email}`, // list of receivers
         subject: 'Please verify your email account', //subject line
-        text: 'Verify your account', // plain text body
-        html: `Hello,<br> Please Click on the link to verify your email address.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
+        html: `Hello ${name},<br> Please click on the link to verify your email address.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
       };
 
       // send mail with defined transport object
@@ -125,25 +141,30 @@ router.post('/register', [
           return console.log('Send mail error:', error);
         }
         console.log('Message sent: %s', info.messageId);
-        // Preview only available when sending through an Ethereal account
-        console.log('Preview url: %s', nodemailer.getTestMessageUrl(info));
         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
       });
     });
 });
 
-router.get('/verify/:hash', (req, res) => {
-  var hash = req.params.hash;
-  console.log('verify hash: %s', hash);
-  // Compare both hashes
-  // Get this user from DB to change `active` to true
-  req.flash('Account verified.');
-  return res.redirect('/auth/login');
+router.get('/verify/:ciphertext', (req, res) => {
+  // Decrypt
+  var ciphertext = req.params.ciphertext;
+  var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), keys.verify.secret);
+  var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+  User.findOneAndUpdate({ email: plaintext }, { $set: { verified: true, hash: "" } }, { new: true }).then(user => {
+    if(user) {
+      req.flash('success', 'Account verified.');
+      return res.redirect('/auth/registered');
+    }
+  }).catch(err => {
+    req.flash('error', 'Unable to verify account!!!');
+    return res.redirect('/auth/registered');
+  });
 });
 
-// POST /auth/login
-router.post('/login', passport.authenticate('local', {
+// POST /auth/registered
+router.post('/registered', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/auth/login',
   failureFlash: true
@@ -153,7 +174,7 @@ router.post('/login', passport.authenticate('local', {
 router.get('/logout', authenticate, (req, res) => {
   req.logout();
   req.flash('success', 'Bye bye. See you soon!');
-  res.redirect('/auth/login');
+  res.redirect('/auth/registered');
 });
 
 module.exports = router;

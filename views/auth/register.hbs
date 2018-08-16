@@ -3,8 +3,8 @@
     <img class="mb-2" src="/favicon.ico" alt="Logo" title="Logo">
     <h1 class="h3 mb-4 text-white font-weight-normal">Please Register</h1>
   </div>
-  {{#if message}}
-    {{#each message}}
+  {{#if error}}
+    {{#each error}}
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <span>{{msg}}</span>
         <button type="button" class="close" data-dismiss="alert">
@@ -44,5 +44,5 @@
   <div class="text-center">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
   </div>
-  <p class="text-center mt-5 mb-3 text-muted">&copy; 2011 - {{getCurrentYear}}</p>
+  <p class="mt-5 mb-3 text-muted text-center">Tes Official &copy; Copyright - 2011 - {{getCurrentYear}}. All rights reserved.</p>
 </form>

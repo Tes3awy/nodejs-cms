@@ -11,5 +11,27 @@
 {{!-- Disqus for viewing comments count --}}
 <script id="dsq-count-scr" src="//tes9.disqus.com/count.js" async></script>
 <script id="dsq-count-scr" src="//tes9.disqus.com/count.js" async></script>
+{{!-- Cookie Consent --}}
+{{#unless req.user}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function () {
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#efefef",
+          "text": "#404040"
+        },
+        "button": {
+          "background": "transparent",
+          "border": "#6f42c1",
+          "text": "#6f42c1"
+        }
+      }
+    });
+  });
+</script>
+{{/unless}}
+
 {{!-- Init Script --}}
 <script src="/js/main.js"></script>

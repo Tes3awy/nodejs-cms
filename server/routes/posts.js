@@ -115,7 +115,7 @@ router.post('/add', authenticate, upload.single('image'),
 );
 
 // GET /post (Single post)
-router.get('/post/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const id = req.params.id;
 
   Post.findById(id).then(post => {
@@ -132,7 +132,7 @@ router.get('/post/:id', (req, res) => {
 });
 
 // GET /post/edit (GET Edit post)
-router.get('/post/edit/:id', authenticate, (req, res) => {
+router.get('/edit/:id', authenticate, (req, res) => {
   const id = req.params.id;
   Post.findById(id).then(post => {
       res.render('posts/edit', {
@@ -148,7 +148,7 @@ router.get('/post/edit/:id', authenticate, (req, res) => {
 });
 
 // PUT /post/edit (PUT Edit post)
-router.put('/post/edit/:id', authenticate, upload.single('image'), (req, res) => {
+router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const id = req.params.id;
 
     const body = req.body;
@@ -182,7 +182,7 @@ router.put('/post/edit/:id', authenticate, upload.single('image'), (req, res) =>
 );
 
 // DELETE /post/delete (DELETE Edit post)
-router.delete('/post/delete/:id', authenticate, (req, res) => {
+router.delete('/delete/:id', authenticate, (req, res) => {
   const id = req.params.id;
   Post.findByIdAndRemove(id).then(post => {
     if(post) {

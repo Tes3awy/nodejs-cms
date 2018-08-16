@@ -6,8 +6,6 @@
     </div>
 {{/if}}
 
-<h1>{{ua}}</h1>
-
 {{#if success}}
     <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
         {{!-- <i class="far fa-thumbs-up"></i> --}}
@@ -53,7 +51,7 @@
                                     {{{htmlDecode this.content}}}
                                 </div>
                                 <p class="text-right my-2">
-                                    <a class="btn btn-secondary" href="/posts/post/{{this.id}}">Read more
+                                    <a class="btn btn-secondary" href="/posts/{{this.id}}">Read more
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 </p>
