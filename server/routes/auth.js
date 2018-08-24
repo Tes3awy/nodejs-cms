@@ -99,7 +99,7 @@ router.post('/register', [
           newUser.password = hash;
 
           newUser.save().then(user => {
-            req.flash('success', 'Registered successfully. Verify your account and you are ready to login.')
+            req.flash('success', 'Registered successfully. Check your email and verify your new account.')
             return res.redirect('/auth/registered');
           }).catch(err => {
             throw err;
@@ -166,7 +166,7 @@ router.get('/verify/:ciphertext', (req, res) => {
 // POST /auth/registered
 router.post('/registered', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/auth/login',
+  failureRedirect: '/auth/registered',
   failureFlash: true
 }));
 

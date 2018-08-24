@@ -5,10 +5,8 @@ const express = require('express');
 const router = express.Router();
 
 const _ = require('lodash');
-const moment = require('moment');
 
 const { check, validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
 
 const { mongoose } = require('./../db/mongoose');
 const { Post, findImgById } = require('./../models/Post');
@@ -33,7 +31,7 @@ const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
 router.get('/', (req, res) => {
-  Post.find({}).sort({ featured: -1, createdAt: -1 }).then(posts => {
+  Post.find().sort({ featured: -1, createdAt: -1 }).then(posts => {
     res.render('posts/posts', {
       showTitle: 'Articles',
       layout: 'postsLayout',
@@ -65,20 +63,17 @@ router.post('/add', authenticate, upload.single('image'),
     check('title')
       .isLength({ min: 10 })
       .trim()
-      .escape()
       .withMessage('Title cannot be less than 10 characters'),
     check('content')
       .isLength({ min: 300 })
       .trim()
-      .escape()
-      .withMessage('Article cannot be less than 300 characters'),
-    sanitizeBody('content')
+      .withMessage('Article cannot be less than 300 characters')
   ], (req, res) => {
     let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      errors = _.map(errors.array(), errs => {
-        return _.pick(errs, 'msg');
+      errors = _.map(errors.array(), err => {
+        return _.pick(err, 'msg');
       });
       req.flash('error', errors);
       return res.redirect('/posts/add');
@@ -143,7 +138,7 @@ router.get('/edit/:id', authenticate, (req, res) => {
         layout: 'postsLayout',
         showTitle: `Edit - ${post.title}`,
         user: req.user,
-        post,
+        post
     });
   }).catch(err => {
     req.flash('error', 'Unable to find article to edit!!!');
@@ -175,10 +170,10 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     } else {
       image = req.file.filename;
       Post.findOneAndUpdate(id, { $set: { title, content, featured, image } }, { new: true }).then(post => {
-        req.flash('success', 'Edits submitted successfully');
+        req.flash('success', 'Updated successfully');
         return res.redirect('/posts');
       }).catch(err => {
-        req.flash('error', 'Unable to edit article');
+        req.flash('error', 'Unable to update article');
         return res.redirect('/posts');
       });
     }
@@ -194,7 +189,7 @@ router.delete('/delete/:id', authenticate, (req, res) => {
         if(err) {
           throw err;
         }
-        req.flash('success', 'Article deleted successfully');
+        req.flash('success', 'Article deleted');
         return res.redirect('/posts');
       });
     }

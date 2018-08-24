@@ -5,14 +5,14 @@
   "main": "server/server.js",
   "scripts": {
     "start": "set NODE_ENV=development && nodemon server/server.js || export NODE_ENV=developemt && nodemon server/server.js",
-    "test": "snyk test"
+    "test": "snyk test",
+    "build": "webpack --config webpack.config.js --watch"
   },
   "keywords": [],
   "author": "Osama Abbas <oabbas2512@gmail.com> (https://tes3awy.github.io/)",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.2",
     "connect-flash": "^0.1.1",
@@ -29,7 +29,7 @@
     "lodash": "^4.17.10",
     "method-override": "^3.0.0",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.8",
+    "mongoose": "^5.2.9",
     "mongoose-paginate": "^5.0.3",
     "morgan": "^1.9.0",
     "multer": "^1.3.1",
@@ -42,14 +42,18 @@
     "toastr": "^2.1.4"
   },
   "devDependencies": {
-    "autoprefixer": "^9.1.1",
-    "cssnano": "^4.0.5",
+    "autoprefixer": "^9.1.3",
+    "css-loader": "^1.0.0",
+    "cssnano": "^4.1.0",
     "gulp": "^3.9.1",
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.1",
     "gulp-wait": "0.0.2",
-    "snyk": "^1.90.2"
+    "snyk": "^1.93.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
   }
 }

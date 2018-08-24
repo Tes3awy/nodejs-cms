@@ -50,8 +50,11 @@ gulp.task('copy-js', () => {
     .src([
       'node_modules/jquery/dist/jquery.min.js',
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+      'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map',
       'node_modules/toastr/build/toastr.min.js',
+      'node_modules/toastr/build/toastr.js.map',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
+      'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js.map',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
     ])
     .pipe(gulp.dest('public/js'));

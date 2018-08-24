@@ -8,12 +8,19 @@
 
     <!-- You can use Open Graph tags to customize link previews.
     Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-    <meta property="og:url" content="/posts/post/">
+    <meta property="og:url" content="/posts/{{post.id}}">
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{showTitle}}">
-    <meta property="og:description" content="Your description">
-    <meta property="og:image" content="/favicon.ico">
-    <title>Tes | {{htmlDecode showTitle}}</title>
+    <meta property="og:description" content="{{post.content}}">
+    <meta property="og:image" content="/uploads/{{post.image}}">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{author.name}}">
+    <meta name="twitter:ceator" content="{{author.name}}">
+
+    <title>Tes | {{showTitle}}</title>
+
+    <link rel="canonical" href="/posts/{{post.id}}">
 
     {{> _styles}}
   </head>
@@ -28,7 +35,7 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
-    <nav class="navbar navbar-expand-md navbar-light bg-light main-navbar">
+    <nav class="navbar navbar-expand-md navbar-light bg-light main-navbar shadow">
       {{> _navbar}}
     </nav>
     <main class="posts-main">

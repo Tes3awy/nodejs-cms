@@ -7,23 +7,19 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav ml-auto navbar-menu">
-      <li class="nav-item">
+      <li class="nav-item{{#if_eq showTitle 'Homepage'}} active{{/if_eq}}">
         <a class="nav-link" href="/" title="Home">
           <i class="fas fa-home"></i> Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/about" title="Home">
+      <li class="nav-item {{#if_eq showTitle 'About page'}} active{{/if_eq}}">
+        <a class="nav-link" href="/about" title="About">
           <i class="fas fa-user-ninja"></i> About</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {{#if_eq showTitle 'Articles'}} active{{/if_eq}}">
         <a class="nav-link" href="/posts" title="Articles">
           <i class="far fa-file-alt"></i> Articles</a>
       </li>
       {{#if user}}
-        <li class="nav-item">
-          <a class="nav-link" href="/user/profile" title="Profile">
-            <i class="fas fa-user"></i> Profile</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="/auth/logout" title="Logout">
             Logout
@@ -31,11 +27,12 @@
           </a>
         </li>
         <li class="nav-item bg-primary text-center nav-name">
-          <a class="nav-link text-white" href="/user/profile" title="Welcome {{user.name}}">
-            Welcome {{user.name}}</a>
+          <span class="nav-link text-white">Welcome {{user.name}}</span>
         </li>
         <li class="nav-item">
-          <img class="rounded-circle" src="{{user.gravatar}}" alt="{{user.name}} Image" title="{{user.name}} Image" width="34" height="34">
+          <a href="/user/profile" title="{{user.name}}">
+            <img class="rounded-circle" src="{{user.gravatar}}" alt="{{user.name}}" title="{{user.name}}" width="34" height="34">
+          </a>
         </li>
       {{else}}
         <li class="nav-item dropdown">
@@ -43,9 +40,9 @@
             Join us
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/auth/registered" title="Login with your account">
+            <a class="dropdown-item" href="/auth/registered" title="Login">
               <i class="fas fa-sign-in-alt"></i>&nbsp; Login</a>
-            <a class="dropdown-item" href="/auth/register" title="Register new account">
+            <a class="dropdown-item" href="/auth/register" title="Register">
               <i class="fas fa-plus"></i>&nbsp; Register</a>
           </div>
         </li>

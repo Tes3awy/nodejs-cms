@@ -141,14 +141,3 @@ $(document).ready( function() {
 //     console.log('Uploaded Image name:', $uploadedImg);
 //   }
 // });
-
-// Custom Functions
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.load = function(e) {
-      $('#previewImage').attr('src', e.target.result);
-    }
-    reader.readAsDataURL(input.files[0]);
-  }
-}

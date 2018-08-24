@@ -6,8 +6,6 @@ const app = express();
 const { mongoose } = require('./db/mongoose');
 const { User } = require('./models/User');
 
-const bodyParser = require('body-parser');
-
 const session = require('express-session');
 
 const { passportConfig } = require('./middlewares/passport');
@@ -28,7 +26,7 @@ const flash = require('connect-flash');
 
 const helmet = require('helmet');
 
-// const morgan = require('morgan');
+const logger = require('morgan');
 
 const _ = require('lodash');
 const moment = require('moment');
@@ -43,9 +41,8 @@ app.use(favicon(path.join(__dirname, publicPath, 'favicon.ico')));
 app.use(express.static(path.join(__dirname, publicPath)));
 
 /** Middlewares */
-// Body Parser Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // Session Middleware
 app.use(session({
   secret: keys.session.secret,
@@ -57,17 +54,10 @@ app.use(session({
 // Passport Middlewares
 app.use(passport.initialize());
 app.use(passport.session());
-// Global Vars
-app.use((req, res, next) => {
-  res.locals.user = req.user || null;
-  // res.locals.success = req.flash('success');
-  // res.locals.error = req.flash('error');
-  next();
-});
 // Flash Middleware
 app.use(flash());
 // Morgan
-// app.use(morgan('dev'));
+// app.use(logger('dev'));
 // HBS
 app.engine('hbs', hbs({
     defaultLayout: 'main',
@@ -84,25 +74,8 @@ app.engine('hbs', hbs({
       getToday() {
         return moment().format('MMMM Do YYYY');
       },
-      contentDecode(text) {
-        var text = sanitizeHtml(text, {
-          allowedTags: false,
-          allowedAttributes: false,
-          parser: {
-            lowerCaseTags: true
-          }
-        });
-        return _.unescape(text);
-      },
-      htmlDecode(text) {
-        var text = sanitizeHtml(text, {
-          allowedTags: false,
-          allowedAttributes: false,
-          parser: {
-            lowerCaseTags: true
-          }
-        });
-        return _.unescape(_.truncate(text, { length: 250 }));
+      truncateText(text) {
+        return _.truncate(text, { length: 250 });
       },
       if_eq(a, b, opts) {
         if(a === b) {
@@ -125,6 +98,13 @@ app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/posts', postsRoutes);
 
+// Global Vars
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  // res.locals.success = req.flash('success');
+  // res.locals.error = req.flash('error');
+  next();
+});
 
 // Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {
