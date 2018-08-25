@@ -3,6 +3,8 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
+const compression = require('compression');
+
 const { mongoose } = require('./db/mongoose');
 const { User } = require('./models/User');
 
@@ -43,6 +45,8 @@ app.use(express.static(path.join(__dirname, publicPath)));
 /** Middlewares */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Compression
+app.use(compression({ level: 1 }));
 // Session Middleware
 app.use(session({
   secret: keys.session.secret,
