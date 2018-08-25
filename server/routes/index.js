@@ -45,4 +45,12 @@ router.get('/about', (req, res) => {
   });
 });
 
+// GET /contact
+router.get('/contact', (req, res) => {
+  res.render('contact', {
+    showTitle: 'Contact page',
+    user: req.user
+  });
+});
+
 module.exports = router;

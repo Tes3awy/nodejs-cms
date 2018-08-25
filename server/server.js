@@ -16,6 +16,7 @@ const passport = require('passport');
 const hbs = require('express-handlebars');
 
 const favicon = require('serve-favicon');
+const serveStatic = require('serve-static');
 
 const routes = require('./routes/index');
 const authRoutes = require('./routes/auth');
@@ -38,9 +39,12 @@ const keys = require('./../config/credentials');
 const publicPath = './../public';
 const port = process.env.PORT || 3000;
 
-// Static Files
+// Serve Favicon
 app.use(favicon(path.join(__dirname, publicPath, 'favicon.ico')));
-app.use(express.static(path.join(__dirname, publicPath)));
+// Serve Statics
+app.use(serveStatic(path.join(__dirname, publicPath), {
+  dotfiles: 'deny'
+}));
 
 /** Middlewares */
 app.use(express.json());
@@ -61,7 +65,9 @@ app.use(passport.session());
 // Flash Middleware
 app.use(flash());
 // Morgan
-// app.use(logger('dev'));
+if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+  app.use(logger('dev'));
+}
 // HBS
 app.engine('hbs', hbs({
     defaultLayout: 'main',
