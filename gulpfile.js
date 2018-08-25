@@ -55,6 +55,7 @@ gulp.task('copy-js', () => {
       'node_modules/toastr/build/toastr.js.map',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js.map',
+      'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
     ])
     .pipe(gulp.dest('public/js'));

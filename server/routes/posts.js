@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const _ = require('lodash');
+const swal = require('sweetalert2');
 
 const { check, validationResult } = require('express-validator/check');
 
@@ -197,8 +198,23 @@ router.delete('/delete/:id', authenticate, (req, res) => {
     }
   }).catch(err => {
     req.flash('error', 'Unable to delete article!!!');
+    // swal('Deleted!', 'Your article has been deleted.', 'success');
     return res.redirect('/posts');
   });
+  // swal({
+  //   title: 'Are you sure?',
+  //   text: "You won't be able to revert action!",
+  //   type: 'warning',
+  //   showCancelButton: true,
+  //   dangerMode: true,
+  //   confirmButtonColor: '#17a2b8',
+  //   cancelButtonColor: '#dc3545',
+  //   confirmButtonText: 'Yes, delete it!'
+  // }).then(willDelete => {
+  //   if (willDelete) {
+
+  //   }
+  // });
 });
 
 module.exports = router;
