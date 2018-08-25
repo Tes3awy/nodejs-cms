@@ -28,9 +28,11 @@ const upload = multer({
 });
 
 const authenticate = require('./../middlewares/authenticate');
-
 // GET /posts
 router.get('/', (req, res) => {
+  if(req.session.views) {
+    const views = req.session.views++
+  }
   Post.find().sort({ featured: -1, createdAt: -1 }).then(posts => {
     res.render('posts/posts', {
       showTitle: 'Articles',
@@ -110,6 +112,9 @@ router.post('/add', authenticate, upload.single('image'),
 // GET /post (Single post)
 router.get('/:id', (req, res) => {
   const id = req.params.id;
+  if(req.session.views) {
+    return views = req.session.views++
+  }
 
   Post.findById(id).then(post => {
     User.findById(post.userId).then(author => {
@@ -118,7 +123,8 @@ router.get('/:id', (req, res) => {
           showTitle: post.title,
           user: req.user,
           post,
-          author
+          author,
+          views
       });
     }).catch(err => {
       req.flash('error', 'Unable to find author');

@@ -7,15 +7,14 @@ const _ = require('lodash');
 
 const { mongoose } = require('./../db/mongoose');
 const { User } = require('./../models/User');
-const bcrypt = require('bcryptjs');
 
+const bcrypt = require('bcryptjs');
 const CryptoJS = require("crypto-js");
 
 const { passportConfig } = require('./../middlewares/passport');
 const passport = require('passport');
 
 const { check, validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
 
 const gravatar = require('gravatar');
 
@@ -28,17 +27,8 @@ router.get('/register', (req, res) => {
   res.render('auth/register', {
     layout: 'login-register',
     showTitle: 'Register page',
-    error: req.flash('error')
+    errors: req.flash('error')
   });
-});
-
-router.get('/login', (req, res) => {
-  res.render('auth/login', {
-    layout: 'login-register',
-    showTitle: 'Register page',
-    error: req.flash('error'),
-    success: req.flash('success')
-  })
 });
 
 // GET /auth/login
@@ -54,7 +44,7 @@ router.get('/login', (req, res) => {
 // POST /auth/register
 router.post('/register', [
   check('name', 'Name must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
-  check('email', 'This is not an email address!!!').isEmail().normalizeEmail({'all_lowercase': false, 'gmail_remove_dots': false, 'outlookdotcom_lowercase': false}).escape().trim(),
+  check('email', 'Email is a required field').isEmail().normalizeEmail({'all_lowercase': false, 'gmail_remove_dots': false, 'outlookdotcom_lowercase': false}).escape().trim(),
   check('password', 'Password cannot be less than 5 characters').isLength({min: 5}),
   check('confPassword', 'Confirm password must have the same value as the password!!!').custom((value, { req }) => value === req.body.password)
 ], (req, res) => {
@@ -62,7 +52,7 @@ router.post('/register', [
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    errors = _.map(errors.array(), (errs) => { return _.pick(errs, 'msg'); });
+    errors = _.map(errors.array(), (err) => { return _.pick(err, 'msg'); });
     req.flash('error', errors);
     return res.redirect('/auth/register');
   }
@@ -99,7 +89,7 @@ router.post('/register', [
           newUser.password = hash;
 
           newUser.save().then(user => {
-            req.flash('success', 'Registered successfully. Check your email and verify your new account.')
+            req.flash('success', 'Registered successfully. Check your email and verify your account.')
             return res.redirect('/auth/login');
           }).catch(err => {
             throw err;
@@ -150,9 +140,9 @@ router.get('/verify/:ciphertext', (req, res) => {
   // Decrypt
   var ciphertext = req.params.ciphertext;
   var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), keys.verify.secret);
-  var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+  var plainEmail = bytes.toString(CryptoJS.enc.Utf8);
 
-  User.findOneAndUpdate({ email: plaintext }, { $set: { verified: true, hash: "" } }, { new: true }).then(user => {
+  User.findOneAndUpdate({ email: plainEmail }, { $set: { verified: true, hash: "" } }, { new: true }).then(user => {
     if(user) {
       req.flash('success', 'Account verified.');
       return res.redirect('/auth/login');

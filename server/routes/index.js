@@ -53,4 +53,12 @@ router.get('/contact', (req, res) => {
   });
 });
 
+// GET /contact
+router.get('/terms', (req, res) => {
+  res.render('terms', {
+    showTitle: 'Terms and Conditions page',
+    user: req.user
+  });
+});
+
 module.exports = router;
