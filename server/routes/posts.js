@@ -112,9 +112,6 @@ router.post('/add', authenticate, upload.single('image'),
 // GET /post (Single post)
 router.get('/:id', (req, res) => {
   const id = req.params.id;
-  if(req.session.views) {
-    return views = req.session.views++
-  }
 
   Post.findById(id).then(post => {
     User.findById(post.userId).then(author => {
@@ -123,12 +120,11 @@ router.get('/:id', (req, res) => {
           showTitle: post.title,
           user: req.user,
           post,
-          author,
-          views
+          author
       });
     }).catch(err => {
       req.flash('error', 'Unable to find author');
-      return res.redirect(`/posts/${posr.id}`);
+      return res.redirect(`/posts/${post.id}`);
     });
   }).catch(err => {
     req.flash('error', 'Unable to find article');
