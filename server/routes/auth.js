@@ -32,8 +32,8 @@ router.get('/register', (req, res) => {
   });
 });
 
-router.get('/registered', (req, res) => {
-  res.render('auth/registered', {
+router.get('/login', (req, res) => {
+  res.render('auth/login', {
     layout: 'login-register',
     showTitle: 'Register page',
     error: req.flash('error'),
@@ -100,7 +100,7 @@ router.post('/register', [
 
           newUser.save().then(user => {
             req.flash('success', 'Registered successfully. Check your email and verify your new account.')
-            return res.redirect('/auth/registered');
+            return res.redirect('/auth/login');
           }).catch(err => {
             throw err;
           });
@@ -155,18 +155,18 @@ router.get('/verify/:ciphertext', (req, res) => {
   User.findOneAndUpdate({ email: plaintext }, { $set: { verified: true, hash: "" } }, { new: true }).then(user => {
     if(user) {
       req.flash('success', 'Account verified.');
-      return res.redirect('/auth/registered');
+      return res.redirect('/auth/login');
     }
   }).catch(err => {
     req.flash('error', 'Unable to verify account!!!');
-    return res.redirect('/auth/registered');
+    return res.redirect('/auth/login');
   });
 });
 
-// POST /auth/registered
-router.post('/registered', passport.authenticate('local', {
+// POST /auth/login
+router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/auth/registered',
+  failureRedirect: '/auth/login',
   failureFlash: true
 }));
 
@@ -174,7 +174,7 @@ router.post('/registered', passport.authenticate('local', {
 router.get('/logout', authenticate, (req, res) => {
   req.logout();
   req.flash('success', 'Bye bye. See you soon!');
-  res.redirect('/auth/registered');
+  res.redirect('/auth/login');
 });
 
 module.exports = router;

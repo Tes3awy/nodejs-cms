@@ -3,7 +3,7 @@
 <url><loc>http://localhost:3000/</loc></url>
 <url><loc>http://localhost:3000/about</loc></url>
 <url><loc>http://localhost:3000/auth/register</loc></url>
-<url><loc>http://localhost:3000/auth/registered</loc></url>
+<url><loc>http://localhost:3000/auth/login</loc></url>
 <url><loc>http://localhost:3000/posts</loc></url>
 <url><loc>http://localhost:3000/posts/5b7190a7f2044c63e07ed93d</loc></url>
 <url><loc>http://localhost:3000/posts/5b7195a38eb0fb588ca993c7</loc></url>

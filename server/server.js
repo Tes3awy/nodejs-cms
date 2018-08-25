@@ -39,17 +39,18 @@ const keys = require('./../config/credentials');
 const publicPath = './../public';
 const port = process.env.PORT || 3000;
 
-// Serve Favicon
+// Serve Favicon Middleware
 app.use(favicon(path.join(__dirname, publicPath, 'favicon.ico')));
-// Serve Statics
+// Serve Statics Middleware
 app.use(serveStatic(path.join(__dirname, publicPath), {
   dotfiles: 'deny'
 }));
 
 /** Middlewares */
+// Express Middlware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Compression
+// Compression Middleware
 app.use(compression({ level: 1 }));
 // Session Middleware
 app.use(session({
@@ -64,11 +65,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Flash Middleware
 app.use(flash());
-// Morgan
-if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+// Morgan Middleware
+if(process.env.NODE_ENV === 'development') {
   app.use(logger('dev'));
 }
-// HBS
+// HBS View Engine Template
 app.engine('hbs', hbs({
     defaultLayout: 'main',
     extname: '.hbs',
@@ -98,9 +99,9 @@ app.engine('hbs', hbs({
   })
 );
 app.set('view engine', 'hbs');
-// Method Override
+// Method Override Middleware
 app.use(methodOverride('_method'));
-// Helmet (For Security)
+// Helmet Middleware (For Security)
 app.use(helmet());
 // Routes
 app.use('/', routes);
