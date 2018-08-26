@@ -37,7 +37,8 @@ router.get('/login', (req, res) => {
     layout: 'login-register',
     showTitle: 'Login page',
     error: req.flash('error'),
-    success: req.flash('success')
+    success: req.flash('success'),
+    info: req.flash('info')
   });
 });
 
@@ -89,7 +90,7 @@ router.post('/register', [
           newUser.password = hash;
 
           newUser.save().then(user => {
-            req.flash('success', 'Registered successfully. Check your email and verify your account.')
+            req.flash('success', `Registered successfully. An e-mail has been sent to ${email} with further instructions.`)
             return res.redirect('/auth/login');
           }).catch(err => {
             throw err;
@@ -100,39 +101,41 @@ router.post('/register', [
       throw err;
     });
 
-    nodemailer.createTestAccount((err, account) => {
-      acc = {
-        user: 'oabbas@vm.com.eg',
-        pass: 'vme123'
+    // NodeMailer
+    // create reusable transporter object using the default SMTP transport
+    let smtpConfig = {
+      host: 'vmegypt.webserversystems.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        type: 'login',
+        user: keys.account.user,
+        pass: keys.account.pass
       }
-      // create reusable transporter object using the default SMTP transport
-      let smtpConfig = {
-        host: 'vmegypt.webserversystems.com',
-        port: 465,
-        secure: true, // true for 465, false for other ports
-        auth: {
-          user: acc.user,
-          pass: acc.pass
-        }
+    }
+
+    let transporter = nodemailer.createTransport(smtpConfig);
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+      from: '"Tes official website" <oabbas@vm.com.eg>', //sender address
+      to: `${email}`, // list of receivers
+      subject: 'Please verify your email account', //subject line
+      html: `Hello ${name},<br> Please click on the link to verify your email address.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+      if(error) {
+        return console.log('Send mail error:', error);
       }
-      let transporter = nodemailer.createTransport(smtpConfig);
-
-      // setup email data with unicode symbols
-      let mailOptions = {
-        from: '"Tes official website" <oabbas@vm.com.eg>', //sender address
-        to: `${email}`, // list of receivers
-        subject: 'Please verify your email account', //subject line
-        html: `Hello ${name},<br> Please click on the link to verify your email address.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
-      };
-
-      // send mail with defined transport object
-      transporter.sendMail(mailOptions, (error, info) => {
-        if(error) {
-          return console.log('Send mail error:', error);
-        }
-        console.log('Message sent: %s', info.messageId);
-        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-      });
+      console.log('Message sent: %s', info.messageId);
+      console.log('Envelope sent: %s', info.envelope);
+      console.log('Accepted: %s', info.accepted);
+      console.log('Rejected: %s', info.rejected);
+      console.log('Pending: %s', info.pending);
+      console.log('Response: %s', response);
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
     });
 });
 
@@ -163,8 +166,8 @@ router.post('/login', passport.authenticate('local', {
 // GET /auth/logout
 router.get('/logout', authenticate, (req, res) => {
   req.logout();
-  req.flash('success', 'Bye bye. See you soon!');
-  res.redirect('/auth/login');
+  req.flash('info', 'Bye bye. See you soon!');
+  return res.redirect('/auth/login');
 });
 
 module.exports = router;
