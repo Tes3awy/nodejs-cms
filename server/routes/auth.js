@@ -163,6 +163,19 @@ router.post('/login', passport.authenticate('local', {
   failureFlash: true
 }));
 
+// GET /auth/forget
+router.get('/forget', (req, res) => {
+  res.render('auth/forget', {
+    showTitle: 'Forget password page'
+  });
+});
+
+// POST /auth/forget
+router.post('/forget', (req, res) => {
+  const email = req.body.email;
+  console.log('Email:', email);
+});
+
 // GET /auth/logout
 router.get('/logout', authenticate, (req, res) => {
   req.logout();

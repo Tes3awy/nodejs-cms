@@ -3,7 +3,7 @@
     <form class="clearfix" action="/posts/edit/{{post.id}}?_method=PUT" method="POST" enctype="multipart/form-data" runat="server">
       <input type="hidden" name="_method" value="PUT">
       <h2 class="mb-0 d-inline-block">Edit post</h2>
-      <a class="btn btn-info float-right" href="/posts"><i class="fa fa-chevron-left pr-2"></i> Back</a>
+      <a class="btn btn-info float-right" href="/posts/{{post.id}}"><i class="fa fa-chevron-left pr-2"></i> Back</a>
       <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
       {{#if error}}
         {{#each error}}
@@ -20,11 +20,11 @@
         {{!-- Check Featured article or not --}}
         <div class="form-group">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="featured" id="featured" value="true">
+            <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
             <label class="form-check-label" for="featured">Featured article</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false">
+            <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" required>
             <label class="form-check-label" for="notFeatured">Not</label>
           </div>
         </div>
