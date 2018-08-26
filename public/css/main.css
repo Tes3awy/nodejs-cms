@@ -69,6 +69,10 @@ input[name='name'] {
   padding: 0.75rem 0.75rem;
 }
 
+.chart-col {
+  margin-bottom: 30px;
+}
+
 .main-card:not(:last-child) {
   margin-bottom: 15px;
 }
