@@ -95,43 +95,43 @@ $('#inputImage').on('change', function() {
   );
 });
 
+// Count Contact us page's textarea characters
+$('textarea[name="message"]').on("input", function() {
+  var maxlength = $(this).attr("maxlength");
+  var currentLength = $(this).val().length;
+
+  if(currentLength >= maxlength ) {
+      $('#suggestionCount').html("You have reached the maximum number of characters.");
+  } else {
+    $('#suggestionCount').html(maxlength - currentLength + " characters left");
+  }
+});
+
 // TinyMCE Init
 $(document).ready(function() {
-  tinymce.init({
-    selector: 'textarea#tinymce',
+  var tinymceConfig = {
+    selector: "textarea#tinymce",
     skins: 'vendor/tinymce/skins/lightgray',
-    hidden_input: false,
+    plugins: [
+      "anchor autolink codesample colorpicker contextmenu fullscreen help",
+      " lists link noneditable preview",
+      " searchreplace table textcolor wordcount print"
+    ],
     toolbar:
-      'removeformat | undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | ltr rtl | bullist numlist | link | emoticons | spellchecker | pastetext | code codesample | print preview',
-    plugins:
-      'contextmenu autosave advlist autolink link lists charmap print preview emoticons colorpicker spellchecker wordcount directionality textcolor colorpicker',
-    contextmenu: 'copy cut paste link spellchecker',
-    mobile: {
-      theme: 'mobile',
-      plugins: ['autosave', 'lists', 'autolink'],
-      toolbar: ['undo', 'redo', 'bold', 'italic'],
-    },
-    mentions_fetch: function(query, success) {
-      //Fetch your full user list from somewhere
-      var users = getUserDataFromTheServer();
-
-      //query.term is the text the user typed after the '@'
-      users = users.filter(function(user) {
-        return user.name.indexOf(query.term.toLowerCase()) === 0;
-      });
-
-      users = users.slice(0, 10);
-
-      window.setTimeout(function() {
-        success(users);
-      }, 0);
-    },
+      "undo redo | bold italic | forecolor backcolor | codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+    hidden_input: false,
+    height: 300,
     paste_as_text: true,
     browser_spellcheck: true,
     gecko_spellcheck: false,
     branding: false,
     elementpath: false,
-    height: 200,
+    // height: 200,
+    // width: 730,
     paste_filter_drop: false,
-  });
+    autosave_ask_before_unload: false,
+    codesample_dialog_width: 600,
+    codesample_dialog_height: 425,
+  };
+  tinymce.init(tinymceConfig);
 });

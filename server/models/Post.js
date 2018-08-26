@@ -40,20 +40,16 @@ const PostSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: null
   }
 });
 
 // Mongoose Plugins
 PostSchema.plugin(mongoosePaginate);
-
 const Post = mongoose.model('Post', PostSchema);
-
-// PostSchema.methods.findImgById = function findImageById(id) {
-//   var Post = this;
-//   return Post.findById(id).then(post => {
-//     return post.image;
-//   });
-// }
 
 // Functions
 var findImgById = (id) => {

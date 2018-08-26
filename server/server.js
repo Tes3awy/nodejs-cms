@@ -66,9 +66,14 @@ app.use(passport.session());
 // Flash Middleware
 app.use(flash());
 // Morgan Middleware
-if(process.env.NODE_ENV === 'development') {
-  app.use(logger('dev'));
-}
+app.use(logger('dev'));
+// Global Vars
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  // res.locals.success = req.flash('success');
+  // res.locals.error = req.flash('error');
+  next();
+});
 // HBS View Engine Template
 app.engine('hbs', hbs({
     defaultLayout: 'main',
@@ -108,14 +113,6 @@ app.use('/', routes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/posts', postsRoutes);
-
-// Global Vars
-app.use((req, res, next) => {
-  res.locals.user = req.user || null;
-  // res.locals.success = req.flash('success');
-  // res.locals.error = req.flash('error');
-  next();
-});
 
 // Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {

@@ -1,24 +1,57 @@
 <h1>Contact us</h1>
 
-<form action="" method="POST">
-  <div class="form-row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <input type="text" class="form-control shadow" placeholder="Your full name" required>
-      </div>
+<div class="col-md-6 mx-auto">
+  {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+      <span><i class="far fa-thumbs-up"></i> {{success}}</span>
+      <button type="button" class="close" data-dismiss="alert">
+        <span>&times;</span>
+      </button>
     </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <input type="email" class="form-control shadow" placeholder="Your email address" required>
-      </div>
+  {{/if}}
+
+  {{#if error}}
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+      <span><i class="far fa-check-times"></i> {{error}}</span>
+      <button type="button" class="close" data-dismiss="alert">
+        <span>&times;</span>
+      </button>
     </div>
-    <div class="col-12">
-      <div class="form-group">
-        <textarea class="form-control shadow" name="suggestion" rows="10" placeholder="Any Suggestions?" required></textarea>
+  {{/if}}
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore aperiam deserunt voluptatibus ex? Corrupti ea quibusdam
+      ullam ducimus ad illum est tempora doloribus placeat eos. Non illum facilis tempora laudantium!</p>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-0 shadow contact-form-card">
+      <div class="card-body">
+        <h2 class="text-center text-dark my-4">Contact form</h2>
+        {{!-- Contact Form --}}
+        <form method="POST">
+          <div class="form-group">
+            <input type="text" class="form-control shadow" placeholder="Your full name" name="name" minlength="8" required>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control shadow email-input-class" placeholder="Your email address" name="email" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control shadow" placeholder="Your subject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control shadow" name="message" rows="10" placeholder="Any Suggestions or comments?" maxlength="500"
+              required></textarea>
+            <small id="suggestionCount" class="text-muted">Maximum 500 characters</small>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-outline-success btn-lg" type="submit"><i class="far fa-paper-plane pr-2"></i> Send</button>
+          </div>
+        </form>
+        {{!-- End of Contact Form --}}
       </div>
+      <div class="envelope"></div>
     </div>
   </div>
-  <div class="text-center">
-    <button class="btn btn-success btn-lg" type="submit"><i class="far fa-paper-plane pr-2"></i> Send</button>
-  </div>
-</form>
+</div>

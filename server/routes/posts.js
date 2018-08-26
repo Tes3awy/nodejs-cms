@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const _ = require('lodash');
-const swal = require('sweetalert2');
+// const swal = require('sweetalert2');
 
 const { check, validationResult } = require('express-validator/check');
 
@@ -158,21 +158,22 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const title = body.title;
     const content = body.content;
     const featured = body.featured;
+    const updatedAt = new Date();
     let image;
 
     if(!req.file) {
       findImgById(req.params.id).then(dbImg => {
-        Post.findOneAndUpdate(id, { $set: { title, content, featured, dbImg } }, { new: true }).then(post => {
-          req.flash('success', 'Edits submitted successfully');
+        Post.findOneAndUpdate(id, { $set: { title, content, featured, dbImg, updatedAt } }, { new: true }).then(post => {
+          req.flash('success', 'Updated successfully');
           return res.redirect('/posts');
         }).catch(err => {
-          req.flash('error', 'Unable to edit article');
+          req.flash('error', 'Unable to update article');
           return res.redirect('/posts');
         });
       });
     } else {
       image = req.file.filename;
-      Post.findOneAndUpdate(id, { $set: { title, content, featured, image } }, { new: true }).then(post => {
+      Post.findOneAndUpdate(id, { $set: { title, content, featured, image, updatedAt } }, { new: true }).then(post => {
         req.flash('success', 'Updated successfully');
         return res.redirect('/posts');
       }).catch(err => {
