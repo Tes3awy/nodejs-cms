@@ -28,11 +28,11 @@
             {{!-- Title --}}
             <div class="form-group">
                 <input class="form-control post-comp" type="text" name="title" placeholder="Article title" minlength="10" required>
-                <small class="text-muted title-count"></small>
+                <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more</small>
             </div>
             {{!-- TinyMCE Textarea --}}
             <div class="form-group">
-                <textarea id="tinymce" class="form-control post-comp" name="content" placeholder="Article content" minlength="300"></textarea>
+                <textarea id="tinymce" name="content" placeholder="Article content" minlength="300"></textarea>
                 <small class="text-muted content-count">Must be <span class="text-success">300 characters</span> or more</small>
             </div>
             {{!-- File Upload --}}
