@@ -2,8 +2,10 @@
     <div class="col-sm-8 mx-auto">
         <form action="/posts/add" method="POST" enctype="multipart/form-data" runat="server">
             <h2 class="mb-0">Add new article</h2>
-            <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
-            {{!-- Error Handling --}}
+            <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">{{!-- Error Handling --}}
+            <div class="text-right">
+                <a class="btn btn-info" href="/posts"><i class="fa fa-chevron-left pr-2"></i> Go Back</a>
+            </div>
             {{#if error}}
                 {{#each error}}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -15,14 +17,26 @@
                 {{/each}}
             {{/if}}
             {{!-- Check Featured article or not --}}
-            <div class="form-group">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
-                    <label class="form-check-label" for="featured">Featured article</label>
+            <div class="row my-2">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
+                            <label class="form-check-label" for="featured">Featured article</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked required>
+                            <label class="form-check-label" for="notFeatured">Not</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked required>
-                    <label class="form-check-label" for="notFeatured">Not</label>
+                <div class="col-sm-6">
+                    <select name="category" class="form-control chosen-select" data-placeholder="Choose a category..." multiple>
+                        {{#each category}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    <small class="text-muted">You can choose up to three categories</small>
                 </div>
             </div>
             {{!-- Title --}}
@@ -45,7 +59,7 @@
                 </div>
             </div>
             {{!-- Image Preview and Name --}}
-            <small class="text-monospace d-block pt-2" id="image-name"></small>
+            <small class="text-monospace pt-2" id="image-name"></small>
             <div class="mb-2" id="previewImageContainer">
                 <img src="#" id="#previewImage" title="Image to upload" required>
             </div>

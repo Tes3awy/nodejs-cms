@@ -26,6 +26,10 @@ const PostSchema = new mongoose.Schema({
     min: 0,
     default: 0
   },
+  postCategoryId: [{
+    type: String,
+    required: true
+  }],
   featured: {
     type: Boolean,
     required: false,

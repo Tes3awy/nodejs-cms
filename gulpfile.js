@@ -51,12 +51,11 @@ gulp.task('copy-js', () => {
       'node_modules/jquery/dist/jquery.min.js',
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map',
-      'node_modules/toastr/build/toastr.min.js',
-      'node_modules/toastr/build/toastr.js.map',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js.map',
-      'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
+      // 'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
+      'node_modules/chosen-js/chosen.jquery.min.js'
     ])
     .pipe(gulp.dest('public/js'));
 });
@@ -71,8 +70,8 @@ gulp.task('tinymce', () => {
 gulp.task('copy-css', () => {
   return gulp
     .src([
-      // 'node_modules/toastr/build/toastr.css'
-      // 'node_modules/ekko-lightbox/dist/ekko-lightbox.css'
+      // 'node_modules/chosen-js/chosen.min.css',
+      // 'node_modules/chosen-js/chosen-sprite.png'
     ])
     .pipe(gulp.dest('public/css'));
 });

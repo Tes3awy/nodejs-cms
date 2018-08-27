@@ -43,16 +43,17 @@
         {{!-- Contact Form --}}
         <form method="POST">
           <div class="form-group">
-            <input type="text" class="form-control shadow" placeholder="Your full name" name="name" minlength="8" required>
+            <input type="text" class="form-control" placeholder="Your full name" name="name" minlength="8" required>
           </div>
           <div class="form-group">
-            <input type="email" class="form-control shadow email-input-class" placeholder="Your email address" name="email" required>
+            <input type="email" class="form-control email-input-class" placeholder="Your email address" name="email" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control shadow" placeholder="Your subject" name="subject" required>
+            <input type="text" class="form-control" placeholder="Your subject" name="subject" required>
+            <small class="text-info">Short and descriptive as possible</small>
           </div>
           <div class="form-group">
-            <textarea class="form-control shadow" name="message" rows="10" placeholder="Any Suggestions or comments?" maxlength="500"
+            <textarea class="form-control" name="message" rows="10" placeholder="Any Suggestions or comments?" maxlength="500"
               required></textarea>
             <small id="suggestionCount" class="text-muted">Maximum 500 characters</small>
           </div>

@@ -12,6 +12,7 @@ const { check, validationResult } = require('express-validator/check');
 const { mongoose } = require('./../db/mongoose');
 const { Post, findImgById } = require('./../models/Post');
 const { User } = require('./../models/User');
+const { Category } = require('./../models/Category');
 
 const uploadPath = path.join(__dirname, './../../public/uploads/');
 
@@ -49,12 +50,15 @@ router.get('/', (req, res) => {
 
 // GET /posts/add
 router.get('/add', authenticate, (req, res) => {
-  res.render('posts/add', {
-    showTitle: 'Add article',
-    layout: 'postsLayout',
-    user: req.user,
-    error: req.flash('error'),
-    success: req.flash('success')
+  Category.find().then(category => {
+    res.render('posts/add', {
+      showTitle: 'Add article',
+      layout: 'postsLayout',
+      user: req.user,
+      category,
+      error: req.flash('error'),
+      success: req.flash('success')
+    });
   });
 });
 
@@ -88,13 +92,15 @@ router.post('/add', authenticate, upload.single('image'),
     const content = body.content;
     const featured = body.featured;
     const image = req.file.filename;
+    const category = req.body.category;
 
     const newPost = new Post({
       title,
       content,
       image,
       userId,
-      featured
+      featured,
+      postCategoryId: category
     });
 
     newPost.save().then(post => {
@@ -122,11 +128,11 @@ router.get('/:id', (req, res) => {
           author
       });
     }).catch(err => {
-      req.flash('error', 'Unable to find author');
+      req.flash('error', 'Unable to find author!!!');
       return res.redirect(`/posts/${post.id}`);
     });
   }).catch(err => {
-    req.flash('error', 'Unable to find article');
+    req.flash('error', 'Unable to find article!!!');
     return res.redirect('/posts');
   });
 });
@@ -193,6 +199,8 @@ router.delete('/delete/:id', authenticate, (req, res) => {
           throw err;
         }
       });
+      req.flash('success', 'Deleted successfully');
+      return res.redirect('/posts');
     }
   }).catch(err => {
     req.flash('error', 'Unable to delete article!!!');

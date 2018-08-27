@@ -55,8 +55,10 @@ $('#inputImage').on('change', function() {
 
 // Preview post image before upload
 $('#previewImageContainer').hide();
+$('#image-name').hide()
 $('#inputImage').on('change', function() {
   $('#previewImageContainer').slideDown(300);
+  $('#image-name').slideDown(300);
   document.getElementById('#previewImage').src = window.URL.createObjectURL(
     this.files[0],
   );
@@ -73,6 +75,11 @@ $('textarea[name="message"]').on("input", function() {
     $('#suggestionCount').html(maxlength - currentLength + " characters left");
   }
 });
+
+// Chosen for category select
+$(".chosen-select").chosen({max_selected_options: 3}).change( function() {
+  console.log('Chosen value:', $(this).val());
+})
 
 // TinyMCE Init
 $(document).ready(function() {

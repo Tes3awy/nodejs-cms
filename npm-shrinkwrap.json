@@ -1247,6 +1247,11 @@
         }
       }
     },
+    "chosen-js": {
+      "version": "1.8.7",
+      "resolved": "https://registry.npmjs.org/chosen-js/-/chosen-js-1.8.7.tgz",
+      "integrity": "sha512-eVdrZJ2U5ISdObkgsi0od5vIJdLwq1P1Xa/Vj/mgxkMZf14DlgobfB6nrlFi3kW4kkvKLsKk4NDqZj1MU1DCpw=="
+    },
     "chownr": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/chownr/-/chownr-1.0.1.tgz",
