@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const _ = require('lodash');
-const swal = require('sweetalert2');
+// const swal = require('sweetalert2');
 
 const { check, validationResult } = require('express-validator/check');
 
@@ -33,7 +33,7 @@ const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
 router.get('/', (req, res) => {
-  Post.find().then(posts => {
+  Post.find().sort({featured: -1, createdAt: -1}).then(posts => {
     res.render('posts/posts', {
       showTitle: 'Articles',
       layout: 'postsLayout',
