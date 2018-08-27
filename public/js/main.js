@@ -112,23 +112,24 @@ $(document).ready(function() {
   var tinymceConfig = {
     selector: "textarea#tinymce",
     skins: 'vendor/tinymce/skins/lightgray',
+    theme: 'modern',
     plugins: [
-      "anchor autolink codesample colorpicker contextmenu fullscreen help",
+      "anchor autolink codesample colorpicker charactercount contextmenu fullscreen help",
       " lists link noneditable preview",
-      " searchreplace table textcolor wordcount print"
+      " searchreplace table textcolor print"
     ],
     toolbar:
-      "undo redo | bold italic | forecolor backcolor | codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+      "undo redo paste | bold italic | forecolor backcolor | codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+    paste_as_text: true,
+    paste_text_sticky_default: true,
+    paste_text_sticky: true,
+    paste_filter_drop: false,
     hidden_input: false,
     height: 300,
-    paste_as_text: true,
     browser_spellcheck: true,
     gecko_spellcheck: false,
     branding: false,
     elementpath: false,
-    // height: 200,
-    // width: 730,
-    paste_filter_drop: false,
     autosave_ask_before_unload: false,
     codesample_dialog_width: 600,
     codesample_dialog_height: 425,

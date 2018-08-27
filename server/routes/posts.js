@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
   if(req.session.views) {
     const views = req.session.views++
   }
-  Post.find().sort({ featured: -1, createdAt: -1 }).then(posts => {
+  Post.find().then(posts => {
     res.render('posts/posts', {
       showTitle: 'Articles',
       layout: 'postsLayout',
@@ -162,7 +162,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
 
     if(!req.file) {
       findImgById(id).then(dbImg => {
-        Post.findOneAndUpdate(id, { $set: { title, content, featured, dbImg, updatedAt } }, { new: true }).then(post => {
+        Post.findByIdAndUpdate(id, { $set: { title, content, featured, dbImg, updatedAt } }).then(post => {
           req.flash('success', 'Updated successfully');
           return res.redirect('/posts');
         }).catch(err => {
@@ -172,7 +172,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
       });
     } else {
       image = req.file.filename;
-      Post.findOneAndUpdate(id, { $set: { title, content, featured, image, updatedAt } }, { new: true }).then(post => {
+      Post.findByIdAndUpdate(id, { $set: { title, content, featured, image, updatedAt } }).then(post => {
         req.flash('success', 'Updated successfully');
         return res.redirect('/posts');
       }).catch(err => {
