@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const _ = require('lodash');
+const swal = require('sweetalert2');
 
 const { check, validationResult } = require('express-validator/check');
 
@@ -28,11 +29,9 @@ const upload = multer({
 });
 
 const authenticate = require('./../middlewares/authenticate');
+
 // GET /posts
 router.get('/', (req, res) => {
-  if(req.session.views) {
-    const views = req.session.views++
-  }
   Post.find().then(posts => {
     res.render('posts/posts', {
       showTitle: 'Articles',
@@ -186,14 +185,13 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
 // DELETE /post/delete (DELETE Edit post)
 router.delete('/delete/:id', authenticate, (req, res) => {
   const id = req.params.id;
+
   Post.findByIdAndRemove(id).then(post => {
     if(post) {
       fs.unlink(`${uploadPath}${post.image}`, (err) => {
         if(err) {
           throw err;
         }
-        req.flash('success', 'Article deleted');
-        return res.redirect('/posts');
       });
     }
   }).catch(err => {

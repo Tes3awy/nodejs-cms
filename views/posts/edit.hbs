@@ -5,6 +5,7 @@
       <h2 class="mb-0 d-inline-block">Update post</h2>
       <a class="btn btn-info float-right" href="/posts/{{post.id}}"><i class="fa fa-chevron-left pr-2"></i> Back</a>
       <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
+      {{!-- Error Handling --}}
       {{#if error}}
         {{#each error}}
           <div class="alert alert-danger alert-dismissible fade show" role="alert">

@@ -33,7 +33,6 @@ const logger = require('morgan');
 
 const _ = require('lodash');
 const moment = require('moment');
-const sanitizeHtml = require('sanitize-html');
 
 const keys = require('./../config/credentials');
 const publicPath = './../public';

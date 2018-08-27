@@ -1,12 +1,14 @@
 <div class="row">
   <div class="col-sm-8 mx-auto">
     <div class="post-container">
-      <div class="back-to-posts text mb-3">
+      {{!-- Back to /posts button --}}
+      <div class="back-to-posts text-right mb-3">
         <a class="btn btn-info" href="/posts">
           <i class="fas fa-chevron-left pr-2"></i> Back</a>
       </div>
       <div class="post-title">
         <h2 class="mb-3">{{{post.title}}}</h2>
+        {{!-- Post info --}}
         <div class="post-created text-right mb-3">
           <p class="text-right text-white mb-1">Published on {{getPrettyDate post.createdAt}}</p>
           <p class="text-info">{{#if post.updatedAt}}Last update: {{getPrettyDate post.updatedAt}}{{/if}}</p>
@@ -37,6 +39,7 @@
           </ul>
         </div>
       </div>
+      {{!-- Post content preview --}}
       <div class="post-body">
         <div class="post-image-container text-center my-3">
           <a href="/uploads/{{post.image}}" data-toggle="lightbox">
@@ -46,6 +49,7 @@
         <div class="post-body-content">
           {{{post.content}}}
         </div>
+        {{!-- Post actions if user exists --}}
         {{#if_eq post.userId user.id}}
           <div class="text-right mt-3">
             <div class="post-actions shadow">
@@ -61,6 +65,7 @@
           </div>
         {{/if_eq}}
         <hr>
+        {{!-- Comments section --}}
         <h2>Comments</h2>
         <hr class="bg-primary" style="max-width: 12%; margin-left: 0;">
         <section class="mb-3" id="disqus_thread"></section>

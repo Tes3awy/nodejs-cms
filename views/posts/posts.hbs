@@ -1,11 +1,12 @@
 
+{{!-- Add new Article Button if user exists --}}
 {{#if user}}
     <div class="text-right add-post-btn-container">
         <a class="btn btn-info" href="/posts/add" title="Add new post">
             <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new article</a>
     </div>
 {{/if}}
-
+{{!-- Success Messages --}}
 {{#if success}}
     <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
         {{!-- <i class="far fa-thumbs-up"></i> --}}
@@ -15,7 +16,7 @@
         </button>
     </div>
 {{/if}}
-
+{{!-- Error Handling --}}
 {{#if error}}
     <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
         <span><i class="fas fa-exclamation-triangle"></i> {{error}}</span>
@@ -41,11 +42,13 @@
                         </div>
                     {{/if}}
                     <ul class="posts-list">
+                        {{!-- Post image part (LHS) --}}
                         <li class="posts-list-item post-img">
                             <a href="/uploads/{{this.image}}" data-toggle="lightbox">
                                 <img class="post-image" src="/uploads/{{this.image}}" alt="{{this.title}}" title="{{this.title}}">
                             </a>
                         </li>
+                        {{!-- Post content part (RHS) --}}
                         <li class="posts-list-item post-desc">
                             <div class="desc">
                                 <h2 class="post-title text-dark">{{this.title}}</h2>
@@ -57,6 +60,7 @@
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 </p>
+                                {{!-- Post published date and comments count --}}
                                 <p class="d-inline-block text-muted mb-0"><i class="far fa-calendar-alt text-success"></i> {{getPrettyDate this.createdAt}} - </p>
                                 <p class="d-inline-block text-muted mb-0">
                                     <i class="text-info fas fa-comments comments"></i>
@@ -80,6 +84,7 @@
         {{/each}}
     </div>
 {{else}}
+    {{!-- No posts warning --}}
     <div class="row">
         <div class="col-sm-6 mx-auto">
             <h3 class="display-4 text-center text-danger">No articles were found!!!</h3>

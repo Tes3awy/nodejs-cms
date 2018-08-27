@@ -83,4 +83,4 @@ gulp.task('watch', () => {
   gulp.watch('public/sass/vendor/hamburgers/**', ['compile:ham']);
 });
 
-gulp.task('default', ['copy-js', 'copy-css', 'tinymce']);
+gulp.task('default', ['copy-js', 'copy-css']);

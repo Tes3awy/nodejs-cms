@@ -1,5 +1,5 @@
 var session = {
-  secret: 'thisisalocalsecretkeyfordrcegtest'
+  secret: 'thisisalocalsecretkeyfortes3awytest'
 };
 
 var verify = {
