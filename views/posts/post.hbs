@@ -1,18 +1,23 @@
+{{!-- Back to /posts button --}}
+<div class="back-to-posts text-right mb-3">
+  <a class="btn btn-info" href="/posts">
+    <i class="fas fa-chevron-left pr-2"></i> Back</a>
+</div>
 <div class="row">
-  <div class="col-sm-8 mx-auto">
+  <div class="col-sm-8">
     <div class="post-container">
-      {{!-- Back to /posts button --}}
-      <div class="back-to-posts text-right mb-3">
-        <a class="btn btn-info" href="/posts">
-          <i class="fas fa-chevron-left pr-2"></i> Back</a>
-      </div>
       <div class="post-title">
         <h2 class="mb-3">{{{post.title}}}</h2>
         {{!-- Post info --}}
         <div class="post-created text-right mb-3">
           <p class="text-right text-white mb-1">Published on {{getPrettyDate post.createdAt}}</p>
-          <p class="text-info">{{#if post.updatedAt}}Last update: {{getPrettyDate post.updatedAt}}{{/if}}</p>
-          {{#if author.name}}<p class="text-white mb-1"><span class="badge badge-pill badge-primary font-weight-normal py-1 px-2" style="line-height: 1.3;" title="Author">Written by: {{author.name}}</span></p>{{/if}}
+          <p class="text-info">
+            {{#if post.updatedAt}}Last update: {{getPrettyDate post.updatedAt}}{{/if}}
+          </p>
+          {{#if author.name}}
+            <p class="text-white mb-1"><span class="badge badge-pill badge-primary font-weight-normal py-1 px-2" style="line-height: 1.3;"
+                title="Author">Written by: {{author.name}}</span></p>
+          {{/if}}
         </div>
         {{!-- Social Media Shares --}}
         <div class="post-shares">
@@ -67,8 +72,7 @@
             </div>
           </div>
         {{/if_eq}}
-        <hr>
-        {{!-- Comments section --}}
+        <hr>{{!-- Comments section --}}
         <h2>Comments</h2>
         <hr class="bg-primary" style="max-width: 12%; margin-left: 0;">
         <section class="mb-3" id="disqus_thread"></section>
@@ -89,6 +93,24 @@
           <a href="https://disqus.com/?ref_noscript">comments powered by
             <a href="https://disqus.com/" target="_blank">Disqus</a>.</a>
         </noscript>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4 related-post-col">
+    <div class="related-section" id="perfectScrollbar">
+      <h2 class="text-info mb-3">Related articles</h2>
+      <div class="related-post">
+        <h2 class="related-post-title">Lorem, ipsum dolor.</h2>
+        <img class="related-post-img img-fluid" src="/images/pexels-photo-545331.jpeg" alt="Image">
+        <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium sed vel sapiente doloribus amet
+          vitae minima quos. Nulla, aliquid vel?</p>
+      </div>
+      <hr>
+      <div class="related-post">
+        <h2 class="related-post-title">Lorem, ipsum dolor.</h2>
+        <img class="related-post-img img-fluid" src="/images/pexels-photo-545331.jpeg" alt="Image">
+        <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium sed vel sapiente doloribus amet
+          vitae minima quos. Nulla, aliquid vel?</p>
       </div>
     </div>
   </div>

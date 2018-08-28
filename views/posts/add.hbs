@@ -2,8 +2,7 @@
     <div class="col-sm-8 mx-auto">
         <form action="/posts/add" method="POST" enctype="multipart/form-data" runat="server">
             <h2 class="mb-0">Add new article</h2>
-            <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
-            {{!-- Error Handling --}}
+            <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">{{!-- Error Handling --}}
             <div class="text-right">
                 <a class="btn btn-info" href="/posts"><i class="fa fa-chevron-left pr-2"></i> Go Back</a>
             </div>
@@ -32,17 +31,24 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <select name="tag" class="form-control chosen-select" data-placeholder="Choose your article's tags..." multiple>
-                        {{#each tag}}
-                            <option value="{{tag}}">{{tag}}</option>
-                        {{/each}}
-                    </select>
-                    <small class="text-muted">You can choose up to five tags</small>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select name="tag" class="form-control chosen-select" data-placeholder="Choose your article's tags..." multiple>
+                                {{#each tag}}
+                                    <option value="{{tag}}">{{tag}}</option>
+                                {{/each}}
+                            </select>
+                            <div class="input-group-prepend">
+                                <a class="btn btn-info btn-sm" href="/tag/add">or add your own tags</a>
+                            </div>
+                        </div>
+                        <small class="text-muted">You can choose up to five tags</small>
+                    </div>
                 </div>
             </div>
             {{!-- Title --}}
             <div class="form-group">
-                <input class="form-control post-comp" type="text" name="title" placeholder="Article title" minlength="10" required>
+                <input class="form-control post-comp" type="text" name="title" placeholder="Article title" minlength="10" required autofocus>
                 <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more</small>
             </div>
             {{!-- TinyMCE Textarea --}}

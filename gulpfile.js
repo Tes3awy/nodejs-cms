@@ -20,7 +20,7 @@ const postcss = require('gulp-postcss');
 // });
 
 gulp.task('autoprefix', () => {
-  let plugins = [autoprefixer({ browsers: ['last 2 versions'], cascade: true })];
+  let plugins = [autoprefixer({ browsers: ['last 20 versions'], cascade: true })];
   return gulp
     .src(['public/css/main.css', 'public/css/ribbon.css'])
     .pipe(postcss(plugins))
@@ -55,7 +55,8 @@ gulp.task('copy-js', () => {
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js.map',
       // 'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
-      'node_modules/chosen-js/chosen.jquery.min.js'
+      'node_modules/chosen-js/chosen.jquery.min.js',
+      'node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js'
     ])
     .pipe(gulp.dest('public/js'));
 });
@@ -72,6 +73,7 @@ gulp.task('copy-css', () => {
     .src([
       // 'node_modules/chosen-js/chosen.min.css',
       // 'node_modules/chosen-js/chosen-sprite.png'
+      'node_modules/perfect-scrollbar/css/perfect-scrollbar.css'
     ])
     .pipe(gulp.dest('public/css'));
 });
