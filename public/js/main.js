@@ -78,11 +78,13 @@ $(".chosen-select").chosen({max_selected_options: 5}).change( function() {
 });
 
 // Perfect Scrollbar Init
-const ps = new PerfectScrollbar('#perfectScrollbar', {
-  wheelSpeed: 0.5,
-  wheelPropagation: false,
-  maxScrollbarLength : 50
-});
+if($("#perfectScrollbar").length > 0) {
+  const ps = new PerfectScrollbar('#perfectScrollbar', {
+    wheelSpeed: 0.5,
+    wheelPropagation: false,
+    maxScrollbarLength : 50
+  });
+}
 
 $(document).ready(function() {
   // TinyMCE Init
@@ -91,16 +93,19 @@ $(document).ready(function() {
     skins: 'vendor/tinymce/skins/lightgray',
     theme: 'modern',
     plugins: [
-      "anchor autolink codesample colorpicker charactercount contextmenu fullscreen help",
+      "anchor autolink codesample spellchecker colorpicker charactercount contextmenu fullscreen help",
       " lists link noneditable preview",
       " searchreplace table textcolor print"
     ],
     toolbar:
-      "undo redo | bold italic | forecolor backcolor | codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+      "undo redo | bold italic | forecolor backcolor | codesample | spellchecker | alignleft aligncenter alignright alignjustify | bullist numlist | link",
     paste_as_text: true,
+    paste_data_images: false,
+    paste_enable_default_filters: true,
     paste_text_sticky_default: true,
     paste_text_sticky: true,
     paste_filter_drop: false,
+    element_format : 'html',
     hidden_input: false,
     height: 300,
     browser_spellcheck: true,
@@ -110,6 +115,10 @@ $(document).ready(function() {
     autosave_ask_before_unload: false,
     codesample_dialog_width: 600,
     codesample_dialog_height: 425,
+    table_responsive_width: true,
+    // table_class_list: [
+    //   {title: 'table', value: 'table; table-light; table-bordered; table-striped; text-dark'}
+    // ]
   };
   tinymce.init(tinymceConfig);
 
