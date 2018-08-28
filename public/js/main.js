@@ -75,7 +75,14 @@ $('textarea[name="message"]').on("input", function() {
 // Chosen for category select
 $(".chosen-select").chosen({max_selected_options: 5}).change( function() {
   console.log('Chosen value:', $(this).val());
-})
+});
+
+// Perfect Scrollbar Init
+const ps = new PerfectScrollbar('#perfectScrollbar', {
+  wheelSpeed: 0.5,
+  wheelPropagation: false,
+  maxScrollbarLength : 50
+});
 
 $(document).ready(function() {
   // TinyMCE Init
