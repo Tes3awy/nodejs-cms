@@ -25,7 +25,8 @@
   background: #6f42c1;
   background-color: linear-gradient(#6f42c1 0%, #6f42c1 100%);
   -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
   -webkit-box-shadow: 0 3px 15px -5px rgba(0, 0, 0, 1);
           box-shadow: 0 3px 15px -5px rgba(0, 0, 0, 1);
 }
