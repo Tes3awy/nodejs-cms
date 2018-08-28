@@ -5,12 +5,11 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     trim: true
   },
   gravatar: {
-    type: String,
-    required: true,
-    trim: true
+    type: String
   },
   name: {
     type: String,
@@ -20,6 +19,14 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  bio: {
+    type: String,
+    trim: true
+  },
+  job: {
+    type: String,
+    trim: true
   },
   verified: {
     type: Boolean,

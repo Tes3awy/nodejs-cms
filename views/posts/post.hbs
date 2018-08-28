@@ -49,6 +49,9 @@
         <div class="post-body-content">
           {{{post.content}}}
         </div>
+        {{#each post.postTag}}
+          <a href="javascript:;" class="badge badge-primary px-2 py-1 font-weight-light" style="line-height: 1.2;">{{this}}</a>
+        {{/each}}
         {{!-- Post actions if user exists --}}
         {{#if_eq post.userId user.id}}
           <div class="text-right mt-3">

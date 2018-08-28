@@ -22,6 +22,7 @@ const routes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const postsRoutes = require('./routes/posts');
+const tagsRoutes = require('./routes/tag');
 
 const methodOverride = require('method-override');
 
@@ -64,8 +65,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Flash Middleware
 app.use(flash());
-// Morgan Middleware
-app.use(logger('dev'));
 // Global Vars
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
@@ -73,6 +72,8 @@ app.use((req, res, next) => {
   // res.locals.error = req.flash('error');
   next();
 });
+// Morgan Middleware
+app.use(logger('dev'));
 // HBS View Engine Template
 app.engine('hbs', hbs({
     defaultLayout: 'main',
@@ -112,6 +113,7 @@ app.use('/', routes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/posts', postsRoutes);
+app.use('/tag', tagsRoutes);
 
 // Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {

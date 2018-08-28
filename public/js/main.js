@@ -26,10 +26,6 @@ $('.navbar-toggler').on('click', function() {
   });
 });
 
-// Post Like `Button-like` feature
-$('.post-tag').one('click', function(e) {
-});
-
 // Count Characters in `Add Post` page
 $('.post-comp').on('input keyup', function() {
   var charsCount = $(this)
@@ -77,12 +73,12 @@ $('textarea[name="message"]').on("input", function() {
 });
 
 // Chosen for category select
-$(".chosen-select").chosen({max_selected_options: 3}).change( function() {
+$(".chosen-select").chosen({max_selected_options: 5}).change( function() {
   console.log('Chosen value:', $(this).val());
 })
 
-// TinyMCE Init
 $(document).ready(function() {
+  // TinyMCE Init
   var tinymceConfig = {
     selector: "textarea#tinymce",
     skins: 'vendor/tinymce/skins/lightgray',
@@ -109,4 +105,14 @@ $(document).ready(function() {
     codesample_dialog_height: 425,
   };
   tinymce.init(tinymceConfig);
+
+  // DataTables
+  if($("#dataTable").length > 0) {
+    $('#dataTable').DataTable({
+      stateSave: true,
+      rowReorder: true,
+      fixedHeader: true,
+      responsive: true
+    });
+  };
 });

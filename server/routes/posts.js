@@ -12,7 +12,7 @@ const { check, validationResult } = require('express-validator/check');
 const { mongoose } = require('./../db/mongoose');
 const { Post, findImgById } = require('./../models/Post');
 const { User } = require('./../models/User');
-const { Category } = require('./../models/Category');
+const { Tag } = require('./../models/Tag');
 
 const uploadPath = path.join(__dirname, './../../public/uploads/');
 
@@ -50,12 +50,12 @@ router.get('/', (req, res) => {
 
 // GET /posts/add
 router.get('/add', authenticate, (req, res) => {
-  Category.find().then(category => {
+  Tag.find().then(tag => {
     res.render('posts/add', {
       showTitle: 'Add article',
       layout: 'postsLayout',
       user: req.user,
-      category,
+      tag,
       error: req.flash('error'),
       success: req.flash('success')
     });
@@ -92,7 +92,7 @@ router.post('/add', authenticate, upload.single('image'),
     const content = body.content;
     const featured = body.featured;
     const image = req.file.filename;
-    const category = req.body.category;
+    const tag = body.tag;
 
     const newPost = new Post({
       title,
@@ -100,7 +100,7 @@ router.post('/add', authenticate, upload.single('image'),
       image,
       userId,
       featured,
-      postCategoryId: category
+      postTag: tag
     });
 
     newPost.save().then(post => {

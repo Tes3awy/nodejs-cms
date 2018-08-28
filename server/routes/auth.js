@@ -121,7 +121,7 @@ router.post('/register', [
       from: '"Tes official website" <oabbas@vm.com.eg>', //sender address
       to: `${email}`, // list of receivers
       subject: 'Please verify your email account', //subject line
-      html: `Hello ${name},<br> Please click on the link to verify your email address.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
+      html: `Hello ${name},<br> Please click on the link to verify your account.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
     };
 
     // send mail with defined transport object
