@@ -57,7 +57,7 @@
         {{#if post.postTag}}
         <i class="fas fa-tags" style="vertical-align: middle;" title="Tags"></i>
           {{#each post.postTag}}
-            <a href="javascript:;" class="badge badge-primary px-2 py-1 font-weight-light" style="line-height: 1.2;" title="{{this}}">{{this}}</a>
+            <a href="javascript:;" class="badge badge-primary px-2 py-1 font-weight-light" style="line-height: 1.2;" title="{{capitalize this}}">{{capitalize this}}</a>
           {{/each}}
         {{/if}}
         {{!-- Post actions if user exists --}}

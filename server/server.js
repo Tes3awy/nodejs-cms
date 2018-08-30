@@ -93,6 +93,9 @@ app.engine('hbs', hbs({
       truncateText(text) {
         return _.truncate(text, { length: 250 });
       },
+      capitalize(text) {
+        return _.capitalize(text);
+      },
       if_eq(a, b, opts) {
         if(a === b) {
           return opts.fn(this);

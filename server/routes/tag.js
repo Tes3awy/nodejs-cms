@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const _ = require('lodash');
+
 const { mongoose } = require('./../db/mongoose');
 const { Tag } = require('./../models/Tag');
 
@@ -12,18 +14,23 @@ router.get('/add', authenticate, (req, res) => {
       showTitle: 'Add Tag',
       tag,
       success: req.flash('success'),
+      error: req.flash('error')
     });
   });
 });
 
 router.post('/add', (req, res) => {
-  const tag = req.body.tagName;
+  const tag = _.toLower(req.body.tagName);
   const newTag = new Tag({
     tag
   });
-  newTag.save();
-  req.flash('success', 'Tag added');
-  return res.redirect('/tag/add');
+  newTag.save().then(tag => {
+    req.flash('success', 'Tag added');
+    return res.redirect('/tag/add');
+  }).catch(err => {
+    req.flash('error', 'Tag already exists');
+    return res.redirect('/tag/add');
+  });
 });
 
 module.exports = router;

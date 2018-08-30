@@ -133,4 +133,9 @@ $(document).ready(function() {
       responsive: true
     });
   };
+
+  // Auto hide alerts
+  $(".alert").fadeTo(3000, 500).slideUp(500, function(){
+    $(this).slideUp(500);
+  });
 });

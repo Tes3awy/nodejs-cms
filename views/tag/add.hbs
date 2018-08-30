@@ -1,13 +1,23 @@
 <h2 class="mb-3">Add tag</h2>
 <div class="row">
     <div class="col-sm-6">
-        <form action="/tag/add" method="POST">
+        <form action="" method="POST">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
+                        {{!-- Error Handling --}}
+                        {{#if error}}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span><i class="fas fa-exclamation-triangle pr-1"></i> {{error}}</span>
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                        {{/if}}
+                        {{!-- Success Message --}}
                         {{#if success}}
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <span>{{success}}</span>
+                                <span><i class="far fa-thumbs-up pr-1"></i> {{success}}</span>
                                 <button type="button" class="close" data-dismiss="alert">
                                     <span>&times;</span>
                                 </button>
@@ -36,7 +46,7 @@
                     {{#if tag}}
                         {{#each tag}}
                             <tr scope="row">
-                                <td>{{this.tag}}</td>
+                                <td>{{capitalize this.tag}}</td>
                             </tr>
                         {{/each}}
                     {{/if}}
