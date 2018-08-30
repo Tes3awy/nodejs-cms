@@ -73,7 +73,7 @@ $('textarea[name="message"]').on("input", function() {
 });
 
 // Chosen for category select
-$(".chosen-select").chosen({max_selected_options: 5}).change( function() {
+$(".chosen-select").chosen({max_selected_options: 3}).change( function() {
   console.log('Chosen value:', $(this).val());
 });
 
@@ -92,14 +92,16 @@ $(document).ready(function() {
     selector: "textarea#tinymce",
     skins: 'vendor/tinymce/skins/lightgray',
     theme: 'modern',
+    toolbar:
+      "undo redo | bold italic | forecolor backcolor | codesample | spellchecker | alignleft aligncenter alignright alignjustify | bullist numlist | link",
     plugins: [
       "anchor autolink codesample spellchecker colorpicker charactercount contextmenu fullscreen help",
       " lists link noneditable preview",
       " searchreplace table textcolor print"
     ],
-    toolbar:
-      "undo redo | bold italic | forecolor backcolor | codesample | spellchecker | alignleft aligncenter alignright alignjustify | bullist numlist | link",
     paste_as_text: true,
+    language: 'en',
+    directionality: 'ltr',
     paste_data_images: false,
     paste_enable_default_filters: true,
     paste_text_sticky_default: true,
