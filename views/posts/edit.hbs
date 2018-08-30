@@ -19,19 +19,40 @@
 
       {{#if post}}
         {{!-- Check Featured article or not --}}
-        <div class="form-group">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
-            <label class="form-check-label" for="featured">Featured article</label>
+        <div class="row my-2">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
+                <label class="form-check-label" for="featured">Featured article</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked required>
+                <label class="form-check-label" for="notFeatured">Not</label>
+              </div>
+            </div>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" required>
-            <label class="form-check-label" for="notFeatured">Not</label>
+          {{!-- Select Tags for Article --}}
+          <div class="col-sm-6">
+            <div class="form-group">
+              <div class="input-group">
+                <select name="tag" class="form-control chosen-select" data-placeholder="Choose your article's tags..." multiple>
+                  {{#each tag}}
+                    <option value="{{tag}}">{{tag}}</option>
+                  {{/each}}
+                </select>
+                <div class="input-group-prepend">
+                  <a class="btn btn-info btn-sm" href="/tag/add">or add your own tags</a>
+                </div>
+              </div>
+              <small class="text-muted">You can choose up to <span class="text-success">three</span> tags</small>
+            </div>
           </div>
         </div>
         {{!-- Title --}}
         <div class="form-group">
-          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{post.title}}" autofocus>
+          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{post.title}}"
+            autofocus>
           <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more</small>
         </div>
         {{!-- TinyMCE Textarea --}}

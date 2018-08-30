@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/fh-3.1.4/r-2.2.2/rr-1.2.4/datatables.min.css">
 {{!-- Perfect Scrollbar CSS --}}
 <link rel="stylesheet" href="/css/perfect-scrollbar.css">
+{{!-- Prism CSS --}}
+<link rel="stylesheet" href="/css/prism.css">
 {{!-- Custom CSS --}}
 <link rel="stylesheet" href="/css/main.css">
 {{!-- Chart JS --}}
@@ -29,3 +31,12 @@
 <script src='/js/vendor/tinymce/tinymce.min.js?apiKey=ra300emlgjlf29l3mqlayily2m0p6szeo4n4tyss110pvk19'></script>
 {{!-- SweetAlert Polyfill for Promises --}}
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+{{!-- Google Analytics Embed API Lib --}}
+<script>
+(function(w,d,s,g,js,fs){
+  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+  js.src='https://apis.google.com/js/platform.js';
+  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+}(window,document,'script'));
+</script>

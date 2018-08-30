@@ -48,15 +48,18 @@
       <div class="post-body">
         <div class="post-image-container text-center my-3">
           <a href="/uploads/{{post.image}}" data-toggle="lightbox">
-            <img class="img-fluid" src="/uploads/{{post.image}}" alt="{{post.title}} Image" title="{{post.title}} Image">
+            <img class="img-fluid" src="/uploads/{{post.image}}" alt="{{post.title}}" title="{{post.title}}">
           </a>
         </div>
         <div class="post-body-content">
           {{{post.content}}}
         </div>
-        {{#each post.postTag}}
-          <a href="javascript:;" class="badge badge-primary px-2 py-1 font-weight-light" style="line-height: 1.2;">{{this}}</a>
-        {{/each}}
+        {{#if post.postTag}}
+        <i class="fas fa-tags" style="vertical-align: middle;" title="Tags"></i>
+          {{#each post.postTag}}
+            <a href="javascript:;" class="badge badge-primary px-2 py-1 font-weight-light" style="line-height: 1.2;" title="{{this}}">{{this}}</a>
+          {{/each}}
+        {{/if}}
         {{!-- Post actions if user exists --}}
         {{#if_eq post.userId user.id}}
           <div class="text-right mt-3">
