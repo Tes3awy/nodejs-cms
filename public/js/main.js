@@ -86,6 +86,11 @@ if($("#perfectScrollbar").length > 0) {
   });
 }
 
+// Disable Context menu on Images
+$("img").on("contextmenu", function() {
+  return false;
+});
+
 $(document).ready(function() {
   // TinyMCE Init
   var tinymceConfig = {
