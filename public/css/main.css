@@ -1,6 +1,6 @@
 /* Main CSS File */
 body {
-  font-size: 75%;
+  /* font-size: 75%; */
   height: 100%;
   width: 100%;
 }
@@ -157,11 +157,6 @@ input[type='file'] {
 
 .add-post-btn-container {
   margin-bottom: 30px;
-}
-
-.custom-file-label,
-.custom-file-label:after {
-  line-height: 2;
 }
 
 .custom-file-label:after {
@@ -338,7 +333,7 @@ i.fa-chevron-right {
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
-  line-height: 3.5;
+  /* line-height: 3.5; */
 }
 
 @media (max-width: 768px) {
