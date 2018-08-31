@@ -22,20 +22,9 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <div id="map" style="height: 100%;"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGUeK-GV2rwEAMBvi_jPlyzo1ij-OBaX0&callback=initMap"
-    async defer></script>
-  </div>
+  {{!-- <div class="col-md-6">
+    <iframe src="https://embed.waze.com/iframe?zoom=14&lat=30.09487805547881&lon=31.378087998018604" width="600" height="450" allowfullscreen>
+  </div> --}}
   <div class="col-md-6">
     <div class="card border-0 shadow contact-form-card">
       <div class="card-body">

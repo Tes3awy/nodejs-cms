@@ -138,4 +138,31 @@ $(document).ready(function() {
   $(".alert").fadeTo(3000, 500).slideUp(500, function(){
     $(this).slideUp(500);
   });
+
+  // Delete Account confirm box
+  // $("#deleteAccount").on('submit', function(e) {
+  //   e.preventDefault();
+  //   swal({
+  //     title: 'Are you sure?',
+  //     text: "You won't be able to revert action!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#17a2b8',
+  //     cancelButtonColor: '#dc3545',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((res) => {
+  //     if (res.value) {
+  //       return swal(
+  //         'Deleted!',
+  //         'Your file has been deleted.',
+  //         'success'
+  //       );
+  //     }
+  //     swal(
+  //       'Cancelled',
+  //       'Your account is safe :)',
+  //       'error'
+  //     );
+  //   });
+  // });
 });

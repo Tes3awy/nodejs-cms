@@ -204,7 +204,7 @@ input[type='file'] {
   position: -webkit-sticky;
   position: sticky;
   top: 20px;
-  max-height: 280px;
+  max-height: 500px;
   overflow-y: scroll;
 }
 
@@ -258,6 +258,47 @@ i.fa-chevron-right {
 
 .modal-dialog, .modal-title {
   color: #495057;
+}
+
+/* Profile Page */
+.nav-tabs {
+  border: 0;
+  margin-bottom: .8rem;
+}
+
+.nav-tabs .nav-item:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.nav-tabs .nav-link {
+  border: 0;
+  padding: 0;
+  color: #495057;
+}
+
+.nav-tabs .nav-link.active {
+  color: #6f42c1;
+}
+
+.profile-img-container {
+  position: relative;
+}
+
+.verified-badge {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  width: 8%;
+  height: 8%;
+}
+
+.profile-info-list {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.profile-info-list-item:not(:last-child) {
+  margin-bottom: .8rem;
 }
 
 /* About Page */

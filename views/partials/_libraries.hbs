@@ -11,33 +11,14 @@
 {{!-- Disqus for viewing comments count --}}
 <script id="dsq-count-scr" src="//tes9.disqus.com/count.js" async></script>
 <script id="dsq-count-scr" src="//tes9.disqus.com/count.js" async></script>
-{{!-- Cookie Consent --}}
-{{#unless req.user}}
-<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-<script>
-  window.addEventListener("load", function () {
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#efefef",
-          "text": "#404040"
-        },
-        "button": {
-          "background": "transparent",
-          "border": "#6f42c1",
-          "text": "#6f42c1"
-        }
-      }
-    });
-  });
-</script>
-{{/unless}}
 {{!-- SweetAlert Polyfill CDN --}}
 {{!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> --}}
+{{!-- SweetAlert2 --}}
+<script src="/js/sweetalert2.all.min.js"></script>
 {{!-- DataTables CDN --}}
 <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fh-3.1.4/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
 {{!-- Polyfill CDN --}}
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+{{!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> --}}
 {{!-- Chosen JS --}}
 <script src="/js/chosen.jquery.min.js"></script>
 {{!-- Prism JS --}}

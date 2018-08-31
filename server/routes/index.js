@@ -37,8 +37,8 @@ router.get('/', (req, res) => {
       showTitle: 'Home page',
       posts,
       users,
-      baseUrl: req.baseUrl,
-      user: req.user
+      user: req.user,
+      leaving: req.flash('warning')
     });
   });
 });

@@ -196,7 +196,7 @@ router.delete('/delete/:id', authenticate, (req, res) => {
     if(post) {
       fs.unlink(`${uploadPath}${post.image}`, (err) => {
         if(err) {
-          throw err;
+          return req.flash('error', `${err}`);
         }
       });
       req.flash('success', 'Deleted successfully');
