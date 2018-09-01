@@ -11,7 +11,9 @@
 {{!-- Disqus for viewing comments count --}}
 <script id="dsq-count-scr" src="//tes9.disqus.com/count.js" async></script>
 <script>
-  DISQUSWIDGETS.getCount({reset: true});
+  $(document).ready( function() {
+    DISQUSWIDGETS.getCount({reset: true});
+  });
 </script>
 {{!-- SweetAlert Polyfill CDN --}}
 {{!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> --}}
