@@ -20,7 +20,7 @@
       {{#if post}}
         {{!-- Check Featured post or not --}}
         <div class="row my-2">
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <div class="form-group">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
@@ -33,10 +33,10 @@
             </div>
           </div>
           {{!-- Select Tags for post --}}
-          <div class="col-sm-6">
-            <div class="form-group">
-              <div class="input-group">
-                <select name="tag" class="form-control chosen-select" data-placeholder="Choose your posts's tags..." multiple>
+          <div class="col-sm-8">
+            <div class="form-group text-center">
+              <div class="input-group d-flex justify-content-end">
+                <select name="tag" class="w-50 chosen-select" data-placeholder="Choose your posts's tags..." multiple>
                   {{#each tag}}
                     <option value="{{tag}}">{{tag}}</option>
                   {{/each}}
@@ -51,9 +51,8 @@
         </div>
         {{!-- Title --}}
         <div class="form-group">
-          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{post.title}}"
-            autofocus>
-          <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more</small>
+          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{post.title}}" autofocus readonly>
+          {{!-- <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more</small> --}}
         </div>
         {{!-- TinyMCE Textarea --}}
         <div class="form-group">
