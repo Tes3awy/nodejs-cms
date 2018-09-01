@@ -35,7 +35,7 @@ const authenticate = require('./../middlewares/authenticate');
 router.get('/', (req, res) => {
   Post.find().sort({featured: -1, createdAt: -1}).then(posts => {
     res.render('posts/posts', {
-      showTitle: 'Articles',
+      showTitle: 'Posts',
       layout: 'postsLayout',
       user: req.user,
       posts,
@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
       success: req.flash('success')
     });
   }).catch(err => {
-    req.flash('error', 'Unable to fetch articles!!!');
+    req.flash('error', 'Unable to fetch posts!!!');
     return res.redirect('/posts');
   });
 });
@@ -52,7 +52,7 @@ router.get('/', (req, res) => {
 router.get('/add', authenticate, (req, res) => {
   Tag.find().then(tag => {
     res.render('posts/add', {
-      showTitle: 'Add article',
+      showTitle: 'Add post',
       layout: 'postsLayout',
       user: req.user,
       tag,
@@ -72,7 +72,7 @@ router.post('/add', authenticate, upload.single('image'),
     check('content')
       .isLength({ min: 300 })
       .trim()
-      .withMessage('Article cannot be less than 300 characters')
+      .withMessage('Post content cannot be less than 300 characters')
   ], (req, res) => {
     let errors = validationResult(req);
 
@@ -104,11 +104,11 @@ router.post('/add', authenticate, upload.single('image'),
     });
 
     newPost.save().then(post => {
-      req.flash('success', 'Added article successfully');
+      req.flash('success', 'Added post successfully');
       return res.redirect('/posts');
     })
     .catch(err => {
-      req.flash('error', 'Unable to add article into database!!!');
+      req.flash('error', 'Unable to add post into database!!!');
       return res.redirect('/posts');
     });
   }
@@ -132,7 +132,7 @@ router.get('/:id', (req, res) => {
       return res.redirect(`/posts/${post.id}`);
     });
   }).catch(err => {
-    req.flash('error', 'Unable to find article!!!');
+    req.flash('error', 'Unable to find post!!!');
     return res.redirect('/posts');
   });
 });
@@ -148,7 +148,7 @@ router.get('/edit/:id', authenticate, (req, res) => {
         post
     });
   }).catch(err => {
-    req.flash('error', 'Unable to find article to edit!!!');
+    req.flash('error', 'Unable to find post to edit!!!');
     return res.redirect('/posts');
   });
 });
@@ -171,7 +171,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
           req.flash('success', 'Updated successfully');
           return res.redirect('/posts');
         }).catch(err => {
-          req.flash('error', 'Unable to update article!!!');
+          req.flash('error', 'Unable to update post!!!');
           return res.redirect('/posts');
         });
       });
@@ -181,7 +181,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
         req.flash('success', 'Updated successfully');
         return res.redirect('/posts');
       }).catch(err => {
-        req.flash('error', 'Unable to update article!!!');
+        req.flash('error', 'Unable to update post!!!');
         return res.redirect('/posts');
       });
     }
@@ -203,7 +203,7 @@ router.delete('/delete/:id', authenticate, (req, res) => {
       return res.redirect('/posts');
     }
   }).catch(err => {
-    req.flash('error', 'Unable to delete article!!!');
+    req.flash('error', 'Unable to delete post!!!');
     return res.redirect('/posts');
   });
 });

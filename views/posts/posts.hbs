@@ -1,9 +1,9 @@
 
-{{!-- Add new Article Button if user exists --}}
+{{!-- Add new post Button if user exists --}}
 {{#if user}}
     <div class="text-right add-post-btn-container">
         <a class="btn btn-info" href="/posts/add" title="Add new post">
-            <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new article</a>
+            <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
     </div>
 {{/if}}
 {{!-- Success Messages --}}
@@ -25,7 +25,7 @@
     </div>
 {{/if}}
 
-<h1 class="mb-3">Articles</h1>
+<h1 class="mb-3">Posts</h1>
 
 {{#if posts}}
     <div class="row">
@@ -86,7 +86,7 @@
     {{!-- No posts warning --}}
     <div class="row">
         <div class="col-sm-6 mx-auto">
-            <h3 class="display-4 text-center text-danger">No articles were found!!!</h3>
+            <h3 class="display-4 text-center text-danger">No posts were found!!!</h3>
         </div>
     </div>
 {{/if}}

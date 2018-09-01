@@ -12,6 +12,7 @@
   "author": "Osama Abbas <oabbas2512@gmail.com> (https://tes3awy.github.io/)",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.2",

@@ -4,13 +4,19 @@ const router = express.Router();
 const { mongoose } = require('./../db/mongoose');
 const { User } = require('./../models/User');
 
+const { LookIP } = require('./../middlewares/geolocation');
+
 const authenticate = require('./../middlewares/authenticate');
 
 // GET user/profile
 router.get('/profile', authenticate, (req, res) => {
-  res.render('user/profile', {
-    showTitle: 'Profile page',
-    user: req.user
+  LookIP.then(ip => {
+    res.render('user/profile', {
+      showTitle: 'Profile page',
+      user: req.user,
+      location: LookIP,
+      location: ip.data
+    });
   });
 });
 

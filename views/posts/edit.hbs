@@ -18,13 +18,13 @@
       {{/if}}
 
       {{#if post}}
-        {{!-- Check Featured article or not --}}
+        {{!-- Check Featured post or not --}}
         <div class="row my-2">
           <div class="col-sm-6">
             <div class="form-group">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
-                <label class="form-check-label" for="featured">Featured article</label>
+                <label class="form-check-label" for="featured">Featured post</label>
               </div>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked required>
@@ -32,11 +32,11 @@
               </div>
             </div>
           </div>
-          {{!-- Select Tags for Article --}}
+          {{!-- Select Tags for post --}}
           <div class="col-sm-6">
             <div class="form-group">
               <div class="input-group">
-                <select name="tag" class="form-control chosen-select" data-placeholder="Choose your article's tags..." multiple>
+                <select name="tag" class="form-control chosen-select" data-placeholder="Choose your posts's tags..." multiple>
                   {{#each tag}}
                     <option value="{{tag}}">{{tag}}</option>
                   {{/each}}
@@ -66,7 +66,7 @@
           <div class="input-group">
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image">
-              <label class="custom-file-label" for="inputImage">Choose article image</label>
+              <label class="custom-file-label" for="inputImage">Choose post's image</label>
             </div>
           </div>
         </div>
