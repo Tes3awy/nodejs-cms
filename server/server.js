@@ -90,7 +90,7 @@ app.engine('hbs', hbs({
         return moment().format('MMMM Do YYYY');
       },
       truncateText(text) {
-        return _.truncate(text, { length: 250 });
+        return _.truncate(text, { length: 300 });
       },
       capitalize(text) {
         return _.capitalize(text);

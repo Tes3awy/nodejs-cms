@@ -100,7 +100,7 @@ $(document).ready(function() {
     toolbar:
       "undo redo | bold italic | forecolor backcolor | codesample | spellchecker | alignleft aligncenter alignright alignjustify | bullist numlist | link",
     plugins: [
-      "anchor autolink codesample spellchecker colorpicker charactercount contextmenu fullscreen help",
+      "anchor autolink codesample spellchecker colorpicker charactercount contextmenu code",
       " lists link noneditable preview",
       " searchreplace table textcolor print"
     ],

@@ -51,14 +51,15 @@
                         <li class="posts-list-item post-desc">
                             <div class="desc">
                                 <h2 class="post-title text-dark">{{this.title}}</h2>
+                                {{!-- <small>{{this.userId}}</small> --}}
                                 <div class="text-dark">
                                     {{{truncateText this.content}}}
                                 </div>
-                                <p class="text-right my-2">
+                                <div class="text-right my-2">
                                     <a class="btn btn-secondary" href="/posts/{{this.id}}">Read more
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
-                                </p>
+                                </div>
                                 {{!-- Post published date and comments count --}}
                                 <p class="d-inline-block text-muted mb-0"><i class="far fa-calendar-alt text-success"></i> {{getPrettyDate this.createdAt}} - </p>
                                 <p class="d-inline-block text-muted mb-0">
