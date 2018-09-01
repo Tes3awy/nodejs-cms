@@ -1,10 +1,10 @@
 {
   "name": "login-test",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Advanced Node.js CMS based web application",
   "main": "server/server.js",
   "scripts": {
-    "start": "set NODE_ENV=development && nodemon server/server.js || export NODE_ENV=developemt && nodemon server/server.js",
+    "start": "set NODE_ENV=development && nodemon server/server.js || export NODE_ENV=development && nodemon server/server.js",
     "test": "snyk test",
     "build": "webpack --config webpack.config.js --watch"
   },
