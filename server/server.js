@@ -6,7 +6,6 @@ const app = express();
 const compression = require('compression');
 
 const { mongoose } = require('./db/mongoose');
-const { User } = require('./models/User');
 
 const session = require('express-session');
 
@@ -121,6 +120,7 @@ app.use('/tag', tagsRoutes);
 // Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server started on port ${port}`);
+  console.log(`${process.env.NODE_ENV}environment`);
 });
 
 module.exports = app;
