@@ -349,6 +349,10 @@ i.fa-chevron-right {
     margin-bottom: 2px;
     margin-right: 0;
   }
+  /* .navbar-menu .nav-item:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 5px;
+  } */
   .nav-name {
     padding-left: 15px;
     padding-right: 15px;
