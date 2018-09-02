@@ -1,11 +1,12 @@
+// Required Modules
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
 const wait = require('gulp-wait');
 const rename = require('gulp-rename');
+const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
-const postcss = require('gulp-postcss');
 
 // gulp.task('compile:sass', () => {
 //   let plugins = [autoprefixer({ browsers: ['last 2 versions'] }), cssnano()];
@@ -19,12 +20,14 @@ const postcss = require('gulp-postcss');
 //     .pipe(gulp.dest('public/css'));
 // });
 
+// Autoprefix and minify main.css file
 gulp.task('autoprefix', () => {
   let plugins = [autoprefixer({ browsers: ['last 20 versions'], cascade: true })];
   return gulp
     .src(['public/css/main.css', 'public/css/ribbon.css'])
     .pipe(postcss(plugins))
     .pipe(gulp.dest('public/css'))
+    .pipe(plumber())
     .pipe(postcss([cssnano()]))
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('public/css'));
@@ -36,6 +39,7 @@ gulp.task('autoprefix', () => {
 //     .pipe(gulp.dest('public/sass/vendor/hamburgers'));
 // });
 
+// Compile Hamburger Task
 gulp.task('compile:ham', () => {
   let plugins = [autoprefixer({ browsers: ['last 2 versions'] }), cssnano()];
   return gulp
@@ -48,6 +52,7 @@ gulp.task('compile:ham', () => {
     .pipe(gulp.dest('public/css'));
 });
 
+// Copy JS Files Task
 gulp.task('copy-js', () => {
   return gulp
     .src([
@@ -64,6 +69,7 @@ gulp.task('copy-js', () => {
     .pipe(gulp.dest('public/js'));
 });
 
+// Copy TinyMCE Folders Task
 gulp.task('tinymce', () => {
   return gulp.src([
     'node_modules/tinymce/**'
@@ -71,20 +77,23 @@ gulp.task('tinymce', () => {
   .pipe(gulp.dest('public/js/vendor/tinymce'))
 });
 
+// Copy CSS Task
 gulp.task('copy-css', () => {
   return gulp
     .src([
       // 'node_modules/chosen-js/chosen.min.css',
       // 'node_modules/chosen-js/chosen-sprite.png'
-      'node_modules/perfect-scrollbar/css/perfect-scrollbar.css'
+      // 'node_modules/perfect-scrollbar/css/perfect-scrollbar.css'
     ])
     .pipe(gulp.dest('public/css'));
 });
 
+// Watch Task
 gulp.task('watch', () => {
   // gulp.watch('node_modules/bootstrap/scss/**/*.scss', ['compile:sass']);
   gulp.watch(['public/css/main.css', 'public/css/ribbon.css'], ['autoprefix']);
   gulp.watch('public/sass/vendor/hamburgers/**', ['compile:ham']);
 });
 
+// Default Task
 gulp.task('default', ['copy-js', 'copy-css']);
