@@ -1,6 +1,5 @@
 /* Main CSS File */
 body {
-  /* font-size: 75%; */
   height: 100%;
   width: 100%;
 }
@@ -40,8 +39,8 @@ li.active .nav-link {
 }
 
 .access-container {
-  height: -webkit-calc(100vh - 50px);
-  height: calc(100vh - 50px);
+  height: -webkit-calc(100vh - 74.6528px);
+  height: calc(100vh - 74.6528px);
   position: relative;
 }
 
@@ -260,25 +259,20 @@ i.fa-chevron-right {
   border: 0;
   margin-bottom: .8rem;
 }
-
 .nav-tabs .nav-item:not(:last-child) {
   margin-right: 1rem;
 }
-
 .nav-tabs .nav-link {
   border: 0;
   padding: 0;
   color: #495057;
 }
-
 .nav-tabs .nav-link.active {
   color: #6f42c1;
 }
-
 .profile-img-container {
   position: relative;
 }
-
 .verified-badge {
   position: absolute;
   top: -15px;
@@ -286,14 +280,18 @@ i.fa-chevron-right {
   width: 8%;
   height: 8%;
 }
-
 .profile-info-list {
   padding-left: 0;
   list-style-type: none;
 }
-
 .profile-info-list-item:not(:last-child) {
   margin-bottom: .8rem;
+}
+
+/* Input Disabled */
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
 }
 
 /* About Page */
@@ -349,10 +347,10 @@ i.fa-chevron-right {
     margin-bottom: 2px;
     margin-right: 0;
   }
-  /* .navbar-menu .nav-item:not(:last-child) {
+  .navbar-menu .nav-item:not(:last-child) {
     margin-right: 0;
-    margin-bottom: 5px;
-  } */
+    margin-bottom: 4px;
+  }
   .nav-name {
     padding-left: 15px;
     padding-right: 15px;

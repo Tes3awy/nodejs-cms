@@ -24,6 +24,9 @@ gulp.task('autoprefix', () => {
   return gulp
     .src(['public/css/main.css', 'public/css/ribbon.css'])
     .pipe(postcss(plugins))
+    .pipe(gulp.dest('public/css'))
+    .pipe(postcss([cssnano()]))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('public/css'));
 });
 
