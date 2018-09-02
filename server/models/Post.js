@@ -11,6 +11,11 @@ const PostSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  slug: {
+    type: String,
+    required: true,
+    trim: true
+  },
   content: {
     type: String,
     required: true,
@@ -55,6 +60,11 @@ const PostSchema = new mongoose.Schema({
 PostSchema.plugin(mongoosePaginate);
 const Post = mongoose.model('Post', PostSchema);
 
+// Statics
+PostSchema.statics.findBySlug = function(slug) {
+    var Post = this;
+    Post.findOne({ slug });
+}
 // Functions
 var findImgById = (id) => {
   return Post.findById(id).then(post => {

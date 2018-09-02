@@ -60,7 +60,7 @@ router.post('/register', [
 
   const email = req.body.email;
   const name = _.startCase(_.toLower(req.body.name));
-  const image = gravatar.url(email, {s: '400', r: 'pg', d: 'retro'}, false);
+  const image = gravatar.url(email, {s: '600', r: 'pg', d: 'retro'}, false);
   const password = req.body.password;
 
   // Encrypt
