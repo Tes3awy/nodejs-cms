@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const _ = require('lodash');
+const slugify = require('slugify')
 // const swal = require('sweetalert2');
 
 const { check, validationResult } = require('express-validator/check');
@@ -89,6 +90,11 @@ router.post('/add', authenticate, upload.single('image'),
     const body = req.body;
 
     const title = body.title;
+    const slug = slugify(title, {
+      replacement: '-',
+      remove: /[*+~.()'"!:@]/g,
+      lower: true
+    });
     const content = body.content;
     const featured = body.featured;
     const image = req.file.filename;
@@ -96,6 +102,7 @@ router.post('/add', authenticate, upload.single('image'),
 
     const newPost = new Post({
       title,
+      slug,
       content,
       image,
       userId,

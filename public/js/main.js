@@ -98,11 +98,26 @@ $(document).ready(function() {
     skins: 'vendor/tinymce/skins/lightgray',
     theme: 'modern',
     toolbar:
-      "undo redo | bold italic | forecolor backcolor | codesample | spellchecker | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+      "undo redo | bold italic | forecolor backcolor | codesample code | spellchecker | alignleft aligncenter alignright alignjustify | bullist numlist | link",
     plugins: [
       "anchor autolink codesample spellchecker colorpicker charactercount contextmenu code",
       " lists link noneditable preview",
       " searchreplace table textcolor print"
+    ],
+    codesample_languages: [
+        {text: 'HTML/XML', value: 'markup'},
+        {text: 'JavaScript', value: 'javascript'},
+        {text: 'CSS', value: 'css'},
+        {text: 'PHP', value: 'php'},
+        {text: 'Ruby', value: 'ruby'},
+        {text: 'Python', value: 'python'},
+        {text: 'Java', value: 'java'},
+        {text: 'C', value: 'c'},
+        {text: 'C#', value: 'csharp'},
+        {text: 'C++', value: 'cpp'},
+        {text: 'JSON', value: 'json'},
+        {text: 'Swift', value: 'swift'},
+        {text: 'Objective-C', value: 'objective-c'},
     ],
     paste_as_text: true,
     language: 'en',
