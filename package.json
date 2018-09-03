@@ -4,7 +4,8 @@
   "description": "Advanced Node.js CMS based web application",
   "main": "server/server.js",
   "scripts": {
-    "start": "set NODE_ENV=development && nodemon server/server.js || export NODE_ENV=development && nodemon server/server.js",
+    "start-mac": "export NODE_ENV=development && nodemon server/server.js",
+    "start-win": "set NODE_ENV=development && nodemon server/server.js",
     "test": "snyk test",
     "build": "webpack --config webpack.config.js --watch"
   },
@@ -20,6 +21,7 @@
     "compression": "^1.7.3",
     "connect-flash": "^0.1.1",
     "crypto-js": "^3.1.9-1",
+    "dotenv": "^6.0.0",
     "ekko-lightbox": "^5.3.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
