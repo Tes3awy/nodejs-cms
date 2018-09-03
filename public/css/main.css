@@ -161,6 +161,7 @@ input[type='file'] {
 .custom-file-label:after {
   width: 75px;
   text-align: center;
+  border-top: 1px solid #cbc8d0;
 }
 
 .post-tag-wrapper {

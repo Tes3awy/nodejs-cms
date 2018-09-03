@@ -64,7 +64,7 @@ router.post('/register', [
   const password = req.body.password;
 
   // Encrypt
-  var ciphertext = encodeURIComponent(CryptoJS.AES.encrypt(email, keys.verify.secret));
+  var ciphertext = encodeURIComponent(CryptoJS.AES.encrypt(email, process.env.EMAIL_VERIFY));
   var link = `${req.protocol}://${req.get('host')}/auth/verify/${ciphertext}`;
 
   const newUser = new User({
@@ -109,8 +109,8 @@ router.post('/register', [
       secure: true, // true for 465, false for other ports
       auth: {
         type: 'login',
-        user: keys.account.user,
-        pass: keys.account.pass
+        user: process.env.EMAIL_ACCOUNT,
+        pass: process.env.EMAIL_PASSWORD
       }
     }
 

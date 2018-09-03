@@ -13,7 +13,6 @@ router.get('/profile', authenticate, (req, res) => {
   LookIP.then(ip => {
     res.render('user/profile', {
       showTitle: 'Profile page',
-      user: req.user,
       location: LookIP,
       location: ip.data
     });
@@ -23,8 +22,7 @@ router.get('/profile', authenticate, (req, res) => {
 // GET user/edit
 router.post('/edit', authenticate, (req, res) => {
   res.render('user/edit', {
-    showTitle: 'Edit profile',
-    user: req.user
+    showTitle: 'Edit profile'
   });
 });
 

@@ -37,7 +37,6 @@ router.get('/', (req, res) => {
       showTitle: 'Home page',
       posts,
       users,
-      user: req.user,
       leaving: req.flash('warning')
     });
   });
@@ -47,7 +46,6 @@ router.get('/', (req, res) => {
 router.get('/about', (req, res) => {
   res.render('about', {
     showTitle: 'About page',
-    user: req.user
   });
 });
 
@@ -55,7 +53,6 @@ router.get('/about', (req, res) => {
 router.get('/contact', (req, res) => {
   res.render('contact', {
     showTitle: 'Contact page',
-    user: req.user,
     error: req.flash('error'),
     success: req.flash('success')
   });
@@ -113,8 +110,7 @@ router.post('/contact', function (req, res) {
 // GET /terms
 router.get('/terms', (req, res) => {
   res.render('terms', {
-    showTitle: 'Terms and Conditions page',
-    user: req.user
+    showTitle: 'Terms and Conditions page'
   });
 });
 

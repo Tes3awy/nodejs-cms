@@ -91,6 +91,17 @@ $("img").on("contextmenu", function() {
   return false;
 });
 
+// Edit Bio Inline
+$("#saveBioBtn").hide();
+$("#editBioBtn").on('click', function() {
+  $("#saveBioBtn").css('display', 'inline-block');
+  $("p.editable").replaceWith('<textarea class="editable form-control w-100 mb-2" rows="6">' + $(".editable").text().replace(/\s\s+/g, ' ') + '</textarea>');
+});
+$("#saveBioBtn").on('click', function() {
+  $("textarea.editable").replaceWith('<p class="editable">'+($("textarea.editable").text().replace(/\s\s+/g, ' ')) + '</p>');
+  $(this).hide(300);
+});
+
 $(document).ready(function() {
   // TinyMCE Init
   var tinymceConfig = {

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const path = require('path');
 
 const express = require('express');
@@ -34,7 +36,6 @@ const logger = require('morgan');
 const _ = require('lodash');
 const moment = require('moment');
 
-const keys = require('./../config/credentials');
 const publicPath = './../public';
 const port = process.env.PORT || 3000;
 
@@ -53,7 +54,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(compression({ level: 1 }));
 // Session Middleware
 app.use(session({
-  secret: keys.session.secret,
+  secret: process.env.SESSION_SECRET,
   name: 'sessionid',
   resave: false,
   saveUninitialized: true,
@@ -65,10 +66,8 @@ app.use(passport.session());
 // Flash Middleware
 app.use(flash());
 // Global Vars
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
   res.locals.user = req.user || null;
-  // res.locals.success = req.flash('success');
-  // res.locals.error = req.flash('error');
   next();
 });
 // Morgan Middleware
@@ -120,7 +119,7 @@ app.use('/tag', tagsRoutes);
 // Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server started on port ${port}`);
-  console.log(`${process.env.NODE_ENV}environment`);
+  console.log(`${process.env.NODE_ENV} environment`);
 });
 
 module.exports = app;

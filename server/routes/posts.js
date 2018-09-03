@@ -38,7 +38,6 @@ router.get('/', (req, res) => {
     res.render('posts/posts', {
       showTitle: 'Posts',
       layout: 'postsLayout',
-      user: req.user,
       posts,
       error: req.flash('error'),
       success: req.flash('success')
@@ -55,7 +54,6 @@ router.get('/add', authenticate, (req, res) => {
     res.render('posts/add', {
       showTitle: 'Add post',
       layout: 'postsLayout',
-      user: req.user,
       tag,
       error: req.flash('error'),
       success: req.flash('success')
@@ -130,7 +128,6 @@ router.get('/:id', (req, res) => {
         res.render('posts/post', {
           layout: 'postsLayout',
           showTitle: post.title,
-          user: req.user,
           post,
           author
       });
@@ -151,7 +148,6 @@ router.get('/edit/:id', authenticate, (req, res) => {
       res.render('posts/edit', {
         layout: 'postsLayout',
         showTitle: `Edit - ${post.title}`,
-        user: req.user,
         post
     });
   }).catch(err => {
