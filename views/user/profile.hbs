@@ -25,14 +25,22 @@
         <div class="col-md-12 col-lg-8">
             <div class="profile-header d-flex flex-row justify-content-between">
                 {{!-- Profile Info --}}
-                <div class="profile-info">
+                <div class="profile-info w-100">
                     <h1 class="d-inline pr-3">{{user.name}}</h1><span title="Location"><i class="fas fa-map-marker-alt"></i>&nbsp;
                         {{location.country}}</span>
                     <p class="text-primary font-weight-bold">Web Developer</p>
                     <h3>Bio</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, minima corrupti iste perferendis
-                        aut fuga nobis consequatur, repellat rerum cumque officiis aspernatur consectetur deleniti ratione
-                        unde voluptatibus delectus accusantium illo.</p>
+                    <div class="bio-content w-100">
+                        <p class="mb-2 editable w-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, minima corrupti iste
+                            perferendis aut fuga nobis consequatur, repellat rerum cumque officiis aspernatur consectetur
+                            deleniti ratione unde voluptatibus delectus accusantium illo.</p>
+                        <div class="text-right mb-2">
+                            <button class="btn btn-warning" type="button" id="editBioBtn"><i class="fas fa-marker pr-2"></i> Edit Bio</button>
+                            {{!-- <form action="" method="POST" id="saveBioForm"> --}}
+                                <button class="btn btn-success" type="submit" id="saveBioBtn">Save Bio</button>
+                            {{!-- </form> --}}
+                        </div>
+                    </div>
                     {{!-- Nav Tabs --}}
                     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -69,9 +77,9 @@
                             </ul>
                         </div>
                         {{!-- Bio --}}
-                        <div class="tab-pane fade" id="posts" role="tabpanel">Lorem ipsum dolor sit, amet consectetur
-                            adipisicing elit. Harum perferendis ratione ullam odio officiis corrupti voluptatum porro totam
-                            maiores nisi. Tempora similique earum amet animi iste voluptates voluptas, doloribus ea.</div>
+                        <div class="tab-pane fade" id="posts" role="tabpanel">Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Harum perferendis ratione ullam odio officiis corrupti voluptatum porro totam maiores nisi.
+                            Tempora similique earum amet animi iste voluptates voluptas, doloribus ea.</div>
                     </div>
                 </div>
                 {{!-- Member Since --}}

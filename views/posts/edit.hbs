@@ -33,10 +33,10 @@
             </div>
           </div>
           {{!-- Select Tags for post --}}
-          <div class="col-sm-8">
+          <div class="col-sm-8 d-flex justify-content-end">
             <div class="form-group text-center">
               <div class="input-group d-flex justify-content-end">
-                <select name="tag" class="w-50 chosen-select" data-placeholder="Choose your posts's tags..." multiple>
+                <select name="tag" class="chosen-select" data-placeholder="Choose your posts's tags..." multiple>
                   {{#each tag}}
                     <option value="{{tag}}">{{tag}}</option>
                   {{/each}}
