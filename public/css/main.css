@@ -320,6 +320,9 @@ input:disabled {
   width: 100%;
   height: 15px;
 }
+.contact-col:not(:last-child) {
+  margin-bottom: 15px;
+}
 
 /* For Code Sections */
 .code-toolbar {
