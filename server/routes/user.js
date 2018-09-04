@@ -10,12 +10,26 @@ const authenticate = require('./../middlewares/authenticate');
 
 // GET user/profile
 router.get('/profile', authenticate, (req, res) => {
-  LookIP.then(ip => {
-    res.render('user/profile', {
-      showTitle: 'Profile page',
-      location: LookIP,
-      location: ip.data
+  const getIP = () => {
+    return LookIP.then(ip => {
+      return ip;
     });
+  }
+  const getLocation = async () => {
+    const location = await getIP();
+    return location;
+  };
+
+  getLocation().then(location => {
+    if(location.data.status === "success") {
+      const country = location.data.country;
+      const city = location.data.city;
+      res.render('user/profile', {
+        showTitle: 'Profile page',
+        city,
+        country
+      });
+    }
   });
 });
 
