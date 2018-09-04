@@ -321,7 +321,7 @@ input:disabled {
   height: 15px;
 }
 .contact-col:not(:last-child) {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 /* For Code Sections */
@@ -337,6 +337,17 @@ input:disabled {
   bottom: 0;
   /* line-height: 3.5; */
 }
+
+/* reCAPTCHA */
+.g-recaptcha {
+  text-align: center;
+  text-align: -webkit-center;
+}
+.g-recaptcha > div {
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
 
 @media (max-width: 768px) {
   .navbar-container {
