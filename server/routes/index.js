@@ -6,8 +6,11 @@ const { Post } = require('./../models/Post');
 const { User } = require('./../models/User');
 const { Contact } = require('./../models/Contact');
 
+const request = require('request');
+
+const { check, validationResult } = require('express-validator/check');
+
 const nodemailer = require('nodemailer');
-const keys = require('./../../config/credentials');
 
 // GET /
 router.get('/', (req, res) => {
@@ -53,13 +56,42 @@ router.get('/about', (req, res) => {
 router.get('/contact', (req, res) => {
   res.render('contact', {
     showTitle: 'Contact page',
-    error: req.flash('error'),
+    errors: req.flash('error'),
+    captcha: req.flash('captchaError'),
     success: req.flash('success')
   });
 });
 
 // POST /contact
-router.post('/contact', function (req, res) {
+router.post('/contact', [
+  check('name', 'Full name must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
+  check('subject', 'Subject must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
+  check('email', 'Email is a required field').isEmail().normalizeEmail({'all_lowercase': false, 'gmail_remove_dots': false, 'outlookdotcom_lowercase': false}).escape().trim(),
+  check('message', 'Message must be between 50 to 500 characters').isLength({min: 50, max: 500}).escape().trim(),
+], function (req, res) {
+
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+      req.flash('error', errors.array());
+      req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
+      return res.redirect('/contact');
+    }
+  }
+
+  const secretKey = process.env.RECATPCHA_SECRET;
+
+  const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&remoteip=${req.connection.remoteAddress}&response=${req.body['g-recaptcha-response']}`;
+
+  request(verifyURL, (err, response, body) => {
+    const verify = JSON.parse(body);
+    if(!verify.success) {
+      req.flash('captchaError', 'Unable to verify reCAPTCHA');
+      return res.redirect('/contact');
+    }
+  });
+
   const name = req.body.name;
   const sender = req.body.email;
   const subject = req.body.subject;
@@ -71,8 +103,8 @@ router.post('/contact', function (req, res) {
     secure: true, // true for 465, false for other ports
     auth: {
       type: 'login',
-      user: keys.account.user,
-      pass: keys.account.pass
+      user: process.env.EMAIL_ACCOUNT,
+      pass: process.env.EMAIL_PASSWORD
     }
   }
 
@@ -80,7 +112,7 @@ router.post('/contact', function (req, res) {
 
   let mailOptions = {
     from: `${name} <${sender}>`, // sender address
-    to: keys.account.user, // list of receivers
+    to: process.env.EMAIL_ACCOUNT, // list of receivers
     subject: `${subject}`, // Subject line
     text: `${message}`, // plain text body
   };

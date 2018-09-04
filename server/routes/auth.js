@@ -18,7 +18,7 @@ const { check, validationResult } = require('express-validator/check');
 
 const gravatar = require('gravatar');
 
-const keys = require('./../../config/credentials');
+const request = require('request');
 
 const authenticate = require('./../middlewares/authenticate');
 
@@ -27,7 +27,8 @@ router.get('/register', (req, res) => {
   res.render('auth/register', {
     layout: 'login-register',
     showTitle: 'Register page',
-    errors: req.flash('error')
+    errors: req.flash('error'),
+    captcha: req.flash('captchaError')
   });
 });
 
@@ -53,10 +54,24 @@ router.post('/register', [
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    errors = _.map(errors.array(), (err) => { return _.pick(err, 'msg'); });
-    req.flash('error', errors);
-    return res.redirect('/auth/register');
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+      req.flash('error', errors.array());
+      req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
+      return res.redirect('/auth/register');
+    }
   }
+
+  const secretKey = process.env.RECATPCHA_SECRET;
+
+  const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&remoteip=${req.connection.remoteAddress}&response=${req.body['g-recaptcha-response']}`;
+
+  request(verifyURL, (err, response, body) => {
+    const verify = JSON.parse(body);
+    if(!verify.success) {
+      req.flash('captchaError', 'Unable to verify reCAPTCHA');
+      return res.redirect('/contact');
+    }
+  });
 
   const email = req.body.email;
   const name = _.startCase(_.toLower(req.body.name));
@@ -142,7 +157,7 @@ router.post('/register', [
 router.get('/verify/:ciphertext', (req, res) => {
   // Decrypt
   var ciphertext = req.params.ciphertext;
-  var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), keys.verify.secret);
+  var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), process.env.EMAIL_VERIFY);
   var plainEmail = bytes.toString(CryptoJS.enc.Utf8);
 
   User.findOneAndUpdate({ email: plainEmail }, { $set: { verified: true, hash: "" } }, { new: true }).then(user => {
