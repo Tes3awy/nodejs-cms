@@ -107,7 +107,7 @@ app.engine('hbs', hbs({
 app.set('view engine', 'hbs');
 // Method Override Middleware
 app.use(methodOverride('_method'));
-// Helmet Middleware (For Security)
+// Helmet Middleware (For Security Best Pratcices)
 app.use(helmet());
 // Routes
 app.use('/', routes);
@@ -119,7 +119,7 @@ app.use('/tag', tagsRoutes);
 // Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server started on port ${port}`);
-  console.log(`${process.env.NODE_ENV} environment`);
+  console.log(`${process.env.NODE_ENV}environment`);
 });
 
 module.exports = app;
