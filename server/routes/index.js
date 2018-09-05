@@ -129,6 +129,7 @@ router.post('/contact', [
       message
     });
     console.log('Message sent: %s', info.messageId);
+
     newContact.save().then(sender => {
       console.log('Sender:', sender);
     }).catch(err => {
