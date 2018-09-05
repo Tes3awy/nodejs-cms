@@ -40,7 +40,7 @@ router.get('/', (req, res) => {
       showTitle: 'Home page',
       posts,
       users,
-      leaving: req.flash('warning')
+      deleteAccount: req.flash('warning')
     });
   });
 });

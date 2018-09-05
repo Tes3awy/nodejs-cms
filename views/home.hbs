@@ -2,22 +2,25 @@
     <p class="bg-primary px-2 py-1 d-inline-block text-white">{{getToday}}</p>
 </div>
 <h1 class="mb-4">Home Page</h1>
-{{!-- Leaving Alert--}}
-{{#if leaving}}
-    <div class="alert alert-warning" role="alert">
-        <span><i class="far fa-sad-tear"></i> {{leaving}}</span>
-        <button type="button" class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
-    </div>
-{{/if}}
+{{!-- Deleting account Alert--}}
+{{#unless user}}
+    {{#if deleteAccount}}
+        <div class="alert alert-warning" role="alert">
+            <span><i class="far fa-sad-tear"></i> {{deleteAccount}}</span>
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        </div>
+    {{/if}}
+{{/unless}}
 {{!-- Cards section --}}
 <section class="row main-cards-row">
     <div class="col-md-3 main-card">
         <div class="card text-white bg-primary shadow">
             <div class="card-body">
                 <h2 class="card-title">Card #1</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
                     content.
                 </p>
             </div>
@@ -27,7 +30,8 @@
         <div class="card text-white bg-secondary shadow">
             <div class="card-body">
                 <h2 class="card-title">Card #2</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
                     content.
                 </p>
             </div>
@@ -37,7 +41,8 @@
         <div class="card text-white bg-success shadow">
             <div class="card-body">
                 <h2 class="card-title">Card #3</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
                     content.
                 </p>
             </div>
@@ -47,7 +52,8 @@
         <div class="card text-dark bg-light shadow">
             <div class="card-body">
                 <h2 class="card-title text-dark">Card #4</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
                     content.
                 </p>
             </div>

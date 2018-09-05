@@ -31,7 +31,7 @@ router.get('/profile', authenticate, (req, res) => {
         return response.data;
       }
     });
-
+    // Another Method
     // const apiKey = process.env.LOCATION_API;
     // request(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`, (err, response, body) => {
     //   if(err === null) {
@@ -78,8 +78,6 @@ router.delete('/delete/:id', authenticate, (req, res) => {
     req.flash('error', 'Unable to delete your account right now');
     return res.redirect('/user/profile');
   });
-
-  res.redirect('/');
 });
 
 module.exports = router;
