@@ -4,12 +4,23 @@ const router = express.Router();
 const { mongoose } = require('./../db/mongoose');
 const { User } = require('./../models/User');
 
+const axios = require('axios');
+
 const { LookIP } = require('./../middlewares/geolocation');
 
 const authenticate = require('./../middlewares/authenticate');
 
 // GET user/profile
 router.get('/profile', authenticate, (req, res) => {
+
+  const ipStack = () => {
+    const apiKey = process.env.LOCATION_API;
+    axios.get(`http://api.ipstack.com/check?access_key=${apiKey}`).then(response => {
+      console.log('ipstack data:', response.data);
+       return response.data;
+    });
+  }
+
   const getIP = () => {
     return LookIP.then(ip => {
       return ip;
@@ -43,6 +54,7 @@ router.post('/edit', authenticate, (req, res) => {
 // GET user/delete
 router.delete('/delete/:id', authenticate, (req, res) => {
   const id = req.params.id;
+  console.log('id:', id);
 
   User.findByIdAndRemove(id).then(user => {
     req.flash('warning', 'We are sorry to see you leaving.');
@@ -52,8 +64,7 @@ router.delete('/delete/:id', authenticate, (req, res) => {
     return res.redirect('/user/profile');
   });
 
-  console.log('id:', id);
-  res.redirect('/user/profile');
+  res.redirect('/');
 });
 
 module.exports = router;

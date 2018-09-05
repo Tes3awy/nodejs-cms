@@ -86,6 +86,7 @@ router.post('/contact', [
 
   request(verifyURL, (err, response, body) => {
     const verify = JSON.parse(body);
+    console.log('verifying recaptcha:', verify);
     if(!verify.success) {
       req.flash('captchaError', 'Unable to verify reCAPTCHA');
       return res.redirect('/contact');
