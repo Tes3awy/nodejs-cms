@@ -58,6 +58,11 @@ router.post('/register', [
     return res.redirect('/auth/register');
   }
 
+  if(req.body.check !== true) {
+    req.flash('error', 'You have to agree to Terms and Conditions agreement');
+    return res.redirect('/auth/register');
+  }
+
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
     return res.redirect('/auth/register');
@@ -71,7 +76,7 @@ router.post('/register', [
     const verify = JSON.parse(body);
     if(!verify.success) {
       req.flash('captchaError', 'Unable to verify reCAPTCHA');
-      return res.redirect('/contact');
+      return res.redirect('/auth/register');
     }
   });
 
