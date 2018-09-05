@@ -78,6 +78,7 @@ app.engine('hbs', hbs({
     extname: '.hbs',
     partialsDir: 'views/partials',
     layoutsDir: 'views/layouts',
+    // express-handlebars helper functions
     helpers: {
       getPrettyDate(date) {
         return moment(date).format('LLL');

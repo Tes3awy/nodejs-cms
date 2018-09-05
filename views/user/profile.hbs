@@ -1,11 +1,14 @@
-{{!-- Delete Account --}}
-<form class="mb-5" id="deleteAccount" action="/user/delete/{{user.id}}?_method=DELETE" method="POST">
-    <input type="hidden" name="_method" value="DELETE">
-    <div class="text-right">
-        <input type="submit" class="btn btn-outline-danger" value="DELETE ACCOUNT">
+{{!-- Edit and Delete Account --}}
+<div class="profile-actions text-right">
+    <div class="edit-profile text-right d-inline-block">
+        <a class="btn btn-outline-warning" href="/user/edit/{{user.id}}">EDIT PROFILE</a>
     </div>
-</form>
-<h3>{{ipStack}}</h3>
+    <form class="mb-5 d-inline-block" id="deleteAccount" action="/user/delete/{{user.id}}?_method=DELETE" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" class="btn btn-outline-danger" value="DELETE ACCOUNT">
+    </form>
+</div>
+
 {{!-- Error Handling --}}
 {{#if error}}
     <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
@@ -27,19 +30,12 @@
             <div class="profile-header d-flex flex-row justify-content-between">
                 {{!-- Profile Info --}}
                 <div class="profile-info w-100">
-                    <h1 class="d-inline pr-3">{{user.name}}</h1><span title="Location"><i class="fas fa-map-marker-alt"></i>&nbsp; {{city}}, {{country}}</span>
+                    <h1 class="d-inline pr-3">{{user.name}}</h1><span title="Location"><i class="fas fa-map-marker-alt"></i>&nbsp;
+                        {{city}}, {{country}}</span>
                     <p class="text-primary font-weight-bold">Web Developer</p>
                     <h3>Bio</h3>
                     <div class="bio-content w-100">
-                        <p class="mb-2 editable w-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, minima corrupti iste
-                            perferendis aut fuga nobis consequatur, repellat rerum cumque officiis aspernatur consectetur
-                            deleniti ratione unde voluptatibus delectus accusantium illo.</p>
-                        <div class="text-right mb-2">
-                            <button class="btn btn-warning" type="button" id="editBioBtn"><i class="fas fa-marker pr-2"></i> Edit Bio</button>
-                            {{!-- <form action="" method="POST" id="saveBioForm"> --}}
-                                <button class="btn btn-success" type="submit" id="saveBioBtn">Save Bio</button>
-                            {{!-- </form> --}}
-                        </div>
+                        <p></p>
                     </div>
                     {{!-- Nav Tabs --}}
                     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
@@ -58,13 +54,15 @@
                                     <h2>Contact Info</h2>
                                 </li>
                                 <li class="profile-info-list-item" title="E-Mail Address">
-                                    <i class="fas fa-envelope pr-3 text-info"></i> <a href="mailto:{{user.email}}" title="E-Mail Address">{{user.email}}</a>
+                                    <i class="fas fa-envelope pr-3 text-info"></i> <a href="mailto:{{user.email}}"
+                                        title="E-Mail Address">{{user.email}}</a>
                                 </li>
                                 <li class="profile-info-list-item" title="Website">
-                                    <i class="fas fa-cloud pr-3 text-info"></i> <a href="https://tes3awy.github.io" target="_blank"
-                                        title="Website">https://tes3awy.github.io</a>
+                                    <i class="fas fa-cloud pr-3 text-info"></i> <a href="https://tes3awy.github.io"
+                                        target="_blank" title="Website">https://tes3awy.github.io</a>
                                 </li>
-                                <hr>{{!-- Basic Info --}}
+                                <hr>
+                                {{!-- Basic Info --}}
                                 <li class="mb-4">
                                     <h2>Basic Info</h2>
                                 </li>
@@ -77,8 +75,10 @@
                             </ul>
                         </div>
                         {{!-- Bio --}}
-                        <div class="tab-pane fade" id="posts" role="tabpanel">Lorem ipsum dolor sit, amet consectetur adipisicing
-                            elit. Harum perferendis ratione ullam odio officiis corrupti voluptatum porro totam maiores nisi.
+                        <div class="tab-pane fade" id="posts" role="tabpanel">Lorem ipsum dolor sit, amet consectetur
+                            adipisicing
+                            elit. Harum perferendis ratione ullam odio officiis corrupti voluptatum porro totam maiores
+                            nisi.
                             Tempora similique earum amet animi iste voluptates voluptas, doloribus ea.</div>
                     </div>
                 </div>

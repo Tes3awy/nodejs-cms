@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-sm-8 mx-auto">
+    <form class="clearfix" action="/user/edit/{{user.id}}?_method=PUT" method="POST" enctype="multipart/form-data" runat="server">
+      <input type="hidden" name="_method" value="PUT">
+      <h2 class="mb-0 d-inline-block">Update profile</h2>
+      <a class="btn btn-info float-right" href="/user/profile"><i class="fa fa-chevron-left pr-2"></i> Go Back</a>
+      <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
+      {{!-- Error Handling --}}
+      {{#if error}}
+        {{#each error}}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span>{{msg}}</span>
+            <button type="button" class="close" data-dismiss="alert">
+              <span>&times;</span>
+            </button>
+          </div>
+        {{/each}}
+      {{/if}}
+      <p><span class="text-primary font-weight-bold">Name:</span> {{user.name}}</p>
+      <p style="width: 150px; height:150px;"><img width="100%" src="{{user.gravatar}}" alt="{{user.name}}" title="{{user.name}}"></p>
+      <div class="text-right">
+        <button class="btn btn-outline-success" type="submit">UPDATE PROFILE</button>
+      </div>
+    </form>
+  </div>
+</div>

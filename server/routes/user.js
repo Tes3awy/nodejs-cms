@@ -13,23 +13,33 @@ const authenticate = require('./../middlewares/authenticate');
 // GET user/profile
 router.get('/profile', authenticate, (req, res) => {
 
-  const ipStack = () => {
-    const apiKey = process.env.LOCATION_API;
-    axios.get(`http://api.ipstack.com/check?access_key=${apiKey}`).then(response => {
-      console.log('ipstack data:', response.data);
-       return response.data;
-    });
-  }
-
-  const getIP = () => {
+  var getIP = () => {
     return LookIP.then(ip => {
       return ip;
     });
   }
-  const getLocation = async () => {
+  var getLocation = async () => {
     const location = await getIP();
     return location;
   };
+
+  const apiKey = process.env.LOCATION_API;
+  var ipStack = () => {
+    axios.get(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`).then(response => {
+      if(response.status === 200) {
+        console.log('ipstack data:', response.data);
+        return response.data;
+      }
+    });
+
+    // const apiKey = process.env.LOCATION_API;
+    // request(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`, (err, response, body) => {
+    //   if(err === null) {
+    //     return JSON.parse(response.body);
+    //   }
+    // });
+  }
+
 
   getLocation().then(location => {
     if(location.data.status === "success") {
@@ -45,16 +55,21 @@ router.get('/profile', authenticate, (req, res) => {
 });
 
 // GET user/edit
-router.post('/edit', authenticate, (req, res) => {
-  res.render('user/edit', {
-    showTitle: 'Edit profile'
+router.get('/edit/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+  User.findById(id).then(user => {
+    res.render('user/edit', {
+      showTitle: 'Update profile',
+      id,
+      user,
+      errors: req.flash('error')
+    });
   });
 });
 
 // GET user/delete
 router.delete('/delete/:id', authenticate, (req, res) => {
   const id = req.params.id;
-  console.log('id:', id);
 
   User.findByIdAndRemove(id).then(user => {
     req.flash('warning', 'We are sorry to see you leaving.');

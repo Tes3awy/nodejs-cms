@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 
 const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
   email: {
     type: String,
     required: true,
@@ -10,11 +15,6 @@ const UserSchema = new mongoose.Schema({
   },
   gravatar: {
     type: String
-  },
-  name: {
-    type: String,
-    required: true,
-    trim: true
   },
   password: {
     type: String,
@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
   job: {
     type: String,
     trim: true
+  },
+  alias: {
+    type: String,
+    required: true
   },
   verified: {
     type: Boolean,
