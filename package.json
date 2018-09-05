@@ -1,6 +1,10 @@
 {
   "name": "login-test",
-  "version": "2.0.0",
+  "private": false,
+  "config": {
+    "port": "3000"
+  },
+  "version": "2.1.0",
   "description": "Advanced Node.js CMS based web application",
   "main": "server/server.js",
   "scripts": {
@@ -9,9 +13,29 @@
     "test": "snyk test",
     "build": "webpack --config webpack.config.js --watch"
   },
-  "keywords": [],
+  "engines": {
+    "npm": "~6.3.0",
+    "node": "~10.9.0",
+    "vscode": "^1.22.0"
+  },
+  "bugs": {
+    "url": "https://github.com/Tes3awy/drceg-test/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tes3awy/drceg-test"
+  },
+  "keywords": [
+    "CMS",
+    "NodeJS",
+    "Express.js",
+    "Express-Handlebars",
+    "mongodb",
+    "mongoose",
+    "jQuery"
+  ],
   "author": "Osama Abbas <oabbas2512@gmail.com> (https://tes3awy.github.io/)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
