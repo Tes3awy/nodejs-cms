@@ -54,11 +54,13 @@ router.post('/register', [
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-      req.flash('error', errors.array());
-      req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
-      return res.redirect('/auth/register');
-    }
+    req.flash('error', errors.array());
+    return res.redirect('/auth/register');
+  }
+
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
+    return res.redirect('/auth/register');
   }
 
   const secretKey = process.env.RECATPCHA_SECRET;
@@ -78,7 +80,7 @@ router.post('/register', [
   const image = gravatar.url(email, {s: '600', r: 'pg', d: 'retro'}, false);
   const password = req.body.password;
 
-  // Encrypt
+  // Ciphering
   var ciphertext = encodeURIComponent(CryptoJS.AES.encrypt(email, process.env.EMAIL_VERIFY));
   var link = `${req.protocol}://${req.get('host')}/auth/verify/${ciphertext}`;
 
@@ -155,7 +157,7 @@ router.post('/register', [
 });
 
 router.get('/verify/:ciphertext', (req, res) => {
-  // Decrypt
+  // Deciphering
   var ciphertext = req.params.ciphertext;
   var bytes = CryptoJS.AES.decrypt(ciphertext.toString(), process.env.EMAIL_VERIFY);
   var plainEmail = bytes.toString(CryptoJS.enc.Utf8);

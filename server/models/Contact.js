@@ -6,6 +6,12 @@ const ContactSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  phone: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 11
+  },
   sender: {
     type: String,
     required: true,

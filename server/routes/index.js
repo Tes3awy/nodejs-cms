@@ -66,18 +66,23 @@ router.get('/contact', (req, res) => {
 router.post('/contact', [
   check('name', 'Full name must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
   check('subject', 'Subject must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
+  check('phone').isLength({ min: 11 }).withMessage('Phone is not a valid phone number (11 numbers)').trim(),
+  check('phone').isNumeric({ no_symbols: true }).withMessage('Phone number cannot contain any letters!!!'),
   check('email', 'Email is a required field').isEmail().normalizeEmail({'all_lowercase': false, 'gmail_remove_dots': false, 'outlookdotcom_lowercase': false}).escape().trim(),
   check('message', 'Message must be between 50 to 500 characters').isLength({min: 50, max: 500}).escape().trim(),
-], function (req, res) {
+], (req, res) => {
 
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-      req.flash('error', errors.array());
-      req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
-      return res.redirect('/contact');
-    }
+    console.log('contact page errors:', errors.array());
+    req.flash('error', errors.array());
+    return res.redirect('/contact');
+  }
+
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
+    return res.redirect('/contact');
   }
 
   const secretKey = process.env.RECATPCHA_SECRET;
@@ -86,7 +91,6 @@ router.post('/contact', [
 
   request(verifyURL, (err, response, body) => {
     const verify = JSON.parse(body);
-    console.log('verifying recaptcha:', verify);
     if(!verify.success) {
       req.flash('captchaError', 'Unable to verify reCAPTCHA');
       return res.redirect('/contact');
@@ -95,6 +99,7 @@ router.post('/contact', [
 
   const name = req.body.name;
   const sender = req.body.email;
+  const phone = req.body.phone;
   const subject = req.body.subject;
   const message = req.body.message;
 
@@ -126,6 +131,7 @@ router.post('/contact', [
     }
     const newContact = new Contact({
       name,
+      phone,
       sender,
       message
     });
