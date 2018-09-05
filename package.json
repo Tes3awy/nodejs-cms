@@ -4,7 +4,7 @@
   "config": {
     "port": "3000"
   },
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Advanced Node.js CMS based web application",
   "main": "server/server.js",
   "scripts": {
@@ -14,8 +14,8 @@
     "build": "webpack --config webpack.config.js --watch"
   },
   "engines": {
-    "npm": "~6.3.0",
-    "node": "~10.9.0",
+    "npm": "^6.3.0",
+    "node": "^10.9.0",
     "vscode": "^1.22.0"
   },
   "bugs": {
