@@ -58,10 +58,10 @@ router.post('/register', [
     return res.redirect('/auth/register');
   }
 
-  if(req.body.check !== true) {
-    req.flash('error', 'You have to agree to Terms and Conditions agreement');
-    return res.redirect('/auth/register');
-  }
+  // if(req.body.check !== true) {
+  //   req.flash('error', 'You have to agree to Terms and Conditions agreement');
+  //   return res.redirect('/auth/register');
+  // }
 
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
@@ -99,7 +99,7 @@ router.post('/register', [
 
   User.findOne({ email }).then(user => {
       if (user) {
-        req.flash('error', { msg: 'Email is already registered!!!' });
+        req.flash('error', 'Email is already registered!!!');
         return res.redirect('/auth/register');
       }
 

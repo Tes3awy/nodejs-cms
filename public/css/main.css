@@ -9,11 +9,8 @@ p {
 }
 
 .main, .posts-main {
-  margin-bottom: 55px;
-}
-
-.main-navbar {
-  margin-bottom: 2rem;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .navbar-menu .nav-item:not(:last-child) {

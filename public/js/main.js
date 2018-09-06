@@ -196,6 +196,15 @@ $(document).ready(function() {
   //     );
   //   });
   // });
+  var dp = TinyDatePicker('input#date', {
+    lang: {
+      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    today: 'Today',
+    min: '1/1/1900',
+    max: ''
+  });
+  dp.on('statechange', (_, picker) => console.log(picker.state.toLocaleDateString()));
 });
 
 // Detect Ad Blocker

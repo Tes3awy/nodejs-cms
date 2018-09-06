@@ -7,6 +7,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  alias: {
+    type: String,
+    trim: true
+  },
   email: {
     type: String,
     required: true,
@@ -14,23 +18,31 @@ const UserSchema = new mongoose.Schema({
     trim: true
   },
   gravatar: {
-    type: String
+    type: String,
+    trim: true
   },
   password: {
     type: String,
     required: true
   },
+  title: {
+    type: String,
+    trim: true
+  },
   bio: {
     type: String,
     trim: true
   },
-  job: {
+  website: {
     type: String,
+    unique: true,
     trim: true
   },
-  alias: {
-    type: String,
-    required: true
+  gender: {
+    type: String
+  },
+  birthdate: {
+    type: Date
   },
   verified: {
     type: Boolean,

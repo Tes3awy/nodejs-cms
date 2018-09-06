@@ -64,7 +64,8 @@ gulp.task('copy-js', () => {
       // 'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
       'node_modules/chosen-js/chosen.jquery.min.js',
-      'node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js'
+      'node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js',
+      'node_modules/tiny-date-picker/dist/tiny-date-picker.min.js'
     ])
     .pipe(gulp.dest('public/js'));
 });
@@ -81,6 +82,7 @@ gulp.task('tinymce', () => {
 gulp.task('copy-css', () => {
   return gulp
     .src([
+      'node_modules/tiny-date-picker/tiny-date-picker.min.css'
       // 'node_modules/chosen-js/chosen.min.css',
       // 'node_modules/chosen-js/chosen-sprite.png'
       // 'node_modules/perfect-scrollbar/css/perfect-scrollbar.css'
