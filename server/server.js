@@ -33,6 +33,8 @@ const helmet = require('helmet');
 
 const logger = require('morgan');
 
+const errorhandler = require('errorhandler');
+
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -65,6 +67,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Flash Middleware
 app.use(flash());
+// Error Handler
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+  app.use(errorhandler());
+}
 // Global Vars
 app.use(function(req, res, next) {
   res.locals.user = req.user || null;
@@ -120,7 +126,9 @@ app.use('/tag', tagsRoutes);
 // Serving locally on port 3000
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server started on port ${port}`);
-  console.log(`${process.env.NODE_ENV}environment`);
+  console.log('NODE_ENV:', `${process.env.NODE_ENV}environment`);
 });
 
-module.exports = app;
+module.exports = {
+  app
+};
