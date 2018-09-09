@@ -25,7 +25,8 @@
                 <img class="w-100" src="{{user.gravatar}}" alt="{{user.name}}" title="{{user.name}}">
                 <img class="verified-badge" src="/images/verified-badge.png" alt="Verified Badge" title="Verified">
             </div>
-            <p class="small text-center mb-3">Change your <a href="https://en.gravatar.com" target="_blank">gravatar</a> to change your photo</p>
+            <p class="small text-center mb-3">Change your <a href="https://en.gravatar.com" target="_blank">gravatar</a>
+                to change your photo</p>
         </div>
         <div class="col-md-12 col-lg-8">
             <div class="profile-header d-flex flex-row justify-content-between">
@@ -59,8 +60,8 @@
                                         title="E-Mail Address">{{user.email}}</a>
                                 </li>
                                 <li class="profile-info-list-item" title="Website">
-                                    <i class="fas fa-cloud pr-3 text-info"></i> <a href="{{user}}"
-                                        target="_blank" title="Website">{{user}}</a>
+                                    <i class="fas fa-cloud pr-3 text-info"></i> <a href="{{user}}" target="_blank"
+                                        title="Website">{{user}}</a>
                                 </li>
                                 <hr>
                                 {{!-- Basic Info --}}
@@ -68,13 +69,25 @@
                                     <h2>Basic Info</h2>
                                 </li>
                                 <li class="profile-info-list-item" title="Gender">
-                                    <i class="fas fa-user pr-3 text-info"></i> {{user}}
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-user text-info"></i></span>
+                                        </div>
+                                        <select name="gender" class="form-control">
+                                            <option selected disabled>Select your gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
                                 </li>
                                 <li class="profile-info-list-item" title="Birthday">
-                                    <i class="fas fa-calendar-alt pr-3 text-info"></i> {{user}}
-                                </li>
-                                <li class="profile-info-list-item" title="">
-                                    <input type="text" id="date">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                           <span class="input-group-text"><i class="fas fa-calendar-alt text-info"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control"
+                                        id="date" placeholder="Select your birthdate">
+                                    </div>
                                 </li>
                             </ul>
                         </div>
