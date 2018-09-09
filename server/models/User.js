@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -54,9 +54,35 @@ const UserSchema = new mongoose.Schema({
     trim: true
   },
   createdAt: {
-    type: String,
-    default: moment().format('ll')
+    type: Date,
+    default: new Date()
   }
+});
+
+// Pre save to hash password
+UserSchema.pre('save', function (next) {
+  var user = this;
+
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(user.password, salt, (err, hash) => {
+      user.password = hash;
+      console.log('Password hashed by pre("save") from mongoose');
+      next();
+    });
+  });
+});
+
+// Pre update to hash password
+UserSchema.pre('update', function (next) {
+  var user = this;
+
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(user.newPassword, salt, (err, hash) => {
+      user.newPassword = hash;
+      console.log('Password hashed by pre("update") from mongoose');
+      next();
+    });
+  });
 });
 
 const User = mongoose.model('User', UserSchema);

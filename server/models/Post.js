@@ -56,6 +56,11 @@ const PostSchema = new mongoose.Schema({
   }
 });
 
+PostSchema.pre('update', function() {
+  var post = this;
+  post.update({},{ $set: { updatedAt: new Date() } });
+});
+
 // Mongoose Plugins
 PostSchema.plugin(mongoosePaginate);
 const Post = mongoose.model('Post', PostSchema);
