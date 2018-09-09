@@ -19,7 +19,7 @@ const uploadPath = path.join(__dirname, './../../public/uploads/');
 
 const multer = require('multer');
 const storage = multer.diskStorage({
-  destination: (_req, file, done) => {
+  destination: (_req, _file, done) => {
     done(null, uploadPath);
   },
   filename: (_req, file, done) => {
@@ -62,7 +62,8 @@ router.get('/add', authenticate, (req, res) => {
 });
 
 // POST /posts/add
-router.post('/add', authenticate, upload.single('image'),
+const pUpload = upload.single('image');
+router.post('/add', authenticate, pUpload,
   [
     check('title')
       .isLength({ min: 10 })
@@ -76,9 +77,7 @@ router.post('/add', authenticate, upload.single('image'),
     let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      errors = _.map(errors.array(), err => {
-        return _.pick(err, 'msg');
-      });
+      errors = errors.array();
       req.flash('error', errors);
       return res.redirect('/posts/add');
     }
@@ -165,12 +164,11 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const title = body.title;
     const content = body.content;
     const featured = body.featured;
-    const updatedAt = new Date();
     let image;
 
     if(!req.file) {
       findImgById(id).then(dbImg => {
-        Post.findByIdAndUpdate(id, { $set: { title, content, featured, dbImg, updatedAt } }).then(post => {
+        Post.findByIdAndUpdate(id, { $set: { title, content, featured, dbImg } }).then(post => {
           req.flash('success', 'Updated successfully');
           return res.redirect('/posts');
         }).catch(err => {
@@ -180,7 +178,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
       });
     } else {
       image = req.file.filename;
-      Post.findByIdAndUpdate(id, { $set: { title, content, featured, image, updatedAt } }).then(post => {
+      Post.findByIdAndUpdate(id, { $set: { title, content, featured, image } }).then(post => {
         req.flash('success', 'Updated successfully');
         return res.redirect('/posts');
       }).catch(err => {

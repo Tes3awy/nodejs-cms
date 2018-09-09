@@ -40,7 +40,6 @@ router.get('/profile', authenticate, (req, res) => {
     // });
   }
 
-
   getLocation().then(location => {
     if(location.data.status === "success") {
       const country = location.data.country;
