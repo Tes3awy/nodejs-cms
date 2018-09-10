@@ -5,8 +5,6 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
-const compression = require('compression');
-
 const { mongoose } = require('./db/mongoose');
 
 const session = require('express-session');
@@ -30,6 +28,7 @@ const methodOverride = require('method-override');
 const flash = require('connect-flash');
 
 const helmet = require('helmet');
+const compression = require('compression');
 
 const logger = require('morgan');
 const errorhandler = require('errorhandler');

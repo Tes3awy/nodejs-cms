@@ -109,7 +109,7 @@ router.post('/add', authenticate, postUpload,
     // Check if title already exists for insertion
     Post.findOne({ title }).then(exists => {
       if(exists) {
-        req.flash('error', 'Title already exists! Please choose another title.');
+        req.flash('error', { msg: 'Title already exists! Please choose another title.' });
         return res.redirect('/posts/add');
       }
       newPost.save().then(post => {
