@@ -56,19 +56,19 @@ const PostSchema = new mongoose.Schema({
   }
 });
 
-PostSchema.pre('update', function() {
-  var post = this;
-  post.update({},{ $set: { updatedAt: new Date() } });
+// Add updatedAt pre('update')
+PostSchema.pre('update', function(next) {
+  console.log('Updated updatedAt time using pre');
+  var Post = this;
+  Post.update({},{ $set: { updatedAt: new Date() } });
+  next();
 });
 
-// Mongoose Plugins
-PostSchema.plugin(mongoosePaginate);
-const Post = mongoose.model('Post', PostSchema);
-
 // Statics
-PostSchema.statics.findBySlug = function(slug) {
+PostSchema.statics.findBySlug = function(slug, next) {
     var Post = this;
     Post.findOne({ slug });
+    next();
 }
 // Functions
 var findImgById = (id) => {
@@ -76,6 +76,10 @@ var findImgById = (id) => {
     return post.image;
   });
 }
+
+// Mongoose Plugins
+PostSchema.plugin(mongoosePaginate);
+const Post = mongoose.model('Post', PostSchema);
 
 module.exports = {
   Post,

@@ -62,8 +62,8 @@ router.get('/add', authenticate, (req, res) => {
 });
 
 // POST /posts/add
-const pUpload = upload.single('image');
-router.post('/add', authenticate, pUpload,
+const postUpload = upload.single('image');
+router.post('/add', authenticate, postUpload,
   [
     check('title')
       .isLength({ min: 10 })
@@ -106,23 +106,29 @@ router.post('/add', authenticate, pUpload,
       featured,
       postTag: tag
     });
-
-    newPost.save().then(post => {
-      req.flash('success', 'Added post successfully');
-      return res.redirect('/posts');
-    })
-    .catch(err => {
-      req.flash('error', 'Unable to add post into database!!!');
-      return res.redirect('/posts');
+    // Check if title already exists for insertion
+    Post.findOne({ title }).then(exists => {
+      if(exists) {
+        req.flash('error', 'Title already exists! Please choose another title.');
+        return res.redirect('/posts/add');
+      }
+      newPost.save().then(post => {
+        req.flash('success', 'Added post successfully');
+        return res.redirect('/posts');
+      })
+      .catch(err => {
+        req.flash('error', 'Unable to add post into database!!!');
+        return res.redirect('/posts');
+      });
     });
   }
 );
 
 // GET /post (Single post)
-router.get('/:id', (req, res) => {
-  const id = req.params.id;
-
-  Post.findById(id).then(post => {
+router.get('/:slug', (req, res) => {
+  const slug = req.params.slug;
+  // console.log('post slug:', slug);
+  Post.findOne({ slug }).then(post => {
     User.findById(post.userId).then(author => {
         res.render('posts/post', {
           layout: 'postsLayout',
@@ -164,11 +170,17 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const title = body.title;
     const content = body.content;
     const featured = body.featured;
+    const slug = slugify(title, {
+      replacement: '-',
+      remove: /[*+~.()'"!:@]/g,
+      lower: true
+    });
+    const updatedAt = new Date();
     let image;
 
     if(!req.file) {
       findImgById(id).then(dbImg => {
-        Post.findByIdAndUpdate(id, { $set: { title, content, featured, dbImg } }).then(post => {
+        Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(post => {
           req.flash('success', 'Updated successfully');
           return res.redirect('/posts');
         }).catch(err => {
@@ -178,7 +190,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
       });
     } else {
       image = req.file.filename;
-      Post.findByIdAndUpdate(id, { $set: { title, content, featured, image } }).then(post => {
+      Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(post => {
         req.flash('success', 'Updated successfully');
         return res.redirect('/posts');
       }).catch(err => {

@@ -32,7 +32,6 @@ const flash = require('connect-flash');
 const helmet = require('helmet');
 
 const logger = require('morgan');
-
 const errorhandler = require('errorhandler');
 
 const _ = require('lodash');
@@ -87,19 +86,25 @@ app.engine('hbs', hbs({
     // express-handlebars helper functions
     helpers: {
       getPrettyDate(date) {
-        return moment(date).format('LLL');
+        return moment(date).format('lll');
       },
-      getCurrentYear() {
-        return new Date().getFullYear();
+      prettyCreatedAt(date) {
+        return moment(date).format('ll');
       },
       getToday() {
         return moment().format('MMMM Do YYYY');
       },
-      truncateText(text) {
-        return _.truncate(text, { length: 300 });
+      getCurrentYear() {
+        return new Date().getFullYear();
       },
-      capitalize(text) {
-        return _.capitalize(text);
+      truncateText(content) {
+        return _.truncate(content, { length: 300 });
+      },
+      descriptionTruncate(description) {
+        return _.truncate(description, { length: 220 });
+      },
+      capitalize(tag) {
+        return _.capitalize(tag);
       },
       if_eq(a, b, opts) {
         if(a === b) {

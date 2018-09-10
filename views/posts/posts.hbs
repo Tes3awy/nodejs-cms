@@ -50,18 +50,17 @@
                         {{!-- Post content part (RHS) --}}
                         <li class="posts-list-item post-desc">
                             <div class="desc">
-                                <h2 class="post-title text-dark">{{this.title}}</h2>
-                                {{!-- <small>{{this.userId}}</small> --}}
-                                <div class="text-dark">
+                                <h2 class="post-title"><a class="text-dark" href="/posts/{{this.slug}}">{{this.title}}</a></h2>
+                                <div class="">
                                     {{{truncateText this.content}}}
                                 </div>
                                 <div class="text-right my-2">
-                                    <a class="btn btn-secondary" href="/posts/{{this.id}}">Read more
+                                    <a class="btn btn-secondary" href="/posts/{{this.slug}}">Read more
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 </div>
                                 {{!-- Post published date and comments count --}}
-                                <p class="d-inline-block text-muted mb-0"><i class="far fa-calendar-alt text-success"></i> {{getPrettyDate this.createdAt}} - </p>
+                                <p class="d-inline-block text-muted mb-0"><i class="far fa-calendar-alt text-success"></i> {{prettyCreatedAt this.createdAt}} - </p>
                                 <p class="d-inline-block text-muted mb-0">
                                     <i class="text-info fas fa-comments comments"></i>
                                     <a class="text-muted" title="{{this.title}} comments" href="/posts/{{this.id}}#disqus_thread">0

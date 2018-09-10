@@ -91,29 +91,18 @@ $("img").on("contextmenu", function() {
   return false;
 });
 
-// Edit Bio Inline
-$("#saveBioBtn").hide();
-$("#editBioBtn").on('click', function() {
-  $("#saveBioBtn").css('display', 'inline-block');
-  $("p.editable").replaceWith('<textarea class="editable form-control w-100 mb-2" rows="6">' + $(".editable").text().replace(/\s\s+/g, ' ') + '</textarea>');
-});
-$("#saveBioBtn").on('click', function() {
-  $("textarea.editable").replaceWith('<p class="editable">'+($("textarea.editable").text().replace(/\s\s+/g, ' ')) + '</p>');
-  $(this).hide(300);
-});
-
 $(document).ready(function() {
   // TinyMCE Init
   var tinymceConfig = {
-    selector: "textarea#tinymce",
+    selector: 'textarea#tinymce',
     skins: 'vendor/tinymce/skins/lightgray',
     theme: 'modern',
-    toolbar:
-      "undo redo | bold italic | forecolor backcolor | codesample code | spellchecker | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+    menubar: 'edit | view',
+    toolbar: 'undo redo | bold italic | forecolor backcolor | codesample code | alignleft aligncenter alignright alignjustify | bullist numlist | link',
     plugins: [
-      "anchor autolink codesample spellchecker colorpicker charactercount contextmenu code",
-      " lists link noneditable preview",
-      " searchreplace table textcolor print"
+      'paste anchor autolink codesample colorpicker charactercount contextmenu code',
+      ' lists link noneditable preview',
+      ' searchreplace table textcolor print visualblocks'
     ],
     codesample_languages: [
         {text: 'HTML/XML', value: 'markup'},
@@ -130,9 +119,13 @@ $(document).ready(function() {
         {text: 'Swift', value: 'swift'},
         {text: 'Objective-C', value: 'objective-c'},
     ],
+    visualblocks_default_state: true,
+    end_container_on_empty_block: true,
     paste_as_text: true,
     language: 'en',
     directionality: 'ltr',
+    entity_encoding : 'raw',
+    forced_root_block: 'p',
     paste_data_images: false,
     paste_enable_default_filters: true,
     paste_text_sticky_default: true,
@@ -156,7 +149,7 @@ $(document).ready(function() {
   tinymce.init(tinymceConfig);
 
   // DataTables
-  if($("#dataTable").length > 0) {
+  if($('#dataTable').length > 0) {
     $('#dataTable').DataTable({
       stateSave: true,
       rowReorder: true,
@@ -166,45 +159,22 @@ $(document).ready(function() {
   };
 
   // Auto hide alerts
-  $(".alert").fadeTo(10000, 500).slideUp(500, function() {
+  $('.alert-dismissible').fadeTo(10000, 500).slideUp(500, function() {
     $(this).slideUp(500);
   });
 
-  // Delete Account confirm box
-  // $("#deleteAccount").on('submit', function(e) {
-  //   e.preventDefault();
-  //   swal({
-  //     title: 'Are you sure?',
-  //     text: "You won't be able to revert action!",
-  //     type: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#17a2b8',
-  //     cancelButtonColor: '#dc3545',
-  //     confirmButtonText: 'Yes, delete it!'
-  //   }).then((res) => {
-  //     if (res.value) {
-  //       return swal(
-  //         'Deleted!',
-  //         'Your file has been deleted.',
-  //         'success'
-  //       );
-  //     }
-  //     swal(
-  //       'Cancelled',
-  //       'Your account is safe :)',
-  //       'error'
-  //     );
-  //   });
-  // });
-  var dp = TinyDatePicker('input#date', {
-    lang: {
-      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    today: 'Today',
-    min: '1/1/1900',
-    max: ''
-  });
-  dp.on('statechange', (_, picker) => console.log(picker.state.toLocaleDateString()));
+  // TinyDate Picker
+  if($('#input#date').length > 0) {
+    var dp = TinyDatePicker('input#date', {
+      lang: {
+        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      },
+      today: 'Today',
+      min: '1/1/1900',
+      max: ''
+    });
+    dp.on('statechange', (_, picker) => console.log(picker.state.toLocaleDateString()));
+  }
 });
 
 // Detect Ad Blocker
@@ -222,7 +192,7 @@ if(!document.querySelector('.ad-alert')) {
   document.querySelector('.ad-alert').style.display = 'block';
   document.body.style.overflowY = 'hidden';
   console.log('Ad Blocker Detected');
-  $("html").on("contextmenu", function() {
+  $('html').on('contextmenu', function() {
     return false;
   });
 } else {
