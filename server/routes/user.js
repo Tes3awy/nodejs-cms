@@ -10,8 +10,11 @@ const { LookIP } = require('./../middlewares/geolocation');
 
 const authenticate = require('./../middlewares/authenticate');
 
+// Require authenticate middleware for all route verbs /user/
+router.all('*', authenticate);
+
 // GET user/profile
-router.get('/profile', authenticate, (req, res) => {
+router.get('/profile', (req, res) => {
 
   var getIP = () => {
     return LookIP.then(ip => {
@@ -54,7 +57,7 @@ router.get('/profile', authenticate, (req, res) => {
 });
 
 // GET user/edit
-router.get('/edit/:id', authenticate, (req, res) => {
+router.get('/edit/:id', (req, res) => {
   const id = req.params.id;
   User.findById(id).then(user => {
     res.render('user/edit', {
@@ -67,7 +70,7 @@ router.get('/edit/:id', authenticate, (req, res) => {
 });
 
 // GET user/delete
-router.delete('/delete/:id', authenticate, (req, res) => {
+router.delete('/delete/:id', (req, res) => {
   const id = req.params.id;
 
   User.findByIdAndRemove(id).then(user => {

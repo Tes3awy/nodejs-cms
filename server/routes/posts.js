@@ -11,7 +11,7 @@ const slugify = require('slugify')
 const { check, validationResult } = require('express-validator/check');
 
 const { mongoose } = require('./../db/mongoose');
-const { Post, findImgById } = require('./../models/Post');
+const { Post } = require('./../models/Post');
 const { User } = require('./../models/User');
 const { Tag } = require('./../models/Tag');
 
@@ -128,7 +128,7 @@ router.post('/add', authenticate, postUpload,
 router.get('/:slug', (req, res) => {
   const slug = req.params.slug;
   // console.log('post slug:', slug);
-  Post.findOne({ slug }).then(post => {
+  Post.findBySlug(slug).then(post => {
     User.findById(post.userId).then(author => {
         res.render('posts/post', {
           layout: 'postsLayout',
@@ -179,7 +179,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     let image;
 
     if(!req.file) {
-      findImgById(id).then(dbImg => {
+      Post.findImgById(id).then(dbImg => {
         Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(post => {
           req.flash('success', 'Updated successfully');
           return res.redirect('/posts');
