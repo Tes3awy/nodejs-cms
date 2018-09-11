@@ -13,7 +13,7 @@ passport.use(
       passReqToCallback: true
     },
     (req, email, password, done) => {
-      User.findOne({ email }).then((user) => {
+      User.findByEmail(email).then((user) => {
         if (!user) {
           return done(null, false, req.flash('error', { msg: 'Email is not registered!!!' }));
         }
