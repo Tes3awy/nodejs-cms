@@ -91,7 +91,7 @@ router.post('/register', [
     hash: ciphertext
   });
 
-  User.findOne({ email }).then(user => {
+  User.findByEmail(email).then(user => {
       if (user) {
         req.flash('error', 'Email is already registered!!!');
         return res.redirect('/auth/register');

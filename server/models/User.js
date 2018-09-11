@@ -85,6 +85,12 @@ UserSchema.pre('update', function (next) {
   });
 });
 
+// Statics
+UserSchema.statics.findByEmail = function(email) {
+  var User = this;
+  return User.findOne({ email });
+}
+
 const User = mongoose.model('User', UserSchema);
 
 module.exports = {

@@ -69,6 +69,11 @@ PostSchema.statics.findBySlug = function(slug) {
     return Post.findOne({ slug });
 }
 
+PostSchema.statics.findByTitle = function(title) {
+  var Post = this;
+  return Post.findOne({ title });
+}
+
 PostSchema.statics.findImgById = function(id) {
   var Post = this;
   return Post.findById(id);
