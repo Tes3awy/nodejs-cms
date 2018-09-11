@@ -4,11 +4,12 @@ const fs = require('fs');
 const express = require('express');
 const router = express.Router();
 
-const _ = require('lodash');
 const slugify = require('slugify')
 // const swal = require('sweetalert2');
 
 const { check, validationResult } = require('express-validator/check');
+
+const { ObjectID } = require('mongodb');
 
 const { mongoose } = require('./../db/mongoose');
 const { Post } = require('./../models/Post');
@@ -112,7 +113,7 @@ router.post('/add', authenticate, postUpload,
         req.flash('error', { msg: 'Title already exists! Please choose another title.' });
         return res.redirect('/posts/add');
       }
-      newPost.save().then(post => {
+      newPost.save().then(() => {
         req.flash('success', 'Added post successfully');
         return res.redirect('/posts');
       })
@@ -149,6 +150,11 @@ router.get('/:slug', (req, res) => {
 // GET /post/edit (GET Edit post)
 router.get('/edit/:id', authenticate, (req, res) => {
   const id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
   Post.findById(id).then(post => {
       res.render('posts/edit', {
         layout: 'postsLayout',
@@ -178,6 +184,10 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
     const updatedAt = new Date();
     let image;
 
+    if (!ObjectID.isValid(id)) {
+      return res.status(404).send();
+    }
+
     if(!req.file) {
       Post.findImgById(id).then(dbImg => {
         Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(post => {
@@ -204,6 +214,10 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
 // DELETE /post/delete (DELETE Edit post)
 router.delete('/delete/:id', authenticate, (req, res) => {
   const id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
 
   Post.findByIdAndRemove(id).then(post => {
     if(post) {

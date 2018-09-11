@@ -8,7 +8,6 @@ const _ = require('lodash');
 const { mongoose } = require('./../db/mongoose');
 const { User } = require('./../models/User');
 
-const bcrypt = require('bcryptjs');
 const CryptoJS = require("crypto-js");
 
 const { passportConfig } = require('./../middlewares/passport');
@@ -98,16 +97,7 @@ router.post('/register', [
         return res.redirect('/auth/register');
       }
 
-      // bcrypt.genSalt(10, (err, salt) => {
-      //   bcrypt.hash(newUser.password, salt, (err, hash) => {
-      //     if (err) {
-      //       throw err;
-      //     }
-
-      //     newUser.password = hash;
-      //   });
-      // });
-      newUser.save().then(user => {
+      newUser.save().then(() => {
         req.flash('success', `Registered successfully. An e-mail has been sent to ${email} with further instructions.`)
         return res.redirect('/auth/login');
       }).catch(err => {
@@ -151,7 +141,6 @@ router.post('/register', [
       console.log('Rejected: %s', info.rejected);
       console.log('Pending: %s', info.pending);
       console.log('Response: %s', response);
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
     });
 });
 

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const _ = require('lodash');
-
 const { mongoose } = require('./../db/mongoose');
 const { Tag } = require('./../models/Tag');
+
+const _ = require('lodash');
 
 const authenticate = require('./../middlewares/authenticate');
 
@@ -24,7 +24,7 @@ router.post('/add', (req, res) => {
   const newTag = new Tag({
     tag
   });
-  newTag.save().then(tag => {
+  newTag.save().then(() => {
     req.flash('success', 'Tag added');
     return res.redirect('/tag/add');
   }).catch(err => {

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const { ObjectID } = require('mongodb');
+
 const { mongoose } = require('./../db/mongoose');
 const { User } = require('./../models/User');
 
@@ -59,6 +61,11 @@ router.get('/profile', (req, res) => {
 // GET user/edit
 router.get('/edit/:id', (req, res) => {
   const id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
   User.findById(id).then(user => {
     res.render('user/edit', {
       showTitle: 'Update profile',
@@ -72,6 +79,10 @@ router.get('/edit/:id', (req, res) => {
 // GET user/delete
 router.delete('/delete/:id', (req, res) => {
   const id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
 
   User.findByIdAndRemove(id).then(user => {
     req.flash('warning', 'We are sorry to see you leaving.');

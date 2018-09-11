@@ -75,7 +75,7 @@ app.use(function(req, res, next) {
   next();
 });
 // Morgan Middleware
-app.use(logger('dev'));
+app.use(logger('combined'));
 // HBS View Engine Template
 app.engine('hbs', hbs({
     defaultLayout: 'main',
