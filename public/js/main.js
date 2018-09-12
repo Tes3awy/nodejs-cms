@@ -163,17 +163,32 @@ $(document).ready(function() {
   });
 
   // TinyDate Picker
-  if($('#input#date').length > 0) {
-    var dp = TinyDatePicker('input#date', {
-      lang: {
-        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      },
-      today: 'Today',
-      min: '1/1/1900',
-      max: ''
-    });
-    dp.on('statechange', (_, picker) => console.log(picker.state.toLocaleDateString()));
-  }
+  if($('input#date').length > 0) {
+    var options = {
+      min: '1/1/1950',
+      max: '1/1/2050',
+      hilightedDate: new Date(),
+    };
+    TinyDatePicker('input#date', options)
+        .on({
+          open: function () {
+            console.log('OPENED');
+          },
+          close: function () {
+            console.log('CLOSED');
+          },
+          select: function (_, dp) {
+            console.log('SELECT ', dp.state.selectedDate.toDateString());
+            console.log('Birthdate:', dp.state.selectedDate.toLocaleDateString('en-GB'));
+          },
+          statechange: function (_, dp) {
+            console.log('STATE CHANGE ', dp.state);
+          }
+        });
+      // TinyDatePicker('input#date', {
+      //   mode: 'dp-below',
+      // });
+    }
 });
 
 // Detect Ad Blocker
