@@ -8,8 +8,6 @@ const { User } = require('./../models/User');
 
 const axios = require('axios');
 
-const { LookIP } = require('./../middlewares/geolocation');
-
 const authenticate = require('./../middlewares/authenticate');
 
 // Require authenticate middleware for all route verbs /user/
@@ -18,43 +16,25 @@ router.all('*', authenticate);
 // GET user/profile
 router.get('/profile', (req, res) => {
 
-  var getIP = () => {
-    return LookIP.then(ip => {
-      return ip;
-    });
-  }
-  var getLocation = async () => {
-    const location = await getIP();
-    return location;
-  };
-
-  const apiKey = process.env.LOCATION_API;
   var ipStack = () => {
-    axios.get(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`).then(response => {
+    const apiKey = process.env.LOCATION_API;
+    return axios.get(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`).then(response => {
       if(response.status === 200) {
-        console.log('ipstack data:', response.data);
         return response.data;
       }
     });
-    // Another Method
-    // const apiKey = process.env.LOCATION_API;
-    // request(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`, (err, response, body) => {
-    //   if(err === null) {
-    //     return JSON.parse(response.body);
-    //   }
-    // });
   }
 
-  getLocation().then(location => {
-    if(location.data.status === "success") {
-      const country = location.data.country;
-      const city = location.data.city;
+  ipStack().then(geolocation => {
+    const country = geolocation.country_name;
+    const capital = geolocation.location.capital;
+    const flag = geolocation.location.country_flag;
       res.render('user/profile', {
         showTitle: 'Profile page',
-        city,
-        country
+        country,
+        capital,
+        flag
       });
-    }
   });
 });
 
