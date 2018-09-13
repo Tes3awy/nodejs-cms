@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
   Post.find().sort({featured: -1, createdAt: -1}).then(posts => {
     res.render('posts/posts', {
       showTitle: 'Posts',
-      layout: 'postsLayout',
+      layout: 'postLayout',
       posts,
       error: req.flash('error'),
       success: req.flash('success')
@@ -54,7 +54,7 @@ router.get('/add', authenticate, (req, res) => {
   Tag.find().then(tag => {
     res.render('posts/add', {
       showTitle: 'Add post',
-      layout: 'postsLayout',
+      layout: 'postLayout',
       tag,
       error: req.flash('error'),
       success: req.flash('success')
@@ -132,7 +132,7 @@ router.get('/:slug', (req, res) => {
   Post.findBySlug(slug).then(post => {
     User.findById(post.userId).then(author => {
         res.render('posts/post', {
-          layout: 'postsLayout',
+          layout: 'postLayout',
           showTitle: post.title,
           post,
           author
@@ -157,7 +157,7 @@ router.get('/edit/:id', authenticate, (req, res) => {
 
   Post.findById(id).then(post => {
       res.render('posts/edit', {
-        layout: 'postsLayout',
+        layout: 'postLayout',
         showTitle: `Edit - ${post.title}`,
         post
     });
