@@ -117,7 +117,7 @@ router.post('/add', authenticate, postUpload,
         req.flash('success', 'Added post successfully');
         return res.redirect('/posts');
       })
-      .catch(err => {
+      .catch(_err => {
         req.flash('error', 'Unable to add post into database!!!');
         return res.redirect('/posts');
       });
@@ -137,11 +137,11 @@ router.get('/:slug', (req, res) => {
           post,
           author
       });
-    }).catch(err => {
+    }).catch(_err => {
       req.flash('error', 'Unable to find author!!!');
       return res.redirect(`/posts/${post.id}`);
     });
-  }).catch(err => {
+  }).catch(_err => {
     req.flash('error', 'Unable to find post!!!');
     return res.redirect('/posts');
   });
@@ -161,7 +161,7 @@ router.get('/edit/:id', authenticate, (req, res) => {
         showTitle: `Edit - ${post.title}`,
         post
     });
-  }).catch(err => {
+  }).catch(_err => {
     req.flash('error', 'Unable to find post to edit!!!');
     return res.redirect('/posts');
   });
@@ -190,20 +190,20 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
 
     if(!req.file) {
       Post.findImgById(id).then(dbImg => {
-        Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(post => {
+        Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(() => {
           req.flash('success', 'Updated successfully');
           return res.redirect('/posts');
-        }).catch(err => {
+        }).catch(_err => {
           req.flash('error', 'Unable to update post!!!');
           return res.redirect('/posts');
         });
       });
     } else {
       image = req.file.filename;
-      Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(post => {
+      Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(() => {
         req.flash('success', 'Updated successfully');
         return res.redirect('/posts');
-      }).catch(err => {
+      }).catch(_err => {
         req.flash('error', 'Unable to update post!!!');
         return res.redirect('/posts');
       });
@@ -229,7 +229,7 @@ router.delete('/delete/:id', authenticate, (req, res) => {
       req.flash('success', 'Deleted successfully');
       return res.redirect('/posts');
     }
-  }).catch(err => {
+  }).catch(_err => {
     req.flash('error', 'Unable to delete post!!!');
     return res.redirect('/posts');
   });

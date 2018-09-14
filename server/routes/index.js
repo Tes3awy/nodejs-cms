@@ -46,7 +46,7 @@ router.get('/', (req, res) => {
 });
 
 // GET /about
-router.get('/about', (req, res) => {
+router.get('/about', (_req, res) => {
   res.render('about', {
     showTitle: 'About page',
   });
@@ -75,7 +75,7 @@ router.post('/contact', [
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    console.log('contact page errors:', errors.array());
+    // console.log('contact page errors:', errors.array());
     req.flash('error', errors.array());
     return res.redirect('/contact');
   }
@@ -89,7 +89,7 @@ router.post('/contact', [
 
   const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&remoteip=${req.connection.remoteAddress}&response=${req.body['g-recaptcha-response']}`;
 
-  request(verifyURL, (err, response, body) => {
+  request(verifyURL, (_err, _response, body) => {
     const verify = JSON.parse(body);
     if(!verify.success) {
       req.flash('captchaError', 'Unable to verify reCAPTCHA');
@@ -139,7 +139,7 @@ router.post('/contact', [
 
     newContact.save().then(sender => {
       console.log('Sender:', sender);
-    }).catch(err => {
+    }).catch(_err => {
       console.log('Unable to add sender to database');
     })
     req.flash('success', 'Message sent.');
@@ -148,7 +148,7 @@ router.post('/contact', [
 });
 
 // GET /terms
-router.get('/terms', (req, res) => {
+router.get('/terms', (_req, res) => {
   res.render('terms', {
     showTitle: 'Terms and Conditions page'
   });

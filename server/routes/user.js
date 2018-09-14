@@ -14,7 +14,7 @@ const authenticate = require('./../middlewares/authenticate');
 router.all('*', authenticate);
 
 // GET user/profile
-router.get('/profile', (req, res) => {
+router.get('/profile', (_req, res) => {
 
   var ipStack = () => {
     const apiKey = process.env.LOCATION_API;
@@ -27,12 +27,10 @@ router.get('/profile', (req, res) => {
 
   ipStack().then(geolocation => {
     const country = geolocation.country_name;
-    const capital = geolocation.location.capital;
     const flag = geolocation.location.country_flag;
       res.render('user/profile', {
         showTitle: 'Profile page',
         country,
-        capital,
         flag
       });
   });
@@ -64,10 +62,10 @@ router.delete('/delete/:id', (req, res) => {
     return res.status(404).send();
   }
 
-  User.findByIdAndRemove(id).then(user => {
+  User.findByIdAndRemove(id).then(() => {
     req.flash('warning', 'We are sorry to see you leaving.');
     return res.redirect('/');
-  }).catch(err => {
+  }).catch(_err => {
     req.flash('error', 'Unable to delete your account right now');
     return res.redirect('/user/profile');
   });

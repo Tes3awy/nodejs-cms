@@ -268,12 +268,10 @@ router.put('/reset/:ciphertext', [
 
   User.findOneAndUpdate({ email },
     { $set: { password: newPassword } },
-    { new: true }).then(user => {
-      if(user) {
-        req.flash('success', 'Password updated successfully.');
-        return res.redirect('/auth/login');
-      }
-    }).catch(err => {
+    { new: true }).then(() => {
+      req.flash('success', 'Password updated successfully.');
+      return res.redirect('/auth/login');
+    }).catch(_err => {
       req.flash('error', 'Couldn\'t update your password right now. Please try again in a moment');
       return res.redirect('/auth/login');
     });
