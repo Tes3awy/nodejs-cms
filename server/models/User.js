@@ -63,8 +63,8 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', function (next) {
   var user = this;
 
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (err, hash) => {
+  bcrypt.genSalt(10, (_err, salt) => {
+    bcrypt.hash(user.password, salt, (_err, hash) => {
       user.password = hash;
       console.log('Password hashed by pre("save") from mongoose');
       next();
@@ -76,8 +76,8 @@ UserSchema.pre('save', function (next) {
 UserSchema.pre('update', function (next) {
   var user = this;
 
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.newPassword, salt, (err, hash) => {
+  bcrypt.genSalt(10, (_err, salt) => {
+    bcrypt.hash(user.newPassword, salt, (_err, hash) => {
       user.newPassword = hash;
       console.log('Password hashed by pre("update") from mongoose');
       next();
