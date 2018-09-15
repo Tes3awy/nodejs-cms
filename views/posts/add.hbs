@@ -39,20 +39,20 @@
                     </div>
                 </div>
                 {{!-- Select Tags for post --}}
-                <div class="col-sm-8 d-flex justify-content-end">
+                <div class="col-sm-8">
                     <div class="form-group">
                         <div class="input-group">
-                            <select name="tag" class="chosen-select" data-placeholder="Choose your post's tags..."
-                                multiple>
+                            <select name="tag" class="chosen-select form-control" data-placeholder="Choose your post's tags..."
+                                multiple required>
                                 {{#each tag}}
                                     <option value="{{tag}}">{{tag}}</option>
                                 {{/each}}
                             </select>
-                            <div class="input-group-prepend">
-                                <a class="btn btn-info btn-sm" href="/tag/add">or add your own tags</a>
-                            </div>
                         </div>
-                        <small class="text-muted">You can choose up to <span class="text-success">three</span> tags</small>
+                        <div class="text-right d-block">
+                            <a class="btn btn-info btn-sm" href="/tag/add">or add your own tags</a>
+                        </div>
+                        <small class="text-muted d-block text-right">You can choose up to <span class="text-success">three</span> tags</small>
                     </div>
                 </div>
             </div>

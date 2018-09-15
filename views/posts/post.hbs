@@ -15,9 +15,9 @@
             Last update: {{getPrettyDate post.updatedAt}}
           </p>
           {{/if}}
-          {{#if author.name}}
+          {{#if author}}
             <p class="text-white mb-0"><span class="badge badge-pill badge-primary font-weight-normal py-1 px-2"
-                title="Author: {{author.name}}">Written by: {{author.name}}</span></p>
+                title="Author: {{author.firstname}} {{author.lastname}}">Written by: {{author.firstname}} {{author.lastname}}</span></p>
           {{/if}}
         </div>
         {{!-- Social Media Shares --}}
@@ -58,7 +58,7 @@
         {{#if post.postTag}}
         <i class="fas fa-tags" style="vertical-align: middle;" title="Tags"></i>
           {{#each post.postTag}}
-            <a href="javascript:;" class="badge badge-primary px-2 py-1 font-weight-light" title="{{this}}">{{capitalize this}}</a>
+            <a href="#" class="badge badge-primary px-2 py-1 font-weight-light" title="{{this}}">{{capitalize this}}</a>
           {{/each}}
         {{/if}}
         {{!-- Post actions if user exists --}}
