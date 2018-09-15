@@ -44,7 +44,9 @@ router.get('/login', (req, res) => {
 
 // POST /auth/register
 router.post('/register', [
-  check('name', 'Name must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
+  check('firstname', 'First name is a required field').isLength({ min: 3 }).escape().trim(),
+  check('lastname', 'Last name is a required field').isLength({ min: 3 }).escape().trim(),
+  check('username', 'Username must be at least 3 characters').isLength({ min: 3 }).escape().trim(),
   check('email', 'Email is a required field').isEmail().normalizeEmail({'all_lowercase': false, 'gmail_remove_dots': false, 'outlookdotcom_lowercase': false}).escape().trim(),
   check('password', 'Password cannot be less than 5 characters').isLength({min: 5}),
   check('confPassword', 'Confirm password must have the same value as the password!!!').custom((value, { req }) => value === req.body.password)
@@ -66,7 +68,7 @@ router.post('/register', [
 
   const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&remoteip=${req.connection.remoteAddress}&response=${req.body['g-recaptcha-response']}`;
 
-  request(verifyURL, (err, response, body) => {
+  request(verifyURL, (_err, _response, body) => {
     const verify = JSON.parse(body);
     if(!verify.success) {
       req.flash('captchaError', 'Unable to verify reCAPTCHA');
@@ -75,7 +77,9 @@ router.post('/register', [
   });
 
   const email = req.body.email;
-  const name = _.startCase(_.toLower(req.body.name));
+  const firstname = _.startCase(_.toLower(req.body.firstname));
+  const lastname = _.startCase(_.toLower(req.body.lastname));
+  const username = req.body.username;
   const image = gravatar.url(email, {s: '600', r: 'pg', d: 'retro'}, false);
   const password = req.body.password;
 
@@ -84,64 +88,108 @@ router.post('/register', [
   var link = `${req.protocol}://${req.get('host')}/auth/verify/${ciphertext}`;
 
   const newUser = new User({
-    name,
+    firstname,
+    lastname,
+    username,
     email,
     gravatar: image,
     password,
     hash: ciphertext
   });
 
-  User.findByEmail(email).then(user => {
-      if (user) {
-        req.flash('error', 'Email is already registered!!!');
+  // var findEmail = async (email) => {
+  //   console.log("starting findEmail promise");
+  //   return User.findOne({ email }).then(email => {
+  //     if(email) {
+  //       req.flash('error', { msg: 'Email is already registered!!!' });
+  //       return res.redirect('/auth/register');
+  //     }
+  //   });
+  // }
+
+  // var findUsername = async (username) => {
+  //   console.log("starting findUsername promise");
+  //   return User.findOne({ username }).then(username => {
+  //     if(username) {
+  //       req.flash('error', { msg: 'Username is already taken' });
+  //       return res.redirect('/auth/register');
+  //     }
+  //   });
+  // }
+
+  // var checkEmailAndUsername = async () => {
+  //   console.log("starting checkEmailAndUsername promise");
+  //   const findE = findEmail(); // starts timer immediately
+  //   const findUsrname = findUsername();
+  //   return [ findE, findUsrname ];
+  // }
+
+  // checkEmailAndUsername().then(exists => {
+  //   console.log('exists:', exists);
+  //   exists().then(email => {
+
+  //   });
+  //   if(exists[0]) {
+  //     return console.log('email exists');
+  //   }
+  //   if(exists[1]) {
+  //     return console.log('username exists');
+  //   }
+  // });
+
+  User.findByEmail(email).then(emailAddress => {
+    if (emailAddress) {
+      req.flash('error', { msg: 'Email is already registered!!!' });
+      return res.redirect('/auth/register');
+    }
+
+    User.findByUsername(username).then((usrname) => {
+      if(usrname) {
+        req.flash('error', { msg: 'Username is already taken' });
         return res.redirect('/auth/register');
       }
 
       newUser.save().then(() => {
-        req.flash('success', `Registered successfully. An e-mail has been sent to ${email} with further instructions.`)
+        // NodeMailer
+        // create reusable transporter object using the default SMTP transport
+        let smtpConfig = {
+          host: 'vmegypt.webserversystems.com',
+          port: 465,
+          secure: true, // true for 465, false for other ports
+          auth: {
+            type: 'login',
+            user: process.env.EMAIL_ACCOUNT,
+            pass: process.env.EMAIL_PASSWORD
+          }
+        }
+
+        let transporter = nodemailer.createTransport(smtpConfig);
+
+        // setup email data with unicode symbols
+        let mailOptions = {
+          from: '"Tes official website" <oabbas@vm.com.eg>', //sender address
+          to: `${email}`, // list of receivers
+          subject: 'Please verify your email account', //subject line
+          html: `Hello ${firstname},<br> Please click on the link to verify your account.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+          if(error) {
+            return console.log('Send mail error:', error);
+          }
+          console.log('Message sent: %s', info.messageId);
+          console.log('Envelope sent: %s', info.envelope);
+          console.log('Accepted: %s', info.accepted);
+          console.log('Rejected: %s', info.rejected);
+          console.log('Pending: %s', info.pending);
+          console.log('Response: %s', response);
+        });
+        req.flash('success', `Registered successfully. An e-mail has been sent to ${email} with further instructions.`);
         return res.redirect('/auth/login');
-      }).catch(err => {
-        throw err;
       });
-    }).catch(err => {
-      throw err;
     });
-
-    // NodeMailer
-    // create reusable transporter object using the default SMTP transport
-    let smtpConfig = {
-      host: 'vmegypt.webserversystems.com',
-      port: 465,
-      secure: true, // true for 465, false for other ports
-      auth: {
-        type: 'login',
-        user: process.env.EMAIL_ACCOUNT,
-        pass: process.env.EMAIL_PASSWORD
-      }
-    }
-
-    let transporter = nodemailer.createTransport(smtpConfig);
-
-    // setup email data with unicode symbols
-    let mailOptions = {
-      from: '"Tes official website" <oabbas@vm.com.eg>', //sender address
-      to: `${email}`, // list of receivers
-      subject: 'Please verify your email account', //subject line
-      html: `Hello ${name},<br> Please click on the link to verify your account.<br><a href="${link}" target="_blank">Click here to verify</a>` // html body
-    };
-
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-      if(error) {
-        return console.log('Send mail error:', error);
-      }
-      console.log('Message sent: %s', info.messageId);
-      console.log('Envelope sent: %s', info.envelope);
-      console.log('Accepted: %s', info.accepted);
-      console.log('Rejected: %s', info.rejected);
-      console.log('Pending: %s', info.pending);
-      console.log('Response: %s', response);
-    });
+  });
 });
 
 router.get('/verify/:ciphertext', (req, res) => {
@@ -155,7 +203,7 @@ router.get('/verify/:ciphertext', (req, res) => {
       req.flash('success', 'Account verified.');
       return res.redirect('/auth/login');
     }
-  }).catch(err => {
+  }).catch(_err => {
     req.flash('error', 'Unable to verify account!!!');
     return res.redirect('/auth/login');
   });
@@ -198,9 +246,9 @@ router.post('/forget', [
     }
 
     const email = user.email;
-    const name = user.name;
+    const firstname = user.firstname;
     // Ciphering
-    var ciphertext = encodeURIComponent(CryptoJS.AES.encrypt(email, process.env.RESET_PASSWORD  ));
+    var ciphertext = encodeURIComponent(CryptoJS.AES.encrypt(email, process.env.RESET_PASSWORD ));
     const link = `${req.protocol}://${req.get('host')}/auth/reset/${ciphertext}`;
 
     // create reusable transporter object using the default SMTP transport
@@ -220,7 +268,7 @@ router.post('/forget', [
       from: '"Tes official website" <oabbas@vm.com.eg>', //sender address
       to: `${email}`, // list of receivers
       subject: 'Reset your password', //subject line
-      html: `Hello ${name},<br> Please click on the link to reset your password.<br><a href="${link}" target="_blank">Click here to reset your password.</a><br> If it's not you who requested your password reset, you can just ignore this email.` // html body
+      html: `Hello ${firstname},<br> Please click on the link to reset your password.<br><a href="${link}" target="_blank">Click here to reset your password.</a><br> If it's not you who requested your password reset, you can just ignore this email.` // html body
     };
 
     // send mail with defined transport object
@@ -237,7 +285,7 @@ router.post('/forget', [
     });
     req.flash('success', `Email has been sent to ${email}. Don't forget to check your spam folder if you can't find the email.`);
     return res.redirect('/auth/forget');
-  }).catch(err => {
+  }).catch(_err => {
     req.flash('error', 'Cannot get your email from DB right now! Try again in a moment');
     return res.redirect('/auth/forget');
   });
