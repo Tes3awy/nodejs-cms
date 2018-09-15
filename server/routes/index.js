@@ -75,7 +75,6 @@ router.post('/contact', [
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    // console.log('contact page errors:', errors.array());
     req.flash('error', errors.array());
     return res.redirect('/contact');
   }
@@ -95,55 +94,54 @@ router.post('/contact', [
       req.flash('captchaError', 'Unable to verify reCAPTCHA');
       return res.redirect('/contact');
     }
-  });
+    const name = req.body.name;
+    const sender = req.body.email;
+    const phone = req.body.phone;
+    const subject = req.body.subject;
+    const message = req.body.message;
 
-  const name = req.body.name;
-  const sender = req.body.email;
-  const phone = req.body.phone;
-  const subject = req.body.subject;
-  const message = req.body.message;
-
-  let smtpConfig = {
-    host: 'vmegypt.webserversystems.com',
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      type: 'login',
-      user: process.env.EMAIL_ACCOUNT,
-      pass: process.env.EMAIL_PASSWORD
+    let smtpConfig = {
+      host: 'vmegypt.webserversystems.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        type: 'login',
+        user: process.env.EMAIL_ACCOUNT,
+        pass: process.env.EMAIL_PASSWORD
+      }
     }
-  }
 
-  let transporter = nodemailer.createTransport(smtpConfig);
+    let transporter = nodemailer.createTransport(smtpConfig);
 
-  let mailOptions = {
-    from: `${name} <${sender}>`, // sender address
-    to: process.env.EMAIL_ACCOUNT, // list of receivers
-    subject: `${subject}`, // Subject line
-    text: `${message}`, // plain text body
-  };
+    let mailOptions = {
+      from: `${name} <${sender}>`, // sender address
+      to: process.env.EMAIL_ACCOUNT, // list of receivers
+      subject: `${subject}`, // Subject line
+      text: `${message}`, // plain text body
+    };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      req.flash('error', 'Unable to send your message right now. Please try again in a while');
-      console.log(error);
-      return res.redirect('/contact');
-    }
-    const newContact = new Contact({
-      name,
-      phone,
-      sender,
-      message
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        req.flash('error', 'Unable to send your message right now. Please try again in a while');
+        console.log(error);
+        return res.redirect('/contact');
+      }
+      const newContact = new Contact({
+        name,
+        phone,
+        sender,
+        message
+      });
+      console.log('Message sent: %s', info.messageId);
+
+      newContact.save().then(() => {
+        req.flash('success', 'Message sent.');
+        return res.redirect('/contact');
+      }).catch(_err => {
+        req.flash('error', 'Unable to send message');
+        return res.redirect('/contact');
+      });
     });
-    console.log('Message sent: %s', info.messageId);
-
-    newContact.save().then(sender => {
-      console.log('Sender:', sender);
-    }).catch(_err => {
-      console.log('Unable to add sender to database');
-    })
-    req.flash('success', 'Message sent.');
-    return res.redirect('/contact');
   });
 });
 
