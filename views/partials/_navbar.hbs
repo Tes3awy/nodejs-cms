@@ -31,11 +31,11 @@
           </a>
         </li>
         <li class="nav-item bg-primary text-center nav-name">
-          <span class="nav-link text-white">Welcome {{user.name}}</span>
+          <span class="nav-link text-white">Welcome {{user.username}}</span>
         </li>
         <li class="nav-item gravatar-item">
-          <a href="/user/profile" title="{{user.name}}">
-            <img class="rounded-circle" src="{{user.gravatar}}" alt="{{user.name}}" title="{{user.name}}" width="34" height="34">
+          <a href="/user/profile/{{user.username}}" title="{{user.firstname}} {{user.lastname}}">
+            <img class="rounded-circle" src="{{user.gravatar}}" alt="{{user.firstname}} {{user.lastname}}" title="{{user.firstname}} {{user.lastname}}" width="34" height="34">
           </a>
         </li>
       {{else}}
