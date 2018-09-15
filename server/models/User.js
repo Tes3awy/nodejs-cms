@@ -2,13 +2,20 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  firstname: {
     type: String,
     required: true,
     trim: true
   },
-  alias: {
+  lastname: {
     type: String,
+    required: true,
+    trim: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
     trim: true
   },
   email: {
@@ -27,22 +34,27 @@ const UserSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    trim: true
+    trim: true,
+    default: ''
   },
   bio: {
     type: String,
-    trim: true
+    trim: true,
+    default: ''
   },
   website: {
     type: String,
     unique: true,
-    trim: true
+    trim: true,
+    default: ''
   },
   gender: {
-    type: String
+    type: String,
+    default: ''
   },
   birthdate: {
-    type: Date
+    type: Date,
+    default: null
   },
   verified: {
     type: Boolean,
@@ -59,6 +71,17 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
+// Statics
+UserSchema.statics.findByEmail = function(email) {
+  var User = this;
+  return User.findOne({ email });
+}
+
+UserSchema.statics.findByUsername = function(username) {
+  var User = this;
+  return User.findOne({ username });
+}
+
 // Pre save to hash password
 UserSchema.pre('save', function (next) {
   var user = this;
@@ -66,30 +89,15 @@ UserSchema.pre('save', function (next) {
   bcrypt.genSalt(10, (_err, salt) => {
     bcrypt.hash(user.password, salt, (_err, hash) => {
       user.password = hash;
-      console.log('Password hashed by pre("save") from mongoose');
       next();
     });
   });
 });
 
-// Pre update to hash password
-UserSchema.pre('update', function (next) {
-  var user = this;
-
-  bcrypt.genSalt(10, (_err, salt) => {
-    bcrypt.hash(user.newPassword, salt, (_err, hash) => {
-      user.newPassword = hash;
-      console.log('Password hashed by pre("update") from mongoose');
-      next();
-    });
-  });
-});
-
-// Statics
-UserSchema.statics.findByEmail = function(email) {
-  var User = this;
-  return User.findOne({ email });
-}
+// UserSchema.statics.findByCredentials = function(email, username) {
+//   var User = this;
+//   return User.findOne({ email, username });
+// }
 
 const User = mongoose.model('User', UserSchema);
 
