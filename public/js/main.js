@@ -212,3 +212,24 @@ if(!document.querySelector('.ad-alert')) {
 } else {
   console.log('No Ad Blocker Detected');
 }
+
+// function deleteAccount(e) {
+//   e.preventDefault();
+//   var form = $("#deleteAccount");
+//   swal({
+//       title: "Are you sure you want to delete your account?",
+//       text: "You won't be able to revert this action!",
+//       type: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: '#009CDC',
+//       cancelButtonColor: '#FC3939',
+//       confirmButtonText: 'Yes, delete it!',
+//       cancelButtonText: "Cancel",
+//     }).then(res => {
+//       if (res.value) {
+//         form.submit();
+//         return swal('Deleted!', 'Your file has been deleted.', 'success');
+//       }
+//       swal('Cancelled', 'Your account has not been deleted.', 'error');
+//     });
+// }
