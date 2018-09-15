@@ -10,11 +10,15 @@ const axios = require('axios');
 
 const authenticate = require('./../middlewares/authenticate');
 
+const swal = require('sweetalert2');
+
 // Require authenticate middleware for all route verbs /user/
 router.all('*', authenticate);
 
 // GET user/profile
-router.get('/profile', (_req, res) => {
+router.get('/profile/:username', (req, res) => {
+  // const username = req.params.username;
+  // console.log('username:', username);
 
   var ipStack = () => {
     const apiKey = process.env.LOCATION_API;
@@ -37,17 +41,12 @@ router.get('/profile', (_req, res) => {
 });
 
 // GET user/edit
-router.get('/edit/:id', (req, res) => {
-  const id = req.params.id;
+router.get('/edit/:username', (req, res) => {
+  const username = req.params.username;
 
-  if (!ObjectID.isValid(id)) {
-    return res.status(404).send();
-  }
-
-  User.findById(id).then(user => {
+  User.findByUsername(username).then(user => {
     res.render('user/edit', {
       showTitle: 'Update profile',
-      id,
       user,
       errors: req.flash('error')
     });
