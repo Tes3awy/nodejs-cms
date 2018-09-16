@@ -65,7 +65,9 @@ gulp.task('copy-js', () => {
       'node_modules/chart.js/dist/Chart.bundle.min.js',
       'node_modules/chosen-js/chosen.jquery.min.js',
       'node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js',
-      'node_modules/tiny-date-picker/dist/tiny-date-picker.js'
+      'node_modules/tiny-date-picker/dist/tiny-date-picker.js',
+      'node_modules/intl-tel-input/build/js/intlTelInput.min.js',
+      'node_modules/intl-tel-input/build/js/utils.js',
     ])
     .pipe(gulp.dest('public/js'));
 });
@@ -82,7 +84,9 @@ gulp.task('tinymce', () => {
 gulp.task('copy-css', () => {
   return gulp
     .src([
-      'node_modules/tiny-date-picker/tiny-date-picker.css'
+      'node_modules/intl-tel-input/build/css/intlTelInput.min.css',
+      'node_modules/intl-tel-input/build/img/**',
+      // 'node_modules/tiny-date-picker/tiny-date-picker.css'
       // 'node_modules/chosen-js/chosen.min.css',
       // 'node_modules/chosen-js/chosen-sprite.png'
       // 'node_modules/perfect-scrollbar/css/perfect-scrollbar.css'
