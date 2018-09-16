@@ -66,8 +66,7 @@ router.get('/contact', (req, res) => {
 router.post('/contact', [
   check('name', 'Full name must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
   check('subject', 'Subject must be at least 5 characters').isLength({ min: 5 }).escape().trim(),
-  check('phone').isLength({ min: 11 }).withMessage('Phone is not a valid phone number (11 numbers)').trim(),
-  check('phone').isNumeric({ no_symbols: true }).withMessage('Phone number cannot contain any letters!!!'),
+  check('phone').isNumeric({ no_symbols: false }).withMessage('Phone number cannot contain any characters!!!'),
   check('email', 'Email is a required field').isEmail().normalizeEmail({'all_lowercase': false, 'gmail_remove_dots': false, 'outlookdotcom_lowercase': false}).escape().trim(),
   check('message', 'Message must be between 50 to 500 characters').isLength({min: 50, max: 500}).escape().trim(),
 ], (req, res) => {
@@ -123,7 +122,7 @@ router.post('/contact', [
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         req.flash('error', 'Unable to send your message right now. Please try again in a while');
-        console.log(error);
+        // console.log(error);
         return res.redirect('/contact');
       }
       const newContact = new Contact({
@@ -138,7 +137,7 @@ router.post('/contact', [
         req.flash('success', 'Message sent.');
         return res.redirect('/contact');
       }).catch(_err => {
-        req.flash('error', 'Unable to send message');
+        req.flash('error', { msg: 'Unable to save message into DB' });
         return res.redirect('/contact');
       });
     });

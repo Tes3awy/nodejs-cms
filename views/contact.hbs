@@ -43,8 +43,9 @@
             <input type="email" class="form-control email-input-class" placeholder="Your email address" name="email" required>
           </div>
           <div class="form-group">
-            <input type="tel" name="phone" class="form-control" placeholder="Your phone number" required>
-            <small class="text-info">Must be 11 numbers (with Country Code)</small>
+            <small id="output">Please enter a number below</small>
+            <input type="tel" id="phone" name="phone" class="form-control" minlength="5" maxlength="15" required>
+            {{!-- <small class="text-info">Must be 11 numbers (with Country Code)</small> --}}
           </div>
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Your subject" name="subject" minlength="5" required>

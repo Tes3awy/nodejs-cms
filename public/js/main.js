@@ -213,6 +213,23 @@ if(!document.querySelector('.ad-alert')) {
   console.log('No Ad Blocker Detected');
 }
 
+// Country Flags Init
+if($("#phone").length > 0) {
+  $("#phone").intlTelInput({
+    initialCountry: "auto",
+    excludeCountries: ['Israel'],
+    autoHideDialCode: false,
+    nationalMode: false,
+    geoIpLookup: function(cb) {
+      $.get('https://ipinfo.io', function() {}, "jsonp").always(function(response) {
+        var countryCode = (response && response.country) ? response.country : "";
+        cb(countryCode);
+      });
+    },
+    utilsScript: "/js/utils.js"
+  });
+}
+
 // function deleteAccount(e) {
 //   e.preventDefault();
 //   var form = $("#deleteAccount");

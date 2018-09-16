@@ -9,8 +9,7 @@ const ContactSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: true,
-    trim: true,
-    maxlength: 11
+    trim: true
   },
   sender: {
     type: String,

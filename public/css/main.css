@@ -370,6 +370,23 @@ input:disabled {
   max-height: 100% !important;
 }
 
+/* Country Flags */
+.iti-flag {
+  background-image: url("../images/flags.png");
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2 / 1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .iti-flag {
+    background-image: url("../images/flags@2x.png");
+  }
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     -webkit-box-orient: vertical;
