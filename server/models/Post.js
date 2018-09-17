@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate');
 
 const PostSchema = new mongoose.Schema({
   userId: {
@@ -80,7 +79,6 @@ PostSchema.statics.findImgById = function(id) {
 }
 
 // Mongoose Plugins
-PostSchema.plugin(mongoosePaginate);
 const Post = mongoose.model('Post', PostSchema);
 
 module.exports = {

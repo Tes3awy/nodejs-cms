@@ -8,8 +8,8 @@
   "description": "Advanced Node.js CMS based web application",
   "main": "server/server.js",
   "scripts": {
-    "start-mac": "export NODE_ENV=development && nodemon server/server.js",
-    "start-win": "set NODE_ENV=development && nodemon server/server.js",
+    "start:mac": "export NODE_ENV=development && nodemon server/server.js",
+    "start:win": "set NODE_ENV=development && nodemon server/server.js",
     "test": "snyk test",
     "build": "webpack --config webpack.config.js --watch"
   },
@@ -61,12 +61,10 @@
     "intl-tel-input": "^13.0.4",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
-    "material-design-lite": "^1.3.0",
     "method-override": "^3.0.0",
     "moment": "^2.22.2",
     "mongodb": "^3.1.6",
     "mongoose": "^5.2.15",
-    "mongoose-paginate": "^5.0.3",
     "morgan": "^1.9.1",
     "multer": "^1.3.1",
     "nodemailer": "^4.6.8",
