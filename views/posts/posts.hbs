@@ -1,92 +1,92 @@
-
 {{!-- Add new post Button if user exists --}}
 {{#if user}}
-    <div class="text-right add-post-btn-container">
-        <a class="btn btn-info" href="/posts/add" title="Add new post">
-            <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
-    </div>
+  <div class="text-right add-post-btn-container">
+    <a class="btn btn-info" href="/posts/add" title="Add new post">
+      <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
+  </div>
 {{/if}}
 {{!-- Success Messages --}}
 {{#if success}}
-    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-        <span><i class="far fa-thumbs-up"></i> {{success}}</span>
-        <button type="button" class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
-    </div>
+  <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+    <span><i class="far fa-thumbs-up"></i> {{success}}</span>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
 {{/if}}
 {{!-- Error Handling --}}
 {{#if error}}
-    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-        <span><i class="fas fa-exclamation-triangle"></i> {{error}}</span>
-        <button type="button" class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
-    </div>
+  <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+    <span><i class="fas fa-exclamation-triangle"></i> {{error}}</span>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
 {{/if}}
 
 <h1 class="mb-3">Posts</h1>
 
 {{#if posts}}
-    <div class="row">
-        {{#each posts}}
-            {{!-- Loop starts here --}}
-            <div class="col-12 post-col">
-                <div class="card shadow-sm post">
-                    {{#if featured}}
-                        <div class="box" title="Featured">
-                            <div class="ribbon">
-                                <span>Featured</span>
-                            </div>
-                        </div>
-                    {{/if}}
-                    <ul class="posts-list">
-                        {{!-- Post image part (LHS) --}}
-                        <li class="posts-list-item post-img">
-                            <a href="/uploads/{{this.image}}" data-toggle="lightbox">
-                                <img class="post-image" src="/uploads/{{this.image}}" alt="{{this.title}}" title="{{this.title}}">
-                            </a>
-                        </li>
-                        {{!-- Post content part (RHS) --}}
-                        <li class="posts-list-item post-desc">
-                            <div class="desc">
-                                <h2 class="post-title"><a class="text-dark" href="/posts/{{this.slug}}">{{this.title}}</a></h2>
-                                <div class="">
-                                    {{{truncateText this.content}}}
-                                </div>
-                                <div class="text-right my-2">
-                                    <a class="btn btn-secondary" href="/posts/{{this.slug}}">Read more
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                                {{!-- Post published date and comments count --}}
-                                <p class="d-inline-block text-muted mb-0"><i class="far fa-calendar-alt text-success"></i> {{prettyCreatedAt this.createdAt}} &ndash; </p>
-                                <p class="d-inline-block text-muted mb-0">
-                                    <i class="text-info fas fa-comments comments"></i>
-                                    <a class="text-muted" title="{{this.title}} comments" href="/posts/{{this.id}}#disqus_thread">0
-                                        Comments</a>
-                                </p>
-                            </div>
-                            {{!-- Post extra features --}}
-                            <div class="post-tag-wrapper">
-                                <div class="post-tag shadow-sm" id="{{this.id}}">
-                                    <i class="far fa-meh text-warning"></i>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    {{!-- Left purple border --}}
-                    <div class="post-border-style"></div>
-                </div>
+  <div class="row">
+    {{#each posts}}
+      {{!-- Loop starts here --}}
+      <div class="col-12 post-col">
+        <div class="card shadow-sm post">
+          {{#if featured}}
+            <div class="box" title="Featured">
+              <div class="ribbon">
+                <span>Featured</span>
+              </div>
             </div>
-            {{!-- Loop ends here --}}
-        {{/each}}
-    </div>
-{{else}}
-    {{!-- No posts warning --}}
-    <div class="row">
-        <div class="col-sm-6 mx-auto">
-            <h3 class="display-4 text-center text-danger">No posts were found!!!</h3>
+          {{/if}}
+          <ul class="posts-list">
+            {{!-- Post image part (LHS) --}}
+            <li class="posts-list-item post-img">
+              <a href="/uploads/{{this.image}}" data-toggle="lightbox">
+                <img class="post-image" src="/uploads/{{this.image}}" alt="{{this.title}}" title="{{this.title}}">
+              </a>
+            </li>
+            {{!-- Post content part (RHS) --}}
+            <li class="posts-list-item post-desc">
+              <div class="desc">
+                <h2 class="post-title"><a class="text-dark" href="/posts/{{this.slug}}">{{this.title}}</a></h2>
+                <div class="">
+                  {{{truncateText this.content}}}
+                </div>
+                <div class="text-right my-2">
+                  <a class="btn btn-secondary" href="/posts/{{this.slug}}">Read more
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+                {{!-- Post published date and comments count --}}
+                <p class="d-inline-block text-muted mb-0"><i class="far fa-calendar-alt text-success"></i>
+                  {{prettyCreatedAt this.createdAt}} &ndash; </p>
+                <p class="d-inline-block text-muted mb-0">
+                  <i class="text-info fas fa-comments comments"></i>
+                  <a class="text-muted" title="{{this.title}} comments" href="/posts/{{this.id}}#disqus_thread">0
+                    Comments</a>
+                </p>
+              </div>
+              {{!-- Post extra features --}}
+              <div class="post-tag-wrapper">
+                <div class="post-tag shadow-sm" id="{{this.id}}">
+                  <i class="far fa-meh text-warning"></i>
+                </div>
+              </div>
+            </li>
+          </ul>
+          {{!-- Left purple border --}}
+          <div class="post-border-style"></div>
         </div>
+      </div>
+      {{!-- Loop ends here --}}
+    {{/each}}
+  </div>
+{{else}}
+  {{!-- No posts warning --}}
+  <div class="row">
+    <div class="col-sm-6 mx-auto">
+      <h3 class="display-4 text-center text-danger">No posts were found!!!</h3>
     </div>
+  </div>
 {{/if}}

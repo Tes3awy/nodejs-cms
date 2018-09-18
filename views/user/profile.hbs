@@ -1,111 +1,109 @@
 {{!-- Edit and Delete Account --}}
 <div class="profile-actions text-right">
-    <div class="edit-profile text-right d-inline-block">
-        <a class="btn btn-outline-warning" href="/user/edit/{{user.username}}" title="Edit profile">EDIT PROFILE</a>
-    </div>
-    <form class="mb-5 d-inline-block" id="deleteAccount" action="/user/delete/{{user.id}}?_method=DELETE" method="POST">
-        <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn btn-outline-danger" onclick="deleteAccount">DELETE ACCOUNT</button>
-    </form>
+  <div class="edit-profile text-right d-inline-block">
+    <a class="btn btn-outline-warning" href="/user/edit/{{user.username}}" title="Edit profile">EDIT PROFILE</a>
+  </div>
+  <form class="mb-5 d-inline-block" id="deleteAccount" action="/user/delete/{{user.id}}?_method=DELETE" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit" class="btn btn-outline-danger" onclick="deleteAccount">DELETE ACCOUNT</button>
+  </form>
 </div>
 
 {{!-- Error Handling --}}
 {{#if error}}
-    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-        <span><i class="fas fa-exclamation-triangle"></i> {{error}}</span>
-        <button type="button" class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
-    </div>
+  <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+    <span><i class="fas fa-exclamation-triangle"></i> {{error}}</span>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
 {{/if}}
 {{#if user}}
-    <div class="row">
-        <div class="col-md-12 col-lg-4">
-            <div class="profile-img-container text-center mb-2">
-                <img class="w-100" src="{{user.gravatar}}" alt="{{user.firstname}} {{user.lastname}}" title="{{user.firstname}} {{user.lastname}}">
-                <img class="verified-badge" src="/images/verified-badge.png" alt="Verified Badge" title="Verified account">
-            </div>
-            <p class="small text-center mb-3">Change your <a href="https://en.gravatar.com" target="_blank" title="Gravatar Website">gravatar</a>
-                to change your photo</p>
-        </div>
-        <div class="col-md-12 col-lg-8">
-            <div class="profile-header d-flex flex-row justify-content-between">
-                {{!-- Profile Info --}}
-                <div class="profile-info w-100">
-                    <h1 class="d-inline pr-3">{{user.firstname}} {{user.lastname}}</h1><span title="Location"><i class="fas fa-map-marker-alt text-info"></i>&nbsp;
-                        <img class="align-baseline" src="{{flag}}" alt="Country flag" title="Country flag" width="15"
-                            height="10"> {{country}}</span>
-                    <p>Username: <span class="text-primary font-weight-bold">{{user.username}}</span></p>
-                    {{!-- Bio --}}
-                    <h3>Bio</h3>
-                    <div class="bio-content w-100">
-                        <p>{{user.firstname}} {{user.lastname}}</p>
-                    </div>
-                    {{!-- Nav Tabs --}}
-                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#about" role="tab" title="About you">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#posts" role="tab" title="Your posts">Posts</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        {{!-- Contact Info --}}
-                        <div class="tab-pane fade show active" id="about" role="tabpanel">
-                            <ul class="profile-info-list">
-                                <li class="mb-4">
-                                    <h2>Contact Info</h2>
-                                </li>
-                                <li class="profile-info-list-item" title="E-Mail Address">
-                                    <i class="fas fa-envelope pr-3 text-info"></i> <a href="mailto:{{user.email}}"
-                                        title="E-Mail Address">{{user.email}}</a>
-                                </li>
-                                <li class="profile-info-list-item" title="Website">
-                                    <i class="fas fa-cloud pr-3 text-info"></i> <a href="{{user.name}}" target="_blank"
-                                        title="Website">{{user.name}}</a>
-                                </li>
-                                <hr>
-                                {{!-- Basic Info --}}
-                                <li class="mb-4">
-                                    <h2>Basic Info</h2>
-                                </li>
-                                <li class="profile-info-list-item" title="Gender">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user text-info"></i></span>
-                                        </div>
-                                        <select name="gender" class="form-control">
-                                            <option selected disabled>Select your gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="profile-info-list-item" title="Birthday">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt text-info"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="date" placeholder="Select your birthdate">
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        {{!-- Posts --}}
-                        <div class="tab-pane fade" id="posts" role="tabpanel">
-                            <div class="text-right add-post-btn-container">
-                                <a class="btn btn-outline-info" href="/posts/add" title="Add new post">
-                                    <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{!-- Member Since --}}
-                <div class="profile-date text-right">
-                    <p class="text-muted">Member since {{prettyCreatedAt user.createdAt}}</p>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-12 col-lg-4">
+      <div class="profile-img-container text-center mb-2">
+        <img class="w-100" src="{{user.gravatar}}" alt="{{user.firstname}} {{user.lastname}}" title="{{user.firstname}} {{user.lastname}}">
+        <img class="verified-badge" src="/images/verified-badge.png" alt="Verified Badge" title="Verified account">
+      </div>
+      <p class="small text-center mb-3">Change your <a href="https://en.gravatar.com" target="_blank" title="Gravatar Website">gravatar</a>
+        to change your photo</p>
     </div>
+    <div class="col-md-12 col-lg-8">
+      <div class="profile-header d-flex flex-row justify-content-between">
+        {{!-- Profile Info --}}
+        <div class="profile-info w-100">
+          <h1 class="d-inline pr-3">{{user.firstname}} {{user.lastname}}</h1><span title="Location"><i class="fas fa-map-marker-alt text-info"></i>&nbsp;
+            <img class="align-baseline" src="{{flag}}" alt="Country flag" title="Country flag" width="15" height="10">
+            {{country}}</span>
+          <p>Username: <span class="text-primary font-weight-bold">{{user.username}}</span></p>
+          {{!-- Bio --}}
+          <h3>Bio</h3>
+          <div class="bio-content w-100">
+            <p>{{user.firstname}} {{user.lastname}}</p>
+          </div>
+          {{!-- Nav Tabs --}}
+          <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#about" role="tab" title="About you">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#posts" role="tab" title="Your posts">Posts</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            {{!-- Contact Info --}}
+            <div class="tab-pane fade show active" id="about" role="tabpanel">
+              <ul class="profile-info-list">
+                <li class="mb-4">
+                  <h2>Contact Info</h2>
+                </li>
+                <li class="profile-info-list-item" title="E-Mail Address">
+                  <i class="fas fa-envelope pr-3 text-info"></i> <a href="mailto:{{user.email}}" title="E-Mail Address">{{user.email}}</a>
+                </li>
+                <li class="profile-info-list-item" title="Website">
+                  <i class="fas fa-cloud pr-3 text-info"></i> <a href="{{user.name}}" target="_blank" title="Website">{{user.name}}</a>
+                </li>
+                <hr>
+                {{!-- Basic Info --}}
+                <li class="mb-4">
+                  <h2>Basic Info</h2>
+                </li>
+                <li class="profile-info-list-item" title="Gender">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-user text-info"></i></span>
+                    </div>
+                    <select name="gender" class="form-control">
+                      <option selected disabled>Select your gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </li>
+                <li class="profile-info-list-item" title="Birthday">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-calendar-alt text-info"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="date" placeholder="Select your birthdate">
+                  </div>
+                </li>
+              </ul>
+            </div>
+            {{!-- Posts --}}
+            <div class="tab-pane fade" id="posts" role="tabpanel">
+              <div class="text-right add-post-btn-container">
+                <a class="btn btn-outline-info" href="/posts/add" title="Add new post">
+                  <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{!-- Member Since --}}
+        <div class="profile-date text-right">
+          <p class="text-muted">Member since {{prettyCreatedAt user.createdAt}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 {{/if}}

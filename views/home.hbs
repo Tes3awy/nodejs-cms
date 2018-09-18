@@ -1,131 +1,130 @@
 <div class="text-right">
-    <p class="bg-primary px-2 py-1 d-inline-block text-white">{{getToday}}</p>
+  <p class="bg-primary px-2 py-1 d-inline-block text-white">{{getToday}}</p>
 </div>
 <h1 class="mb-4">Home Page</h1>
 {{!-- Deleting account Alert--}}
 {{#unless user}}
-    {{#if deleteAccount}}
-        <div class="alert alert-warning" role="alert">
-            <span><i class="far fa-sad-tear"></i> {{deleteAccount}}</span>
-            <button type="button" class="close" data-dismiss="alert">
-                <span>&times;</span>
-            </button>
-        </div>
-    {{/if}}
+  {{#if deleteAccount}}
+    <div class="alert alert-warning" role="alert">
+      <span><i class="far fa-sad-tear"></i> {{deleteAccount}}</span>
+      <button type="button" class="close" data-dismiss="alert">
+        <span>&times;</span>
+      </button>
+    </div>
+  {{/if}}
 {{/unless}}
 {{!-- Cards section --}}
 <section class="row main-cards-row">
-    <div class="col-md-3 main-card">
-        <div class="card text-white bg-primary shadow">
-            <div class="card-body">
-                <h2 class="card-title">Card #1</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.
-                </p>
-            </div>
-        </div>
+  <div class="col-md-3 main-card">
+    <div class="card text-white bg-primary shadow">
+      <div class="card-body">
+        <h2 class="card-title">Card #1</h2>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+          card's
+          content.
+        </p>
+      </div>
     </div>
-    <div class="col-md-3 main-card">
-        <div class="card text-white bg-secondary shadow">
-            <div class="card-body">
-                <h2 class="card-title">Card #2</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.
-                </p>
-            </div>
-        </div>
+  </div>
+  <div class="col-md-3 main-card">
+    <div class="card text-white bg-secondary shadow">
+      <div class="card-body">
+        <h2 class="card-title">Card #2</h2>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+          card's
+          content.
+        </p>
+      </div>
     </div>
-    <div class="col-md-3 main-card">
-        <div class="card text-white bg-success shadow">
-            <div class="card-body">
-                <h2 class="card-title">Card #3</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.
-                </p>
-            </div>
-        </div>
+  </div>
+  <div class="col-md-3 main-card">
+    <div class="card text-white bg-success shadow">
+      <div class="card-body">
+        <h2 class="card-title">Card #3</h2>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+          card's
+          content.
+        </p>
+      </div>
     </div>
-    <div class="col-md-3 main-card">
-        <div class="card text-dark bg-light shadow">
-            <div class="card-body">
-                <h2 class="card-title text-dark">Card #4</h2>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.
-                </p>
-            </div>
-        </div>
+  </div>
+  <div class="col-md-3 main-card">
+    <div class="card text-dark bg-light shadow">
+      <div class="card-body">
+        <h2 class="card-title text-dark">Card #4</h2>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+          card's
+          content.
+        </p>
+      </div>
     </div>
+  </div>
 </section>
 
 <div class="row">
-    <div class="col-sm-6 chart-col">
-        <canvas id="myChart" width="100%" height="100%"></canvas>
-        <script>
-            var ctx = document.getElementById("myChart").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ["Users", "Posts"],
-                    datasets: [{
-                        label: 'Site Analysis',
-                        data: [{{ users }}, {{ posts }}],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 2
-            }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
-                            },
-                        }
-                    }]
+  <div class="col-sm-6 chart-col">
+    <canvas id="myChart" width="100%" height="100%"></canvas>
+    <script>
+      var ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Users", "Posts"],
+          datasets: [{
+            label: 'Site Analysis',
+            data: [{{ users }}, {{ posts }}],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+        ],
+        borderWidth: 2
+      }]
+        },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              userCallback: function (label, index, labels) {
+                // when the floored value is the same as the value we have a whole number
+                if (Math.floor(label) === label) {
+                  return label;
                 }
+              },
             }
-            });
-        </script>
-    </div>
-    <div class="col-sm-6 chart-col">
-        <canvas id="pieChart" width="100%" height="100%"></canvas>
-        <script>
-            // For a pie chart
-            var ctx = document.getElementById("pieChart").getContext('2d');
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: ["Users", "Posts"],
-                    datasets: [{
-                        label: 'Site Analysis',
-                        data: [{{ users }}, {{ posts }}],
-                backgroundColor: [
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255,99,132,1)',
-                ],
-                borderWidth: 2
-            }]
-            },
-            });
-        </script>
-    </div>
+          }]
+        }
+      }
+      });
+    </script>
+  </div>
+  <div class="col-sm-6 chart-col">
+    <canvas id="pieChart" width="100%" height="100%"></canvas>
+    <script>
+      // For a pie chart
+      var ctx = document.getElementById("pieChart").getContext('2d');
+      var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["Users", "Posts"],
+          datasets: [{
+            label: 'Site Analysis',
+            data: [{{ users }}, {{ posts }}],
+        backgroundColor: [
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+        ],
+        borderColor: [
+          'rgba(153, 102, 255, 1)',
+          'rgba(255,99,132,1)',
+        ],
+        borderWidth: 2
+      }] }
+      });
+    </script>
+  </div>
 </div>
