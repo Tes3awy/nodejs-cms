@@ -91,10 +91,10 @@
     "gulp-sass": "^4.0.1",
     "gulp-wait": "0.0.2",
     "nodemon": "^1.18.4",
-    "snyk": "^1.95.3",
+    "snyk": "^1.96.0",
     "style-loader": "^0.23.0",
-    "uglifyjs-webpack-plugin": "^2.0.0",
-    "webpack": "^4.19.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0"
   }
 }
