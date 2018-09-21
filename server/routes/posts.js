@@ -175,6 +175,7 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
 
     const title = body.title;
     const content = body.content;
+    console.log('body:', body);
     const featured = body.featured;
     const slug = slugify(title, {
       replacement: '-',
@@ -188,7 +189,25 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
       return res.status(404).send();
     }
 
-    if(!req.file) {
+    if(req.file) {
+      image = req.file.filename;
+      Post.findImgById(id).then(dbImg => {
+        if(dbImg) {
+          fs.unlink(`${uploadPath}${dbImg.image}`, (err) => {
+            if(err) {
+              return req.flash('error', `${err}`);
+            }
+          });
+        }
+        Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(() => {
+          req.flash('success', 'Updated successfully');
+          return res.redirect('/posts');
+        }).catch(_err => {
+          req.flash('error', 'Unable to update post!!!');
+          return res.redirect('/posts');
+        });
+      })
+    } else {
       Post.findImgById(id).then(dbImg => {
         Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(() => {
           req.flash('success', 'Updated successfully');
@@ -197,15 +216,6 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
           req.flash('error', 'Unable to update post!!!');
           return res.redirect('/posts');
         });
-      });
-    } else {
-      image = req.file.filename;
-      Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(() => {
-        req.flash('success', 'Updated successfully');
-        return res.redirect('/posts');
-      }).catch(_err => {
-        req.flash('error', 'Unable to update post!!!');
-        return res.redirect('/posts');
       });
     }
   }
