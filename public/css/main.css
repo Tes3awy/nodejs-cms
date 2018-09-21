@@ -172,6 +172,18 @@ input[type="file"] {
   margin-bottom: 1.5rem;
 }
 
+.post-body-content p:first-child::first-letter {
+  float: left;
+  font-size: 75px;
+  line-height: 60px;
+  line-height: 60px;
+  padding: 4px;
+}
+
+.post-body-content p:first-child {
+  margin-bottom: 35px;
+}
+
 .post-tag-wrapper {
   position: absolute;
   top: -18px;
