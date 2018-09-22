@@ -3,7 +3,7 @@
     <form class="clearfix" action="/posts/edit/{{post.id}}?_method=PUT" method="POST" enctype="multipart/form-data" runat="server">
       <input type="hidden" name="_method" value="PUT">
       <h2 class="mb-0 d-inline-block">Update post</h2>
-      <a class="btn btn-info float-right" href="/posts/{{post.id}}"><i class="fa fa-chevron-left pr-2"></i> Go Back</a>
+      <a class="btn btn-info float-right" href="/posts/{{post.slug}}"><i class="fa fa-chevron-left pr-2"></i> Go Back</a>
       <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
       {{!-- Error Handling --}}
       {{#if error}}
@@ -52,7 +52,7 @@
         {{!-- Title --}}
         <div class="form-group">
           <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{post.title}}" autofocus>
-          {{!-- <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more</small> --}}
+          <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more</small>
         </div>
         {{!-- TinyMCE Textarea --}}
         <div class="form-group">
