@@ -124,7 +124,7 @@ $(document).ready(function() {
     language: 'en',
     directionality: 'ltr',
     entity_encoding : 'raw',
-    forced_root_block: 'div',
+    forced_root_block: 'p',
     paste_data_images: false,
     paste_enable_default_filters: true,
     paste_text_sticky_default: true,
