@@ -5,6 +5,8 @@ const express = require('express');
 const router = express.Router();
 
 const slugify = require('slugify')
+const stringSimilarity = require('string-similarity');
+const _ = require('lodash');
 // const swal = require('sweetalert2');
 
 const { check, validationResult } = require('express-validator/check');
@@ -43,7 +45,7 @@ router.get('/', (req, res) => {
       error: req.flash('error'),
       success: req.flash('success')
     });
-  }).catch(err => {
+  }).catch(_err => {
     req.flash('error', 'Unable to fetch posts!!!');
     return res.redirect('/posts');
   });
@@ -159,7 +161,8 @@ router.get('/edit/:id', authenticate, (req, res) => {
       res.render('posts/edit', {
         layout: 'postLayout',
         showTitle: `Edit - ${post.title}`,
-        post
+        post,
+        error: req.flash('error')
     });
   }).catch(_err => {
     req.flash('error', 'Unable to find post to edit!!!');
@@ -175,49 +178,69 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
 
     const title = body.title;
     const content = body.content;
-    console.log('body:', body);
+
     const featured = body.featured;
-    const slug = slugify(title, {
-      replacement: '-',
-      remove: /[*+~.()'"!:@]/g,
-      lower: true
-    });
     const updatedAt = new Date();
     let image;
+    const slug = slugify(title, {
+      remove: /[*+~.()'"!:@,]/g,
+      replacement: '-',
+      lower: true
+    });
 
     if (!ObjectID.isValid(id)) {
       return res.status(404).send();
     }
 
-    if(req.file) {
-      image = req.file.filename;
-      Post.findImgById(id).then(dbImg => {
-        if(dbImg) {
-          fs.unlink(`${uploadPath}${dbImg.image}`, (err) => {
-            if(err) {
-              return req.flash('error', `${err}`);
-            }
+    // Check if title and body are completely changed
+    Post.findById(id).then(existingPost => {
+      var contentSimilarity = stringSimilarity.compareTwoStrings(_.toString(existingPost.content), _.toString(content));
+
+      var titleSimilarity = stringSimilarity.compareTwoStrings(_.toString(existingPost.title), _.toString(title));
+
+      if(contentSimilarity < 0.4) {
+        req.flash('error', { msg: 'You cannot change the whole content!!! Create a new post instead.' });
+        return res.redirect(`/posts/edit/${id}`);
+      }
+
+      if(titleSimilarity < 0.4) {
+        req.flash('error', { msg: 'You cannot change the whole title!!! Create a new post instead.' });
+        return res.redirect(`/posts/edit/${id}`);
+      }
+
+      if(req.file) {
+        image = req.file.filename;
+        Post.findImgById(id).then(dbImg => {
+          if(dbImg) {
+            fs.unlink(`${uploadPath}${dbImg.image}`, (err) => {
+              if(err) {
+                return req.flash('error', `${err}`);
+              }
+            });
+            Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(() => {
+              req.flash('success', 'Updated successfully');
+              return res.redirect('/posts');
+            }).catch(_err => {
+              req.flash('error', 'Unable to update post!!!');
+              return res.redirect('/posts');
+            });
+          }
+        });
+      } else {
+        Post.findImgById(id).then(dbImg => {
+          Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(() => {
+            req.flash('success', 'Updated successfully');
+            return res.redirect('/posts');
+          }).catch(_err => {
+            req.flash('error', 'Unable to update post!!!');
+            return res.redirect('/posts');
           });
-        }
-        Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(() => {
-          req.flash('success', 'Updated successfully');
-          return res.redirect('/posts');
-        }).catch(_err => {
-          req.flash('error', 'Unable to update post!!!');
-          return res.redirect('/posts');
         });
-      })
-    } else {
-      Post.findImgById(id).then(dbImg => {
-        Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(() => {
-          req.flash('success', 'Updated successfully');
-          return res.redirect('/posts');
-        }).catch(_err => {
-          req.flash('error', 'Unable to update post!!!');
-          return res.redirect('/posts');
-        });
-      });
-    }
+      }
+    }).catch(_err => {
+      req.flash('error', { 'msg': 'Unable to compare!!!' });
+      return res.redirect('/posts');
+    });
   }
 );
 
