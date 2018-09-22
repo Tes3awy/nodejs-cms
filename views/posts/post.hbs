@@ -7,17 +7,17 @@
   <div class="col-sm-8">
     <div class="post-container">
       <div class="post-title">
-        <h1 class="mb-3">{{{post.title}}}</h1>
+        <h1 class="mb-3" lang="en">{{{post.title}}}</h1>
         {{!-- Post info --}}
         <div class="post-created text-right mb-4">
-          <p class="text-right mb-1">Published on {{getPrettyDate post.createdAt}}</p>
-          {{#if post.updatedAt}}<p class="text-info">
+          <p class="mb-1">Published on {{getPrettyDate post.createdAt}}</p>
+          {{#if post.updatedAt}}<p class="text-info mb-1">
             Last update: {{getPrettyDate post.updatedAt}}
           </p>
           {{/if}}
           {{#if author}}
-            <p class="text-white mb-0"><span class="badge badge-pill badge-primary font-weight-normal py-1 px-2"
-                title="Author: {{author.firstname}} {{author.lastname}}">Written by: {{author.firstname}} {{author.lastname}}</span></p>
+            <p class="mb-1"><a href="/user/profile/{{author.username}}" class="badge badge-pill badge-primary font-weight-normal p-2"
+                title="Author: {{author.firstname}} {{author.lastname}}" target="_blank">Written by: {{author.firstname}} {{author.lastname}}</a></p>
           {{/if}}
         </div>
         {{!-- Social Media Shares --}}
@@ -25,7 +25,7 @@
           <ul class="social-media-list">
             <li class="social-media-item">
               <a class="twitter-share-button" href="https://twitter.com/share?ref_src=twsrc%5Etfw" data-show-count="true" title="Twitter"></a>
-              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              <script src="https://platform.twitter.com/widgets.js" async></script>
             </li>
             <li class="social-media-item">
               <div class="fb-share-button" data-href="http://localhost:3000/posts/{{post.id}}" data-layout="button_count" data-size="small"
@@ -39,8 +39,8 @@
               <div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://localhost:3000/posts/{{post.id}}?key=AIzaSyCSInH_wRti3xy9Rwe7FBdZMjuFBajuukE"></div>
             </li>
             <li class="social-media-item">
-              <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-              <script type="IN/Share" data-url="http://localhost:3000/posts/{{post.id}}"></script>
+              <script src="//platform.linkedin.com/in.js" async> lang: en_US</script>
+              <script type="IN/Share" data-url="http://localhost:3000/posts/{{post.id}}" async></script>
             </li>
           </ul>
         </div>
