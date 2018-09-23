@@ -112,6 +112,9 @@ app.engine(
       descriptionTruncate(description) {
         return _.truncate(description, { length: 220 });
       },
+      titleTruncate(title) {
+        return _.truncate(title, { length: 42 });
+      },
       capitalize(tag) {
         return _.capitalize(tag);
       },
