@@ -415,6 +415,12 @@ input:disabled {
   }
 }
 
+@media(max-width: 992px) {
+  .access-container {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     -webkit-box-orient: vertical;
