@@ -100,7 +100,7 @@ $(document).ready(function() {
     menubar: 'edit | view | insert | format | table ',
     toolbar: 'undo redo | bold italic | forecolor backcolor | codesample code | alignleft aligncenter alignright alignjustify | bullist numlist | preview print',
     plugins: [
-      'paste anchor autolink codesample colorpicker charactercount contextmenu code',
+      'paste anchor autolink media codesample colorpicker charactercount contextmenu code',
       ' lists link noneditable preview',
       ' searchreplace table textcolor print visualblocks'
     ],
@@ -141,6 +141,8 @@ $(document).ready(function() {
     codesample_dialog_width: 600,
     codesample_dialog_height: 425,
     table_responsive_width: true,
+    media_live_embeds: true,
+    media_alt_source: false
     // table_class_list: [
     //   {title: 'table', value: 'table; table-light; table-bordered; table-striped; text-dark'}
     // ]
