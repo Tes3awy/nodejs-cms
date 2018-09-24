@@ -88,7 +88,7 @@
                 <i class="fas fa-marker"></i>&nbsp;&nbsp; Edit post</a>
             </div>
             <div class="post-actions shadow-sm">
-              <form id="deletePost" method="post" action="/posts/delete/{{post.id}}?_method=DELETE">
+              <form id="deletePost" method="post" action="/posts/delete/{{post.id}}?_method=DELETE" role="form">
                 <input type="hidden" name="_method" value="DELETE">
                 <button type="submit" class="btn btn-danger"><i class="fas fa-backspace"></i>&nbsp;&nbsp; Delete post</a></button>
               </form>

@@ -3,7 +3,7 @@
   <div class="edit-profile text-right d-inline-block">
     <a class="btn btn-outline-warning" href="/user/edit/{{user.username}}" title="Edit profile">EDIT PROFILE</a>
   </div>
-  <form class="mb-5 d-inline-block" id="deleteAccount" action="/user/delete/{{user.id}}?_method=DELETE" method="POST">
+  <form class="mb-5 d-inline-block" id="deleteAccount" action="/user/delete/{{user.id}}?_method=DELETE" method="POST" role="form">
     <input type="hidden" name="_method" value="DELETE">
     <button type="submit" class="btn btn-outline-danger" onclick="deleteAccount">DELETE ACCOUNT</button>
   </form>

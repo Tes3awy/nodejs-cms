@@ -229,9 +229,10 @@ if (!document.querySelector('.ad-alert')) {
 if ($('#phone').length > 0) {
   $('#phone').intlTelInput({
     initialCountry: 'auto',
-    excludeCountries: ['Israel'],
+    excludeCountries: ['il'],
     autoHideDialCode: false,
     nationalMode: false,
+    formatOnDisplay: true,
     geoIpLookup: function(cb) {
       $.get('https://ipinfo.io', function() {}, 'jsonp').always(function(
         response
@@ -240,7 +241,7 @@ if ($('#phone').length > 0) {
         cb(countryCode);
       });
     },
-    utilsScript: '/js/utils.js'
+    utilsScript: '/js/utils.js?1537717752654'
   });
 }
 

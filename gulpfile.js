@@ -22,7 +22,9 @@ const autoprefixer = require('autoprefixer');
 
 // Autoprefix and minify main.css file
 gulp.task('autoprefix', () => {
-  let plugins = [autoprefixer({ browsers: ['last 20 versions'], cascade: true })];
+  let plugins = [
+    autoprefixer({ browsers: ['last 20 versions'], cascade: true })
+  ];
   return gulp
     .src(['public/css/main.css', 'public/css/ribbon.css'])
     .pipe(postcss(plugins))
@@ -66,18 +68,17 @@ gulp.task('copy-js', () => {
       'node_modules/chosen-js/chosen.jquery.min.js',
       'node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js',
       'node_modules/tiny-date-picker/dist/tiny-date-picker.js',
-      'node_modules/intl-tel-input/build/js/intlTelInput.min.js',
-      'node_modules/intl-tel-input/build/js/utils.js',
+      'node_modules/intl-tel-input/build/js/intlTelInput-jquery.min.js',
+      'node_modules/intl-tel-input/build/js/utils.js'
     ])
     .pipe(gulp.dest('public/js'));
 });
 
 // Copy TinyMCE Folders Task
 gulp.task('tinymce', () => {
-  return gulp.src([
-    'node_modules/tinymce/**'
-  ])
-  .pipe(gulp.dest('public/js/vendor/tinymce'))
+  return gulp
+    .src(['node_modules/tinymce/**'])
+    .pipe(gulp.dest('public/js/vendor/tinymce'));
 });
 
 // Copy CSS Task
@@ -85,7 +86,7 @@ gulp.task('copy-css', () => {
   return gulp
     .src([
       'node_modules/intl-tel-input/build/css/intlTelInput.min.css',
-      'node_modules/intl-tel-input/build/img/**',
+      'node_modules/intl-tel-input/build/img/**'
       // 'node_modules/tiny-date-picker/tiny-date-picker.css'
       // 'node_modules/chosen-js/chosen.min.css',
       // 'node_modules/chosen-js/chosen-sprite.png'
