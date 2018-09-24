@@ -30,10 +30,12 @@ const PostSchema = new mongoose.Schema({
     min: 0,
     default: 0
   },
-  postTag: [{
-    type: String,
-    required: true
-  }],
+  postTag: [
+    {
+      type: String,
+      required: true
+    }
+  ],
   featured: {
     type: Boolean,
     required: false,
@@ -64,19 +66,19 @@ const PostSchema = new mongoose.Schema({
 
 // Statics
 PostSchema.statics.findBySlug = function(slug) {
-    var Post = this;
-    return Post.findOne({ slug });
-}
+  var Post = this;
+  return Post.findOne({ slug });
+};
 
 PostSchema.statics.findByTitle = function(title) {
   var Post = this;
   return Post.findOne({ title });
-}
+};
 
 PostSchema.statics.findImgById = function(id) {
   var Post = this;
   return Post.findById(id);
-}
+};
 
 // Mongoose Plugins
 const Post = mongoose.model('Post', PostSchema);

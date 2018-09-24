@@ -24,13 +24,16 @@ router.post('/add', (req, res) => {
   const newTag = new Tag({
     tag
   });
-  newTag.save().then(() => {
-    req.flash('success', 'Tag added');
-    return res.redirect('/tag/add');
-  }).catch(err => {
-    req.flash('error', 'Tag already exists');
-    return res.redirect('/tag/add');
-  });
+  newTag
+    .save()
+    .then(() => {
+      req.flash('success', 'Tag added');
+      return res.redirect('/tag/add');
+    })
+    .catch(_err => {
+      req.flash('error', 'Tag already exists');
+      return res.redirect('/tag/add');
+    });
 });
 
 module.exports = router;

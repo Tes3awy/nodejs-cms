@@ -1,50 +1,50 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const path = require("path");
+const path = require('path');
 
-const express = require("express");
+const express = require('express');
 const app = express();
 
-const { mongoose } = require("./db/mongoose");
+const { mongoose } = require('./db/mongoose');
 
-const session = require("express-session");
+const session = require('express-session');
 
-const { passportConfig } = require("./middlewares/passport");
-const passport = require("passport");
+const { passportConfig } = require('./middlewares/passport');
+const passport = require('passport');
 
-const hbs = require("express-handlebars");
+const hbs = require('express-handlebars');
 
-const favicon = require("serve-favicon");
-const serveStatic = require("serve-static");
+const favicon = require('serve-favicon');
+const serveStatic = require('serve-static');
 
-const routes = require("./routes/index");
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const postsRoutes = require("./routes/posts");
-const tagsRoutes = require("./routes/tag");
+const routes = require('./routes/index');
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const postsRoutes = require('./routes/posts');
+const tagsRoutes = require('./routes/tag');
 
-const methodOverride = require("method-override");
+const methodOverride = require('method-override');
 
-const flash = require("connect-flash");
+const flash = require('connect-flash');
 
-const helmet = require("helmet");
-const compression = require("compression");
+const helmet = require('helmet');
+const compression = require('compression');
 
-const logger = require("morgan");
-const errorhandler = require("errorhandler");
+const logger = require('morgan');
+const errorhandler = require('errorhandler');
 
-const _ = require("lodash");
-const moment = require("moment");
+const _ = require('lodash');
+const moment = require('moment');
 
-const publicPath = "./../public";
+const publicPath = './../public';
 const port = process.env.PORT || 3000;
 
 // Serve Favicon Middleware
-app.use(favicon(path.join(__dirname, publicPath, "favicon.ico")));
+app.use(favicon(path.join(__dirname, publicPath, 'favicon.ico')));
 // Serve Statics Middleware
 app.use(
   serveStatic(path.join(__dirname, publicPath), {
-    dotfiles: "deny"
+    dotfiles: 'deny'
   })
 );
 
@@ -58,7 +58,7 @@ app.use(compression({ level: 1 }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    name: "sessionid",
+    name: 'sessionid',
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -74,7 +74,7 @@ app.use(passport.session());
 // Flash Middleware
 app.use(flash());
 // Error Handler
-if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
   app.use(errorhandler());
 }
 // Global Vars
@@ -83,25 +83,25 @@ app.use(function(req, res, next) {
   next();
 });
 // Morgan Middleware
-app.use(logger("dev"));
+app.use(logger('dev'));
 // Exp-hbs View Engine Middleware
 app.engine(
-  "hbs",
+  'hbs',
   hbs({
-    defaultLayout: "main",
-    extname: ".hbs",
-    partialsDir: "views/partials",
-    layoutsDir: "views/layouts",
+    defaultLayout: 'main',
+    extname: '.hbs',
+    partialsDir: 'views/partials',
+    layoutsDir: 'views/layouts',
     // express-handlebars helper functions
     helpers: {
       getPrettyDate(date) {
-        return moment(date).format("lll");
+        return moment(date).format('lll');
       },
       prettyCreatedAt(date) {
-        return moment(date).format("ll");
+        return moment(date).format('ll');
       },
       getToday() {
-        return moment().format("MMMM Do YYYY");
+        return moment().format('MMMM Do YYYY');
       },
       getCurrentYear() {
         return new Date().getFullYear();
@@ -128,22 +128,22 @@ app.engine(
     }
   })
 );
-app.set("view engine", "hbs");
+app.set('view engine', 'hbs');
 // Method Override Middleware
-app.use(methodOverride("_method"));
+app.use(methodOverride('_method'));
 // Helmet Middleware (For Security Best Pratcices)
 app.use(helmet());
 // Routes
-app.use("/", routes);
-app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
-app.use("/posts", postsRoutes);
-app.use("/tag", tagsRoutes);
+app.use('/', routes);
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+app.use('/posts', postsRoutes);
+app.use('/tag', tagsRoutes);
 
 // Serving locally on port 3000
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server started on port ${port}`);
-  console.log("NODE_ENV:", `${process.env.NODE_ENV} environment`);
+  console.log('NODE_ENV:', `${process.env.NODE_ENV} environment`);
 });
 
 module.exports = {

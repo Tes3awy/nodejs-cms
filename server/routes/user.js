@@ -22,21 +22,23 @@ router.get('/profile/:username', (req, res) => {
 
   var ipStack = () => {
     const apiKey = process.env.LOCATION_API;
-    return axios.get(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`).then(response => {
-      if(response.status === 200) {
-        return response.data;
-      }
-    });
-  }
+    return axios
+      .get(`http://api.ipstack.com/check?security=1&access_key=${apiKey}`)
+      .then(response => {
+        if (response.status === 200) {
+          return response.data;
+        }
+      });
+  };
 
   ipStack().then(geolocation => {
     const country = geolocation.country_name;
     const flag = geolocation.location.country_flag;
-      res.render('user/profile', {
-        showTitle: 'Profile page',
-        country,
-        flag
-      });
+    res.render('user/profile', {
+      showTitle: 'Profile page',
+      country,
+      flag
+    });
   });
 });
 
@@ -61,13 +63,15 @@ router.delete('/delete/:id', (req, res) => {
     return res.status(404).send();
   }
 
-  User.findByIdAndRemove(id).then(() => {
-    req.flash('warning', 'We are sorry to see you leaving.');
-    return res.redirect('/');
-  }).catch(_err => {
-    req.flash('error', 'Unable to delete your account right now');
-    return res.redirect('/user/profile');
-  });
+  User.findByIdAndRemove(id)
+    .then(() => {
+      req.flash('warning', 'We are sorry to see you leaving.');
+      return res.redirect('/');
+    })
+    .catch(_err => {
+      req.flash('error', 'Unable to delete your account right now');
+      return res.redirect('/user/profile');
+    });
 });
 
 module.exports = router;

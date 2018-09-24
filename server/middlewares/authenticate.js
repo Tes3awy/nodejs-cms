@@ -1,5 +1,5 @@
 var authenticate = (req, res, next) => {
-  if(req.user) {
+  if (req.user) {
     return next();
   }
   req.flash('error', { msg: 'Please login to view this page' });

@@ -75,15 +75,15 @@ const UserSchema = new mongoose.Schema({
 UserSchema.statics.findByEmail = function(email) {
   var User = this;
   return User.findOne({ email });
-}
+};
 
 UserSchema.statics.findByUsername = function(username) {
   var User = this;
   return User.findOne({ username });
-}
+};
 
 // Pre save to hash password
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   var user = this;
 
   bcrypt.genSalt(10, (_err, salt) => {

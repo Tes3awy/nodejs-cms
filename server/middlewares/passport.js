@@ -13,12 +13,22 @@ passport.use(
       passReqToCallback: true
     },
     (req, email, password, done) => {
-      User.findByEmail(email).then((user) => {
+      User.findByEmail(email).then(user => {
         if (!user) {
-          return done(null, false, req.flash('error', { msg: 'Email is not registered!!!' }));
+          return done(
+            null,
+            false,
+            req.flash('error', { msg: 'Email is not registered!!!' })
+          );
         }
-        if(user.verified === false) {
-          return done(null, false, req.flash('error', { msg: 'Your email address is not yet verified' }));
+        if (user.verified === false) {
+          return done(
+            null,
+            false,
+            req.flash('error', {
+              msg: 'Your email address is not yet verified'
+            })
+          );
         }
         bcrypt.compare(password, user.password, (err, res) => {
           if (err) {
@@ -27,7 +37,11 @@ passport.use(
           if (res) {
             return done(null, user);
           }
-          return done(null, false, req.flash('error', { msg: 'Password is incorrect!!!' }));
+          return done(
+            null,
+            false,
+            req.flash('error', { msg: 'Password is incorrect!!!' })
+          );
         });
       });
     }
@@ -39,7 +53,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id).then((user) => {
+  User.findById(id).then(user => {
     done(null, user);
   });
 });
