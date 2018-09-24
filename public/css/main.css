@@ -182,10 +182,10 @@ input[type="file"] {
 
 .post-body-content p {
   word-break: break-all;
-  -webkit-hyphens: manual;
-     -moz-hyphens: manual;
-      -ms-hyphens: manual;
-          hyphens: manual;
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
 }
 
 .post-body-content p:first-child::first-letter {
@@ -231,6 +231,11 @@ input[type="file"] {
   text-align: center;
   -webkit-border-radius: 50%;
           border-radius: 50%;
+}
+
+.fa-backspace {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
 }
 
 .related-section {
