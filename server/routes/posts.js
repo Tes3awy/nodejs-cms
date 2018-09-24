@@ -137,7 +137,9 @@ router.get('/:slug', (req, res) => {
           layout: 'postLayout',
           showTitle: post.title,
           post,
-          author
+          author,
+          error: req.flash('error'),
+          success: req.flash('success')
       });
     }).catch(_err => {
       req.flash('error', 'Unable to find author!!!');
@@ -219,10 +221,10 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
             });
             Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, image, updatedAt } }).then(() => {
               req.flash('success', 'Updated successfully');
-              return res.redirect('/posts');
+              return res.redirect(`/posts/${slug}`);
             }).catch(_err => {
               req.flash('error', 'Unable to update post!!!');
-              return res.redirect('/posts');
+              return res.redirect(`/posts/${slug}`);
             });
           }
         });
@@ -230,10 +232,10 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
         Post.findImgById(id).then(dbImg => {
           Post.findByIdAndUpdate(id, { $set: { title, content, featured, slug, dbImg, updatedAt } }).then(() => {
             req.flash('success', 'Updated successfully');
-            return res.redirect('/posts');
+            return res.redirect(`/posts/${slug}`);
           }).catch(_err => {
             req.flash('error', 'Unable to update post!!!');
-            return res.redirect('/posts');
+            return res.redirect(`/posts/${slug}`);
           });
         });
       }
