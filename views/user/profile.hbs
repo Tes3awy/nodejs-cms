@@ -29,17 +29,21 @@
         to change your photo</p>
     </div>
     <div class="col-md-12 col-lg-8">
-      <div class="profile-header d-flex flex-row justify-content-between">
+      <div class="profile-header d-flex flex-wrap justify-content-between flex-row-reverse">
+        {{!-- Member Since --}}
+        <div class="profile-date text-right h-25 flex-shrink-1">
+          <p class="text-muted mb-1">Member since {{prettyCreatedAt user.createdAt}}</p>
+        </div>
         {{!-- Profile Info --}}
-        <div class="profile-info w-100">
-          <h1 class="d-inline pr-3">{{user.firstname}} {{user.lastname}}</h1><span title="Location"><i class="fas fa-map-marker-alt text-info"></i>&nbsp;
+        <div class="profile-info flex-fill">
+          <h1 class="d-inline-block">{{user.firstname}} {{user.lastname}}</h1>&nbsp;&nbsp;&nbsp;
+          <span title="Location"><i class="fas fa-map-marker-alt text-info"></i>&nbsp;
             <img class="align-baseline" src="{{flag}}" alt="{{country}}" title="{{country}}" width="15" height="10">
             {{country}}</span>
-          <p>Username: <span class="text-primary font-weight-bold">{{user.username}}</span></p>
           {{!-- Bio --}}
-          <h3>Bio</h3>
-          <div class="bio-content w-100">
-            <p>{{user.firstname}} {{user.lastname}}</p>
+          <h3 class="mt-4">Bio</h3>
+          <div class="bio-content">
+            <p class="lead">Bio is placed here</p>
           </div>
           {{!-- Nav Tabs --}}
           <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
@@ -58,10 +62,10 @@
                   <h2>Contact Info</h2>
                 </li>
                 <li class="profile-info-list-item" title="E-Mail Address">
-                  <i class="fas fa-envelope pr-3 text-info"></i> <a href="mailto:{{user.email}}" title="E-Mail Address">{{user.email}}</a>
+                  <i class="fas fa-envelope text-info"></i>&nbsp;&nbsp; <a href="mailto:{{user.email}}" title="E-Mail Address">{{user.email}}</a>
                 </li>
-                <li class="profile-info-list-item" title="Website">
-                  <i class="fas fa-cloud pr-3 text-info"></i> <a href="{{user.name}}" target="_blank" title="Website">{{user.name}}</a>
+                <li class="profile-info-list-item" title="Username">
+                  <i class="fas fa-user text-info"></i>&nbsp;&nbsp; <a href="/user/profile/{{user.username}}" title="Username">{{user.username}}</a>
                 </li>
                 <hr>
                 {{!-- Basic Info --}}
@@ -73,7 +77,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-user text-info"></i></span>
                     </div>
-                    <select name="gender" class="form-control">
+                    <select name="gender" class="form-control rounded-0">
                       <option selected disabled>Select your gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -94,14 +98,10 @@
             <div class="tab-pane fade" id="posts" role="tabpanel">
               <div class="text-right add-post-btn-container">
                 <a class="btn btn-outline-info" href="/posts/add" title="Add new post">
-                  <i class="fas fa-plus-circle" id="addPostIcon"></i> Add new post</a>
+                  <i class="fas fa-plus-circle" id="addPostIcon"></i> ADD NEW POST</a>
               </div>
             </div>
           </div>
-        </div>
-        {{!-- Member Since --}}
-        <div class="profile-date text-right">
-          <p class="text-muted">Member since {{prettyCreatedAt user.createdAt}}</p>
         </div>
       </div>
     </div>
