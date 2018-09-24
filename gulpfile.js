@@ -61,7 +61,7 @@ gulp.task('copy-js', () => {
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js.map',
-      // 'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
+      'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
       'node_modules/chosen-js/chosen.jquery.min.js',
       'node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js',
