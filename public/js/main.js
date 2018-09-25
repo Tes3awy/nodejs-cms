@@ -242,10 +242,10 @@ $(document).ready(function () {
   }
 
   // Auto detect text direction in inputs
-  var inputs = $('.chnage-dir');
-  inputs.each(function () {
+  // var inputs = ;
+  $('input[type="text"], textarea').each(function () {
     $(this).on('input keyup keypress', function () {
-      if (isUnicode(inputs.val())) {
+      if (isUnicode($(this).val())) {
         $(this).css('direction', 'rtl');
       } else {
         $(this).css('direction', 'ltr');
@@ -254,8 +254,10 @@ $(document).ready(function () {
   });
 
   function isUnicode(str) {
-    if (str.substring((0 - 1), 1).charCodeAt() > 255) {
-      return true
+    var letters = [];
+    for (var i = 0; i <= str.length; i++) {
+      letters[i] = str.substring((i - 1), i);
+      if (letters[i].charCodeAt() > 255) { return true; }
     }
     return false;
   }
