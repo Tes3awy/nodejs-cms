@@ -1,5 +1,5 @@
 // Show/Hide Password Fields
-$('.input-group-append').on('click', function() {
+$('.input-group-append').on('click', function () {
   var input = $(this).siblings();
   $(this)
     .find('.input-group-text')
@@ -18,16 +18,16 @@ $('input[type="email"]').emailautocomplete({
 });
 
 // Custom hamburger Icon
-$('.navbar-toggler').on('click', function() {
+$('.navbar-toggler').on('click', function () {
   $(this).toggleClass('is-active');
-  $('.navbar-collapse.show[id]').each(function() {
+  $('.navbar-collapse.show[id]').each(function () {
     var target = $(this).attr('id');
     $('.navbar-toggler.is-active[data-target="#' + target + '"]').click();
   });
 });
 
 // Count Characters in `Add Post` page
-$('.post-comp').on('input keyup', function() {
+$('.post-comp').on('input keyup', function () {
   var charsCount = $(this)
     .val()
     .replace(/\s/g, '').length;
@@ -37,13 +37,13 @@ $('.post-comp').on('input keyup', function() {
 });
 
 // Lightbox for /posts images
-$('a[data-toggle="lightbox"]').on('click', function(e) {
+$('a[data-toggle="lightbox"]').on('click', function (e) {
   e.preventDefault();
   $(this).ekkoLightbox();
 });
 
 // Add post image name before upload
-$('#inputImage').on('change', function() {
+$('#inputImage').on('change', function () {
   $('#image-name').text(
     this.files && this.files.length ? this.files[0].name : ''
   );
@@ -52,7 +52,7 @@ $('#inputImage').on('change', function() {
 // Preview post image before upload
 $('#previewImageContainer').hide();
 $('#image-name').hide();
-$('#inputImage').on('change', function() {
+$('#inputImage').on('change', function () {
   $('#previewImageContainer').slideDown(300);
   $('#image-name').slideDown(300);
   document.getElementById('#previewImage').src = window.URL.createObjectURL(
@@ -61,7 +61,7 @@ $('#inputImage').on('change', function() {
 });
 
 // Count Contact us page's textarea characters
-$('textarea[name="message"]').on('keyup input', function() {
+$('textarea[name="message"]').on('keyup input', function () {
   var maxlength = $(this).attr('maxlength');
   var currentLength = $(this).val().length;
 
@@ -76,8 +76,10 @@ $('textarea[name="message"]').on('keyup input', function() {
 
 // Chosen for category select
 $('.chosen-select')
-  .chosen({ max_selected_options: 3 })
-  .change(function() {
+  .chosen({
+    max_selected_options: 3
+  })
+  .change(function () {
     console.log('Chosen value:', $(this).val());
   });
 
@@ -91,38 +93,75 @@ if ($('#perfectScrollbar').length > 0) {
 }
 
 // Disable Context menu on All Images
-$('img').on('contextmenu', function() {
+$('img').on('contextmenu', function () {
   return false;
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
   // TinyMCE Init
   var tinymceConfig = {
     selector: 'textarea#tinymce',
     skins: 'vendor/tinymce/skins/lightgray',
     theme: 'modern',
-    menubar: 'edit | view | insert | format | table ',
-    toolbar:
-      'undo redo | bold italic | forecolor backcolor | codesample code | alignleft aligncenter alignright alignjustify | bullist numlist | preview print',
+    menubar: 'edit | insert | format | table',
+    toolbar: 'undo redo | bold italic | forecolor backcolor | codesample code | alignleft aligncenter alignright alignjustify | bullist numlist | preview print emoticons',
     plugins: [
       'paste anchor autolink media codesample colorpicker charactercount contextmenu code',
-      ' lists link noneditable preview',
-      ' searchreplace table textcolor print visualblocks'
+      ' lists link noneditable preview emoticons',
+      ' searchreplace table textcolor print visualblocks help'
     ],
-    codesample_languages: [
-      { text: 'HTML/XML', value: 'markup' },
-      { text: 'JavaScript', value: 'javascript' },
-      { text: 'CSS', value: 'css' },
-      { text: 'PHP', value: 'php' },
-      { text: 'Ruby', value: 'ruby' },
-      { text: 'Python', value: 'python' },
-      { text: 'Java', value: 'java' },
-      { text: 'C', value: 'c' },
-      { text: 'C#', value: 'csharp' },
-      { text: 'C++', value: 'cpp' },
-      { text: 'JSON', value: 'json' },
-      { text: 'Swift', value: 'swift' },
-      { text: 'Objective-C', value: 'objective-c' }
+    codesample_languages: [{
+        text: 'HTML/XML',
+        value: 'markup'
+      },
+      {
+        text: 'JavaScript',
+        value: 'javascript'
+      },
+      {
+        text: 'CSS',
+        value: 'css'
+      },
+      {
+        text: 'PHP',
+        value: 'php'
+      },
+      {
+        text: 'Ruby',
+        value: 'ruby'
+      },
+      {
+        text: 'Python',
+        value: 'python'
+      },
+      {
+        text: 'Java',
+        value: 'java'
+      },
+      {
+        text: 'C',
+        value: 'c'
+      },
+      {
+        text: 'C#',
+        value: 'csharp'
+      },
+      {
+        text: 'C++',
+        value: 'cpp'
+      },
+      {
+        text: 'JSON',
+        value: 'json'
+      },
+      {
+        text: 'Swift',
+        value: 'swift'
+      },
+      {
+        text: 'Objective-C',
+        value: 'objective-c'
+      }
     ],
     end_container_on_empty_block: true,
     paste_as_text: true,
@@ -147,10 +186,11 @@ $(document).ready(function() {
     codesample_dialog_height: 425,
     table_responsive_width: true,
     media_live_embeds: true,
-    media_alt_source: false
-    // table_class_list: [
-    //   {title: 'table', value: 'table; table-light; table-bordered; table-striped; text-dark'}
-    // ]
+    media_alt_source: false,
+    image_advtab: true,
+    table_class_list: [
+      {title: 'table', value: 'table table-light table-bordered table-striped text-dark'}
+    ]
   };
   tinymce.init(tinymceConfig);
 
@@ -167,7 +207,7 @@ $(document).ready(function() {
   // Auto hide alerts
   $('.alert-dismissible')
     .fadeTo(10000, 500)
-    .slideUp(500, function() {
+    .slideUp(500, function () {
       $(this).slideUp(500);
     });
 
@@ -179,26 +219,45 @@ $(document).ready(function() {
       hilightedDate: new Date()
     };
     TinyDatePicker('input#date', options).on({
-      open: function() {
+      open: function () {
         console.log('OPENED');
       },
-      close: function() {
+      close: function () {
         console.log('CLOSED');
       },
-      select: function(_, dp) {
+      select: function (_, dp) {
         console.log('SELECT ', dp.state.selectedDate.toDateString());
         console.log(
           'Birthdate:',
           dp.state.selectedDate.toLocaleDateString('en-GB')
         );
       },
-      statechange: function(_, dp) {
+      statechange: function (_, dp) {
         console.log('STATE CHANGE ', dp.state);
       }
     });
     // TinyDatePicker('input#date', {
     //   mode: 'dp-below',
     // });
+  }
+
+  // Auto detect text direction in inputs
+  var inputs = $('.chnage-dir');
+  inputs.each(function () {
+    $(this).on('input keyup keypress', function () {
+      if (isUnicode(inputs.val())) {
+        $(this).css('direction', 'rtl');
+      } else {
+        $(this).css('direction', 'ltr');
+      }
+    });
+  });
+
+  function isUnicode(str) {
+    if (str.substring((0 - 1), 1).charCodeAt() > 255) {
+      return true
+    }
+    return false;
   }
 });
 
@@ -218,7 +277,7 @@ if (!document.querySelector('.ad-alert')) {
   document.querySelector('.ad-alert').style.display = 'block';
   document.body.style.overflowY = 'hidden';
   console.log('Ad Blocker Detected');
-  $('html').on('contextmenu', function() {
+  $('html').on('contextmenu', function () {
     return false;
   });
 } else {
@@ -233,8 +292,8 @@ if ($('#phone').length > 0) {
     autoHideDialCode: false,
     nationalMode: false,
     formatOnDisplay: true,
-    geoIpLookup: function(cb) {
-      $.get('https://ipinfo.io', function() {}, 'jsonp').always(function(
+    geoIpLookup: function (cb) {
+      $.get('https://ipinfo.io', function () {}, 'jsonp').always(function (
         response
       ) {
         var countryCode = response && response.country ? response.country : '';

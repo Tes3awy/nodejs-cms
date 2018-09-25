@@ -107,7 +107,7 @@ app.engine(
         return new Date().getFullYear();
       },
       truncateText(content) {
-        return _.truncate(content, { length: 300 });
+        return _.truncate(content, { length: 350 });
       },
       descriptionTruncate(description) {
         return _.truncate(description, { length: 220 });
@@ -141,7 +141,7 @@ app.use('/posts', postsRoutes);
 app.use('/tag', tagsRoutes);
 
 // Serving locally on port 3000
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, '127.0.0.1', () => {
   console.log(`Server started on port ${port}`);
   console.log('NODE_ENV:', `${process.env.NODE_ENV} environment`);
 });
