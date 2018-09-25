@@ -2,23 +2,22 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
-// const wait = require('gulp-wait');
 const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 
-// gulp.task('compile:sass', () => {
-//   let plugins = [autoprefixer({ browsers: ['last 10 versions'] }), cssnano()];
-//   return gulp
-//     .src('node_modules/bootstrap/scss/bootstrap.scss')
-//     .pipe(plumber())
-//     .pipe(wait(50))
-//     .pipe(sass.sync().on('error', sass.logError))
-//     .pipe(postcss(plugins))
-//     .pipe(rename({ suffix: '.min' }))
-//     .pipe(gulp.dest('public/css'));
-// });
+gulp.task('compile:sass', () => {
+  let plugins = [autoprefixer({ browsers: ['last 10 versions'] }), cssnano()];
+  return gulp
+    .src('node_modules/bootstrap/scss/bootstrap.scss')
+    .pipe(plumber())
+    .pipe(wait(50))
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(postcss(plugins))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('public/css'));
+});
 
 // Autoprefix and minify main.css file
 gulp.task('autoprefix', () => {
@@ -35,11 +34,11 @@ gulp.task('autoprefix', () => {
     .pipe(gulp.dest('public/css'));
 });
 
-// gulp.task('copy-hams', () => {
-//   return gulp
-//     .src('node_modules/hamburgers/_sass/hamburgers/**')
-//     .pipe(gulp.dest('public/sass/vendor/hamburgers'));
-// });
+gulp.task('copy-hams', () => {
+  return gulp
+    .src('node_modules/hamburgers/_sass/hamburgers/**')
+    .pipe(gulp.dest('public/sass/vendor/hamburgers'));
+});
 
 // Compile Hamburger Task
 gulp.task('compile:ham', () => {
