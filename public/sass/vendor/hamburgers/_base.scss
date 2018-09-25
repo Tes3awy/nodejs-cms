@@ -6,8 +6,8 @@
   cursor: pointer;
 
   transition-property: opacity, filter;
-  transition-duration: $hamburger-hover-transition-duration;
-  transition-timing-function: $hamburger-hover-transition-timing-function;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
 
   // Normalize (<button>)
   font: inherit;
@@ -24,6 +24,23 @@
     }
     @else {
       opacity: $hamburger-hover-opacity;
+    }
+  }
+
+  &.is-active {
+    &:hover {
+      @if $hamburger-hover-use-filter == true {
+        filter: $hamburger-active-hover-filter;
+      }
+      @else {
+        opacity: $hamburger-active-hover-opacity;
+      }
+    }
+
+    .hamburger-inner,
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+      background-color: $hamburger-active-layer-color;
     }
   }
 }
