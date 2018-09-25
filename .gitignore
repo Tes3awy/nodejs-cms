@@ -62,5 +62,4 @@ typings/
 
 # Custom ignores
 public/js/vendor/**
-public/uploads/
-config/credentials.js
+public/uploads/*

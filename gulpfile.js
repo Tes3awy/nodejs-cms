@@ -2,14 +2,14 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
-const wait = require('gulp-wait');
+// const wait = require('gulp-wait');
 const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 
 // gulp.task('compile:sass', () => {
-//   let plugins = [autoprefixer({ browsers: ['last 2 versions'] }), cssnano()];
+//   let plugins = [autoprefixer({ browsers: ['last 10 versions'] }), cssnano()];
 //   return gulp
 //     .src('node_modules/bootstrap/scss/bootstrap.scss')
 //     .pipe(plumber())
@@ -43,11 +43,10 @@ gulp.task('autoprefix', () => {
 
 // Compile Hamburger Task
 gulp.task('compile:ham', () => {
-  let plugins = [autoprefixer({ browsers: ['last 2 versions'] }), cssnano()];
+  let plugins = [autoprefixer({ browsers: ['last 10 versions'] }), cssnano()];
   return gulp
     .src('public/sass/vendor/hamburgers/hamburgers.scss')
     .pipe(plumber())
-    .pipe(wait(50))
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(postcss(plugins))
     .pipe(rename({ suffix: '.min' }))
@@ -85,12 +84,6 @@ gulp.task('tinymce', () => {
 gulp.task('copy-css', () => {
   return gulp
     .src([
-      'node_modules/intl-tel-input/build/css/intlTelInput.min.css',
-      'node_modules/intl-tel-input/build/img/**'
-      // 'node_modules/tiny-date-picker/tiny-date-picker.css'
-      // 'node_modules/chosen-js/chosen.min.css',
-      // 'node_modules/chosen-js/chosen-sprite.png'
-      // 'node_modules/perfect-scrollbar/css/perfect-scrollbar.css'
     ])
     .pipe(gulp.dest('public/css'));
 });
