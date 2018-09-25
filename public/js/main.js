@@ -62,15 +62,15 @@ $('#inputImage').on('change', function () {
 
 // Count Contact us page's textarea characters
 $('textarea[name="message"]').on('keyup input', function () {
-  var maxlength = $(this).attr('maxlength');
+  var maxLength = $(this).attr('maxlength');
   var currentLength = $(this).val().length;
 
-  if (currentLength >= maxlength) {
+  if (currentLength >= maxLength) {
     $('#suggestionCount').html(
       'You have reached the maximum number of characters.'
     );
   } else {
-    $('#suggestionCount').html(maxlength - currentLength + ' characters left');
+    $('#suggestionCount').html(maxLength - currentLength + ' characters left');
   }
 });
 
@@ -206,7 +206,7 @@ $(document).ready(function () {
 
   // Auto hide alerts
   $('.alert-dismissible')
-    .fadeTo(10000, 500)
+    .fadeTo(8000, 500)
     .slideUp(500, function () {
       $(this).slideUp(500);
     });
@@ -226,14 +226,14 @@ $(document).ready(function () {
         console.log('CLOSED');
       },
       select: function (_, dp) {
-        console.log('SELECT ', dp.state.selectedDate.toDateString());
+        console.log('SELECT', dp.state.selectedDate.toDateString());
         console.log(
           'Birthdate:',
           dp.state.selectedDate.toLocaleDateString('en-GB')
         );
       },
       statechange: function (_, dp) {
-        console.log('STATE CHANGE ', dp.state);
+        console.log('STATE CHANGE', dp.state);
       }
     });
     // TinyDatePicker('input#date', {
@@ -241,8 +241,7 @@ $(document).ready(function () {
     // });
   }
 
-  // Auto detect text direction in inputs
-  // var inputs = ;
+  // Auto detect text direction in input and textarea
   $('input[type="text"], textarea').each(function () {
     $(this).on('input keyup keypress', function () {
       if (isUnicode($(this).val())) {
