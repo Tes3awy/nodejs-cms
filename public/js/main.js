@@ -104,9 +104,9 @@ $(document).ready(function () {
     skins: 'vendor/tinymce/skins/lightgray',
     theme: 'modern',
     menubar: 'edit | insert | format | table',
-    toolbar: 'undo redo | bold italic | forecolor backcolor | codesample code | alignleft aligncenter alignright alignjustify | bullist numlist | preview print emoticons',
+    toolbar: 'undo redo | bold italic | forecolor backcolor | codesample code | alignleft aligncenter alignright alignjustify | ltr rtl | bullist numlist | preview print emoticons',
     plugins: [
-      'paste anchor autolink media codesample colorpicker charactercount contextmenu code',
+      'paste anchor autolink media codesample directionality colorpicker charactercount contextmenu code',
       ' lists link noneditable preview emoticons',
       ' searchreplace table textcolor print visualblocks help'
     ],

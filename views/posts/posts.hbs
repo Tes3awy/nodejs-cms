@@ -51,7 +51,7 @@
               <div class="desc">
                 <h2 class="post-title"><a class="text-dark" href="/posts/{{this.slug}}">{{this.title}}</a></h2>
                 <div class="">
-                  {{{truncateText this.content}}}
+                  {{{ sanitizeHtml this.content }}}
                 </div>
                 <div class="text-right my-2">
                   <a class="btn btn-secondary" href="/posts/{{this.slug}}">Read more

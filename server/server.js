@@ -35,6 +35,7 @@ const errorhandler = require('errorhandler');
 
 const _ = require('lodash');
 const moment = require('moment');
+const sanitizeHtml = require('sanitize-html');
 
 const publicPath = './../public';
 const port = process.env.PORT || 3000;
@@ -107,7 +108,7 @@ app.engine(
         return new Date().getFullYear();
       },
       truncateText(content) {
-        return _.truncate(content, { length: 350 });
+        return _.truncate(content, { length: 200 });
       },
       descriptionTruncate(description) {
         return _.truncate(description, { length: 220 });
@@ -117,6 +118,16 @@ app.engine(
       },
       capitalize(tag) {
         return _.capitalize(tag);
+      },
+      sanitizeHtml(html) {
+        return sanitizeHtml(_.truncate(html, { length: 250 }), {
+          allowedTags: [],
+          allowedAttributes: [],
+          parser: {
+            lowerCaseTags: true,
+            decodeEntities: true
+          }
+        });
       },
       if_eq(a, b, opts) {
         if (a === b) {

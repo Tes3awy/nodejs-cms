@@ -81,11 +81,11 @@
       <small class="text-monospace pt-2" id="image-name"></small>
       <div class="mb-2" id="previewImageContainer">
         <img src="#" id="#previewImage" title="Image to upload" required>
+        {{!-- Warning --}}
+        <small class="text-muted mb-2">Max.
+          <span class="text-danger">3 MB</span></small>
       </div>
-      {{!-- Warning --}}
-      <small class="text-muted d-block mb-2">Anything except
-        <span class="text-danger">image</span> will fail the
-        <span class="text-danger">form</span> from submitting</small>
+
       <div class="text-right">
         <input class="btn btn-info" type="submit" value="Add post">
       </div>

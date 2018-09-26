@@ -10,15 +10,33 @@ const axios = require('axios');
 
 const authenticate = require('./../middlewares/authenticate');
 
-const swal = require('sweetalert2');
+// const swal = require('sweetalert2');
 
 // Require authenticate middleware for all route verbs /user/
 router.all('*', authenticate);
 
 // GET user/profile
 router.get('/profile/:username', (req, res) => {
-  // const username = req.params.username;
-  // console.log('username:', username);
+  const username = req.params.username;
+  console.log('username:', username);
+
+  User.findByUsername(username).then((username) => {
+    if(username) {
+      return ipStack().then(geolocation => {
+        const country = geolocation.country_name;
+        const flag = geolocation.location.country_flag;
+        res.render('user/profile', {
+          showTitle: 'Profile page',
+          country,
+          flag
+        });
+      });
+    }
+    req.flash('error', 'Unable to find profile');
+    return res.redirect('/');
+  }).catch(_err => {
+    return res.redirect('/');
+  });
 
   var ipStack = () => {
     const apiKey = process.env.LOCATION_API;
@@ -30,16 +48,6 @@ router.get('/profile/:username', (req, res) => {
         }
       });
   };
-
-  ipStack().then(geolocation => {
-    const country = geolocation.country_name;
-    const flag = geolocation.location.country_flag;
-    res.render('user/profile', {
-      showTitle: 'Profile page',
-      country,
-      flag
-    });
-  });
 });
 
 // GET user/edit
@@ -50,7 +58,7 @@ router.get('/edit/:username', (req, res) => {
     res.render('user/edit', {
       showTitle: 'Update profile',
       user,
-      errors: req.flash('error')
+      errors: req.flash('error', 'Unable to find profile')
     });
   });
 });

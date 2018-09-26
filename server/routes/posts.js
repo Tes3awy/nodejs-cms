@@ -30,10 +30,16 @@ const storage = multer.diskStorage({
       null,
       `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
     );
+  },
+  fileFilter: (req, _file, done) => {
+    done(req.flash('error', '3 MB Max.'));
   }
 });
 const upload = multer({
-  storage
+  storage,
+  limits: {
+    fileSize: 3072
+  }
 });
 
 const authenticate = require('./../middlewares/authenticate');
@@ -78,9 +84,9 @@ router.post(
   postUpload,
   [
     check('title')
-      .isLength({ min: 10 })
+      .isLength({ min: 10, max: 60 })
       .trim()
-      .withMessage('Title cannot be less than 10 characters'),
+      .withMessage('Title cannot be less than 10 or more than 60 characters'),
     check('content')
       .isLength({ min: 300 })
       .trim()

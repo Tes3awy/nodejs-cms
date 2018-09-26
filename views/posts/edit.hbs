@@ -73,11 +73,10 @@
         <small class="text-monospace d-block pt-2" id="image-name"></small>
         <div class="mb-2" id="previewImageContainerUpdate">
           <img src="/uploads/{{post.image}}" id="#previewImage" title="Current post image" width="280" height="150">
+          {{!-- Warning --}}
+          <small class="text-muted mb-2">Max.
+          <span class="text-danger">3 MB</span></small>
         </div>
-        {{!-- Warning --}}
-        <small class="text-muted d-block mb-2">Anything except
-          <span class="text-danger">image</span> will fail the
-          <span class="text-danger">form</span> from submitting</small>
         <div class="text-right">
           <input class="btn btn-info" type="submit" value="Update">
         </div>

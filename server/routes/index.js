@@ -36,11 +36,13 @@ router.get('/', (req, res) => {
   getCounts().then(counts => {
     var posts = counts[0];
     var users = counts[1];
+    console.log('error:', JSON.stringify(req.flash('error'), undefined, 2));
     res.render('home', {
       showTitle: 'Home page',
       posts,
       users,
-      deleteAccount: req.flash('warning')
+      deleteAccount: req.flash('warning'),
+      error: req.flash('error')
     });
   });
 });
