@@ -27,12 +27,11 @@
         <div class="col-sm-4">
           <div class="form-group">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="featured" id="featured" value="true" >
+              <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
               <label class="form-check-label" for="featured">Featured post</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked
-                >
+              <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked required>
               <label class="form-check-label" for="notFeatured">Not</label>
             </div>
           </div>
@@ -58,27 +57,26 @@
       </div>
       {{!-- Title --}}
       <div class="form-group">
-        <input class="form-control post-comp" type="text" name="title" placeholder="Post title"  value="{{req.body.title}}"
-           autofocus>
-        <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more.</small>
+        <input class="form-control post-comp" type="text" name="title" placeholder="Post title" value="{{req.body.title}}" minlength="10" maxlength="60" autofocus required>
+        <small class="text-muted title-count">Must be greater than <span class="text-success font-weight-bold">10</span> and less than <span class="text-danger font-weight-bold">60</span> characters.</small>
       </div>
       {{!-- TinyMCE Textarea --}}
       <div class="form-group">
         <textarea id="tinymce" name="content" minlength="300">{{req.body.content}}</textarea>
-        <small class="text-muted content-count">Must be <span class="text-success">300 characters</span> or
+        <small class="text-muted content-count">Must be <span class="text-success font-weight-bold">300 characters</span> or
           more</small>
       </div>
       {{!-- File Upload --}}
       <div class="form-group">
         <div class="input-group">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" >
+            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" required>
             <label class="custom-file-label" for="inputImage">Drag 'n' Drop image here</label>
           </div>
         </div>
         {{!-- Warning --}}
         <small class="text-muted d-block mb-2">Max.
-          <span class="text-danger">1 MB</span></small>
+          <span class="text-danger font-weight-bold">1 MB</span></small>
       </div>
       {{!-- Image Preview and Name --}}
       <small class="text-monospace pt-2" id="image-name"></small>
