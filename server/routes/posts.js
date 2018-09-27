@@ -20,25 +20,20 @@ const { Tag } = require('./../models/Tag');
 
 const uploadPath = path.join(__dirname, './../../public/uploads/');
 
+const maxFileSize = 1 * 1000 * 1000;
 const multer = require('multer');
 const storage = multer.diskStorage({
+  filename: (_req, file, done) => {
+    done(null, `${Date.now()}${path.extname(file.originalname)}`);
+  },
   destination: (_req, _file, done) => {
     done(null, uploadPath);
   },
-  filename: (_req, file, done) => {
-    done(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
-  },
-  fileFilter: (req, _file, done) => {
-    done(req.flash('error', '3 MB Max.'));
-  }
 });
 const upload = multer({
   storage,
   limits: {
-    fileSize: 3072
+    fileSize: maxFileSize
   }
 });
 
@@ -81,7 +76,6 @@ const postUpload = upload.single('image');
 router.post(
   '/add',
   authenticate,
-  postUpload,
   [
     check('title')
       .isLength({ min: 10, max: 60 })
@@ -93,6 +87,14 @@ router.post(
       .withMessage('Post content cannot be less than 300 characters')
   ],
   (req, res) => {
+    postUpload(req, res, function(err) {
+      if(err.message) {
+        console.log('err.message', err.message);
+        req.flash('error', { msg: err.message });
+        return res.redirect('/posts/add');
+      }
+    });
+
     let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
