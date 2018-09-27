@@ -15,7 +15,7 @@
       {{#if error}}
         {{#each error}}
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <span>{{msg}}</span>
+            <span><i class="fas fa-exclamation-triangle"></i> {{msg}}</span>
             <button type="button" class="close" data-dismiss="alert">
               <span>&times;</span>
             </button>
@@ -58,7 +58,7 @@
       </div>
       {{!-- Title --}}
       <div class="form-group">
-        <input class="form-control post-comp" type="text" name="title" placeholder="Post title" minlength="10" value="{{req.body.title}}"
+        <input class="form-control post-comp" type="text" name="title" placeholder="Post title"  value="{{req.body.title}}"
            autofocus>
         <small class="text-muted title-count">Must be <span class="text-success">10 characters</span> or more.</small>
       </div>

@@ -50,6 +50,8 @@ app.use(
 );
 
 /** Middlewares */
+// Helmet Middleware (For Security Best Pratcices)
+app.use(helmet());
 // Express Middlware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -142,8 +144,6 @@ app.engine(
 app.set('view engine', 'hbs');
 // Method Override Middleware
 app.use(methodOverride('_method'));
-// Helmet Middleware (For Security Best Pratcices)
-app.use(helmet());
 // Routes
 app.use('/', routes);
 app.use('/auth', authRoutes);

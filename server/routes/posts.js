@@ -9,7 +9,7 @@ const stringSimilarity = require('string-similarity');
 const _ = require('lodash');
 // const swal = require('sweetalert2');
 
-const { check, validationResult } = require('express-validator/check');
+const { body, check, validationResult } = require('express-validator/check');
 
 const { ObjectID } = require('mongodb');
 
@@ -20,7 +20,7 @@ const { Tag } = require('./../models/Tag');
 
 const uploadPath = path.join(__dirname, './../../public/uploads/');
 
-const maxFileSize = 1 * 1000 * 1000;
+const maxFileSize = 1 * 1024 * 1024;
 const multer = require('multer');
 const storage = multer.diskStorage({
   filename: (_req, file, done) => {
@@ -33,16 +33,16 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    fileSize: maxFileSize
+    fileSize: maxFileSize,
+    files: 1
   }
-});
+}).single('image');
 
 const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
 router.get('/', (req, res) => {
-  Post.find()
-    .sort({ featured: -1, createdAt: -1 })
+  Post.find().sort({ featured: -1, createdAt: -1 })
     .then(posts => {
       res.render('posts/posts', {
         showTitle: 'Posts',
@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
       });
     })
     .catch(_err => {
-      req.flash('error', 'Unable to fetch posts!!!');
+      req.flash('error', { msg: 'Unable to fetch posts!!!' });
       return res.redirect('/posts');
     });
 });
@@ -72,37 +72,28 @@ router.get('/add', authenticate, (req, res) => {
 });
 
 // POST /posts/add
-const postUpload = upload.single('image');
-router.post(
-  '/add',
-  authenticate,
-  [
-    check('title')
-      .isLength({ min: 10, max: 60 })
-      .trim()
-      .withMessage('Title cannot be less than 10 or more than 60 characters'),
-    check('content')
-      .isLength({ min: 300 })
-      .trim()
-      .withMessage('Post content cannot be less than 300 characters')
-  ],
-  (req, res) => {
-    postUpload(req, res, function(err) {
-      if(err.message) {
-        console.log('err.message', err.message);
-        req.flash('error', { msg: err.message });
-        return res.redirect('/posts/add');
-      }
-    });
+router.post('/add', authenticate, (req, res) => {
+  // console.log('req.body first:', req.body);
+  check('title') .isLength({ min: 10, max: 60 }).trim().withMessage('Title cannot be less than 10 or more than 60 characters');
+  check('content') .isLength({ min: 300 }).trim().withMessage('Post content cannot be less than 300 characters');
 
+  upload(req, res, (err) => {
+    // console.log('req.body:', req.body);
     let errors = validationResult(req);
-
+    // Upload Error
+    if (err) {
+      // console.log('ERRRRRRRRR:', err);
+      req.flash('error', { msg: err.message });
+      return res.redirect('/posts/add');
+    }
+    // Form Elements Error
     if (!errors.isEmpty()) {
       errors = errors.array();
       req.flash('error', errors);
       return res.redirect('/posts/add');
     }
 
+    let image;
     const userId = req.user.id;
 
     const body = req.body;
@@ -115,9 +106,12 @@ router.post(
     });
     const content = body.content;
     const featured = body.featured;
-    const image = req.file.filename;
+    if (req.file) {
+      image = req.file.filename;
+    }
     const tag = body.tag;
 
+    // Saving New Post
     const newPost = new Post({
       title,
       slug,
@@ -127,27 +121,24 @@ router.post(
       featured,
       postTag: tag
     });
+
     // Check if title already exists for insertion
     Post.findByTitle(title).then(exists => {
       if (exists) {
-        req.flash('error', {
-          msg: 'Title already exists! Please choose another title.'
-        });
+        req.flash('error', { msg: 'Title already exists! Please choose another title.' });
         return res.redirect('/posts/add');
       }
-      newPost
-        .save()
-        .then(() => {
+      newPost.save().then(() => {
           req.flash('success', 'Added post successfully');
           return res.redirect('/posts');
         })
         .catch(_err => {
-          req.flash('error', 'Unable to add post into database!!!');
+          req.flash('error', { msg: 'Unable to add post into database!!!' });
           return res.redirect('/posts');
         });
     });
-  }
-);
+  });
+});
 
 // GET /post (Single post)
 router.get('/:slug', (req, res) => {
@@ -167,12 +158,12 @@ router.get('/:slug', (req, res) => {
           });
         })
         .catch(_err => {
-          req.flash('error', 'Unable to find author!!!');
+          req.flash('error', { msg: 'Unable to find author!!!' });
           return res.redirect(`/posts/${post.id}`);
         });
     })
     .catch(_err => {
-      req.flash('error', 'Unable to find post!!!');
+      req.flash('error', { msg: 'Unable to find post!!!' });
       return res.redirect('/posts');
     });
 });
@@ -195,13 +186,13 @@ router.get('/edit/:id', authenticate, (req, res) => {
       });
     })
     .catch(_err => {
-      req.flash('error', 'Unable to find post to edit!!!');
+      req.flash('error', { msg: 'Unable to find post to edit!!!' });
       return res.redirect('/posts');
     });
 });
 
 // PUT /post/edit (Edit post)
-router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
+router.put('/edit/:id', authenticate, upload, (req, res) => {
   const id = req.params.id;
 
   const body = req.body;
@@ -236,17 +227,12 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
       );
 
       if (contentSimilarity < 0.4) {
-        req.flash('error', {
-          msg:
-            'You cannot change the whole content!!! Create a new post instead.'
-        });
+        req.flash('error', { msg: 'You cannot change the whole content!!! Create a new post instead.' });
         return res.redirect(`/posts/edit/${id}`);
       }
 
       if (titleSimilarity < 0.4) {
-        req.flash('error', {
-          msg: 'You cannot change the whole title!!! Create a new post instead.'
-        });
+        req.flash('error', { msg: 'You cannot change the whole title!!! Create a new post instead.' });
         return res.redirect(`/posts/edit/${id}`);
       }
 
@@ -260,14 +246,21 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
               }
             });
             Post.findByIdAndUpdate(id, {
-              $set: { title, content, featured, slug, image, updatedAt }
-            })
+                $set: {
+                  title,
+                  content,
+                  featured,
+                  slug,
+                  image,
+                  updatedAt
+                }
+              })
               .then(() => {
                 req.flash('success', 'Updated successfully');
                 return res.redirect(`/posts/${slug}`);
               })
               .catch(_err => {
-                req.flash('error', 'Unable to update post!!!');
+                req.flash('error', { msg: 'Unable to update post!!!' });
                 return res.redirect(`/posts/${slug}`);
               });
           }
@@ -275,14 +268,21 @@ router.put('/edit/:id', authenticate, upload.single('image'), (req, res) => {
       } else {
         Post.findImgById(id).then(dbImg => {
           Post.findByIdAndUpdate(id, {
-            $set: { title, content, featured, slug, dbImg, updatedAt }
-          })
+              $set: {
+                title,
+                content,
+                featured,
+                slug,
+                dbImg,
+                updatedAt
+              }
+            })
             .then(() => {
               req.flash('success', 'Updated successfully');
               return res.redirect(`/posts/${slug}`);
             })
             .catch(_err => {
-              req.flash('error', 'Unable to update post!!!');
+              req.flash('error', { msg: 'Unable to update post!!!' });
               return res.redirect(`/posts/${slug}`);
             });
         });
@@ -315,7 +315,7 @@ router.delete('/delete/:id', authenticate, (req, res) => {
       }
     })
     .catch(_err => {
-      req.flash('error', 'Unable to delete post!!!');
+      req.flash('error', { msg: 'Unable to delete post!!!' });
       return res.redirect('/posts');
     });
 });
