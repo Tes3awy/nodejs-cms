@@ -188,9 +188,10 @@ $(document).ready(function () {
     media_live_embeds: true,
     media_alt_source: false,
     image_advtab: true,
-    table_class_list: [
-      {title: 'table', value: 'table table-light table-bordered table-striped text-dark'}
-    ]
+    table_class_list: [{
+      title: 'table',
+      value: 'table table-light table-bordered table-striped text-dark'
+    }]
   };
   tinymce.init(tinymceConfig);
 
@@ -214,9 +215,9 @@ $(document).ready(function () {
   // TinyDate Picker
   if ($('input#date').length > 0) {
     var options = {
-      min: '1/1/1920',
+      min: '1/1/1900',
       max: new Date(),
-      hilightedDate: new Date()
+      hilightedDate: '1/1/1990'
     };
     TinyDatePicker('input#date', options).on({
       open: function () {
@@ -256,7 +257,9 @@ $(document).ready(function () {
     var letters = [];
     for (var i = 0; i <= str.length; i++) {
       letters[i] = str.substring((i - 1), i);
-      if (letters[i].charCodeAt() > 255) { return true; }
+      if (letters[i].charCodeAt() > 255) {
+        return true;
+      }
     }
     return false;
   }
@@ -304,6 +307,38 @@ if ($('#phone').length > 0) {
     utilsScript: '/js/utils.js?1537717752654'
   });
 }
+
+Pace.options = {
+  ajax: false,
+  restartOnPushState: false,
+  restartOnRequestAfter: false,
+  document: false,
+  eventLag: false
+}
+
+// Shuffle.js
+if ($('.shuffle-container').length > 0) {
+  var Shuffle = window.Shuffle;
+  var element = document.querySelector('.shuffle-container');
+  var sizer = element.querySelector('.sizer-element');
+
+  var shuffleInstance = new Shuffle(element, {
+    itemSelector: '.post-col',
+    sizer: sizer // could also be a selector: '.my-sizer-element'
+  });
+}
+
+// window.onscroll = function () {
+//   scrollProgress();
+// };
+
+// function scrollProgress() {
+//   var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+//   var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+//   var scrolled = (winScroll / height) * 100;
+//   document.getElementById("myBar").style.width = scrolled + "%";
+//   console.log('Scrolled', scrolled);
+// };
 
 // function deleteAccount(e) {
 //   e.preventDefault();

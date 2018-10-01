@@ -67,7 +67,8 @@ gulp.task('copy-js', () => {
       'node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js',
       'node_modules/tiny-date-picker/dist/tiny-date-picker.js',
       'node_modules/intl-tel-input/build/js/intlTelInput-jquery.min.js',
-      'node_modules/intl-tel-input/build/js/utils.js'
+      'node_modules/intl-tel-input/build/js/utils.js',
+      'node_modules/shufflejs/dist/shuffle.min.js'
     ])
     .pipe(gulp.dest('public/js'));
 });

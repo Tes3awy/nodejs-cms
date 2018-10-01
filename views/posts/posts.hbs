@@ -24,10 +24,10 @@
   </div>
 {{/if}}
 
-<h1 class="mb-3">Posts</h1>
+<h1>Posts</h1>
 
 {{#if posts}}
-  <div class="row">
+  <div class="row shuffle-container">
     {{#each posts}}
       {{!-- Loop starts here --}}
       <div class="col-12 post-col">
@@ -54,7 +54,7 @@
                   {{{ sanitizeHtml this.content }}}
                 </div>
                 <div class="text-right my-2">
-                  <a class="btn btn-secondary" href="/posts/{{this.slug}}">Read more
+                  <a class="btn btn-outline-primary" href="/posts/{{this.slug}}">Read more
                     <i class="fas fa-chevron-right"></i>
                   </a>
                 </div>
@@ -81,6 +81,7 @@
       </div>
       {{!-- Loop ends here --}}
     {{/each}}
+    <div class="col-1 my-sizer-element"></div>
   </div>
 {{else}}
   {{!-- No posts warning --}}
