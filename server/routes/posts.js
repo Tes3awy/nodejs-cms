@@ -7,9 +7,8 @@ const router = express.Router();
 const slugify = require('slugify');
 const stringSimilarity = require('string-similarity');
 const _ = require('lodash');
-// const swal = require('sweetalert2');
 
-const { body, check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator/check');
 
 const { ObjectID } = require('mongodb');
 
@@ -28,7 +27,7 @@ const storage = multer.diskStorage({
   },
   destination: (_req, _file, done) => {
     done(null, uploadPath);
-  },
+  }
 });
 const upload = multer({
   storage,
@@ -42,7 +41,8 @@ const authenticate = require('./../middlewares/authenticate');
 
 // GET /posts
 router.get('/', (req, res) => {
-  Post.find().sort({ featured: -1, createdAt: -1 })
+  Post.find()
+    .sort({ featured: -1, createdAt: -1 })
     .then(posts => {
       res.render('posts/posts', {
         showTitle: 'Posts',
@@ -73,16 +73,19 @@ router.get('/add', authenticate, (req, res) => {
 
 // POST /posts/add
 router.post('/add', authenticate, (req, res) => {
-  // console.log('req.body first:', req.body);
-  check('title') .isLength({ min: 10, max: 60 }).trim().withMessage('Title cannot be less than 10 or more than 60 characters');
-  check('content') .isLength({ min: 300 }).trim().withMessage('Post content cannot be less than 300 characters');
+  check('title')
+    .isLength({ min: 10, max: 60 })
+    .trim()
+    .withMessage('Title cannot be less than 10 or more than 60 characters');
+  check('content')
+    .isLength({ min: 300 })
+    .trim()
+    .withMessage('Post content cannot be less than 300 characters');
 
-  upload(req, res, (err) => {
-    // console.log('req.body:', req.body);
+  upload(req, res, err => {
     let errors = validationResult(req);
     // Upload Error
     if (err) {
-      // console.log('ERRRRRRRRR:', err);
       req.flash('error', { msg: err.message });
       return res.redirect('/posts/add');
     }
@@ -95,9 +98,7 @@ router.post('/add', authenticate, (req, res) => {
 
     let image;
     const userId = req.user.id;
-
     const body = req.body;
-
     const title = body.title;
     const slug = slugify(title, {
       replacement: '-',
@@ -119,16 +120,20 @@ router.post('/add', authenticate, (req, res) => {
       image,
       userId,
       featured,
-      postTag: tag
+      tag
     });
 
     // Check if title already exists for insertion
     Post.findByTitle(title).then(exists => {
       if (exists) {
-        req.flash('error', { msg: 'Title already exists! Please choose another title.' });
+        req.flash('error', {
+          msg: 'Title already exists! Please choose another title.'
+        });
         return res.redirect('/posts/add');
       }
-      newPost.save().then(() => {
+      newPost
+        .save()
+        .then(() => {
           req.flash('success', 'Added post successfully');
           return res.redirect('/posts');
         })
@@ -227,12 +232,17 @@ router.put('/edit/:id', authenticate, upload, (req, res) => {
       );
 
       if (contentSimilarity < 0.4) {
-        req.flash('error', { msg: 'You cannot change the whole content!!! Create a new post instead.' });
+        req.flash('error', {
+          msg:
+            'You cannot change the whole content!!! Create a new post instead.'
+        });
         return res.redirect(`/posts/edit/${id}`);
       }
 
       if (titleSimilarity < 0.4) {
-        req.flash('error', { msg: 'You cannot change the whole title!!! Create a new post instead.' });
+        req.flash('error', {
+          msg: 'You cannot change the whole title!!! Create a new post instead.'
+        });
         return res.redirect(`/posts/edit/${id}`);
       }
 
@@ -246,15 +256,15 @@ router.put('/edit/:id', authenticate, upload, (req, res) => {
               }
             });
             Post.findByIdAndUpdate(id, {
-                $set: {
-                  title,
-                  content,
-                  featured,
-                  slug,
-                  image,
-                  updatedAt
-                }
-              })
+              $set: {
+                title,
+                content,
+                featured,
+                slug,
+                image,
+                updatedAt
+              }
+            })
               .then(() => {
                 req.flash('success', 'Updated successfully');
                 return res.redirect(`/posts/${slug}`);
@@ -268,15 +278,15 @@ router.put('/edit/:id', authenticate, upload, (req, res) => {
       } else {
         Post.findImgById(id).then(dbImg => {
           Post.findByIdAndUpdate(id, {
-              $set: {
-                title,
-                content,
-                featured,
-                slug,
-                dbImg,
-                updatedAt
-              }
-            })
+            $set: {
+              title,
+              content,
+              featured,
+              slug,
+              dbImg,
+              updatedAt
+            }
+          })
             .then(() => {
               req.flash('success', 'Updated successfully');
               return res.redirect(`/posts/${slug}`);
