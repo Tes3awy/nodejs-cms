@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col-md-12 col-lg-4">
       <div class="profile-img-container text-center mb-2">
-        <img class="w-100" src="{{user.gravatar}}" alt="{{user.firstname}} {{user.lastname}}" title="{{user.firstname}} {{user.lastname}}">
+        <img class="rounded-circle w-100" src="{{user.gravatar}}" alt="{{user.firstname}} {{user.lastname}}" title="{{user.firstname}} {{user.lastname}}">
         <img class="verified-badge" src="/images/verified-badge.png" alt="Verified Badge" title="Verified account">
       </div>
       <p class="small text-center mb-3">Change your <a href="https://en.gravatar.com" target="_blank" title="Gravatar Website">gravatar</a>
@@ -38,9 +38,9 @@
         <div class="profile-info flex-fill">
           <h1 class="d-inline-block">{{user.firstname}} {{user.lastname}}</h1>&nbsp;&nbsp;&nbsp;
           <span title="Location">
-            <i class="fas fa-map-marker-alt text-info"></i>&nbsp;
-            <img class="align-baseline" src="{{flag}}" alt="{{country}}" title="{{country}}" width="15" height="10">
-            <a href="https://www.google.com/maps/place/{{country}}" target="_blank">{{country}}</a>
+            <i class="fas fa-map-marker-alt"></i>&nbsp;
+            <img class="align-baseline" src="{{flag}}" alt="{{country}}" title="{{country}}" width="15" height="10">&nbsp;&nbsp;
+            <a class="text-primary" href="https://www.google.com/maps/place/{{country}}" target="_blank" title="{{country}}">{{country}}</a>
           </span>
           {{!-- Bio --}}
           <h3 class="mt-4">Bio</h3>

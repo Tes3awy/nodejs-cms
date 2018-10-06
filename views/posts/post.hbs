@@ -4,7 +4,7 @@
     <i class="fas fa-chevron-left pr-2"></i> Back</a>
 </section>
 <div class="row">
-  <div class="col-sm-8">
+  <section class="col-md-8">
     <div class="post-container">
       {{!-- Success Messages --}}
       {{#if success}}
@@ -36,19 +36,21 @@
           {{/if}}
           {{#if author}}
             <p class="mb-1"><a href="/user/profile/{{author.username}}" class="badge badge-pill badge-primary font-weight-normal p-2"
-                title="Author: {{author.firstname}} {{author.lastname}}" target="_blank">Written by: {{author.firstname}} {{author.lastname}}</a></p>
+                title="Author: {{author.firstname}} {{author.lastname}}" target="_blank">Written by: {{author.firstname}}
+                {{author.lastname}}</a></p>
           {{/if}}
         </div>
         {{!-- Social Media Shares --}}
         <div class="post-shares">
           <ul class="social-media-list">
             <li class="social-media-item">
-              <a class="twitter-share-button" href="https://twitter.com/share?ref_src=twsrc%5Etfw" data-show-count="true" title="Twitter"></a>
+              <a class="twitter-share-button" href="https://twitter.com/share?ref_src=twsrc%5Etfw" data-show-count="true"
+                title="Twitter"></a>
               <script src="https://platform.twitter.com/widgets.js" async></script>
             </li>
             <li class="social-media-item">
-              <div class="fb-share-button" data-href="http://localhost:3000/posts/{{post.id}}" data-layout="button_count" data-size="small"
-                data-mobile-iframe="true">
+              <div class="fb-share-button" data-href="http://localhost:3000/posts/{{post.id}}" data-layout="button_count"
+                data-size="small" data-mobile-iframe="true">
                 <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fposts%2Fpost%2F{{post.id}}&amp;src=sdkpreparse"
                   class="fb-xfbml-parse-ignore" title="Facebook">Share</a>
               </div>
@@ -66,7 +68,7 @@
       </div>
       {{!-- Post content preview --}}
       <div class="post-body">
-        <div class="post-image-container text-center my-3">
+        <div class="post-image-container text-center mb-3">
           <a href="/uploads/{{post.image}}" data-toggle="lightbox" title="{{post.title}}">
             <img class="img-fluid shadow-sm" src="/uploads/{{post.image}}" alt="{{post.title}}" title="{{post.title}}">
           </a>
@@ -74,67 +76,69 @@
         <div class="post-body-content">
           {{{post.content}}}
         </div>
-        {{#if post.postTag}}
-        <i class="fas fa-tags" style="vertical-align: middle;" title="Tags"></i>
-          {{#each post.postTag}}
-            <a href="#" class="badge badge-primary px-2 py-1 font-weight-light" title="{{this}}">{{capitalize this}}</a>
+        {{#if post.tag}}
+          <i class="fas fa-tags" title="Tags"></i>
+          {{#each post.tag}}
+            <label class="badge badge-primary px-2 py-1" title="{{this}}">{{capitalize this}}</label>
           {{/each}}
         {{/if}}
-        {{!-- Post actions if user exists --}}
-        {{#if_eq post.userId user.id}}
-          <div class="text-right mt-3">
-            <div class="post-actions shadow-sm">
-              <a class="btn btn-warning text-white" href="/posts/edit/{{post.id}}" title="Edit {{post.title}}">
-                <i class="fas fa-marker"></i>&nbsp;&nbsp; Edit post</a>
-            </div>
-            <div class="post-actions shadow-sm">
-              <form id="deletePost" method="post" action="/posts/delete/{{post.id}}?_method=DELETE" role="form">
-                <input type="hidden" name="_method" value="DELETE">
-                <button type="submit" class="btn btn-danger"><i class="fas fa-backspace"></i>&nbsp;&nbsp; Delete post</a></button>
-              </form>
-            </div>
-          </div>
-        {{/if_eq}}
-        <hr>
-        {{!-- Comments section --}}
-        <h2>Comments</h2>
-        <hr class="bg-primary" style="max-width: 12%; margin-left: 0;">
-        <section class="mb-3" id="disqus_thread"></section>
-        {{!-- Disqus --}}
-        <script>
-          var disqus_config = function () {
-            this.page.url = window.location.href; // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = window.location.href.substr(window.location.href.lastIndexOf('/') + 1); // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-          };
-          (function () { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = 'https://tes9.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript" title="Powered by disqus">comments powered by
-            <a href="https://disqus.com/" target="_blank" title="disqus.com">Disqus</a>.</a>
-        </noscript>
       </div>
-    </div>
-  </div>
+      {{!-- Post actions if user exists --}}
+      {{#if_eq post.userId user.id}}
+        <div class="text-right mt-3">
+          <div class="post-actions shadow-sm">
+            <a class="btn btn-warning text-white" href="/posts/edit/{{post.id}}" title="Edit {{post.title}}">
+              <i class="fas fa-marker"></i>&nbsp;&nbsp; Edit post</a>
+          </div>
+          <div class="post-actions shadow-sm">
+            <form id="deletePost" method="post" action="/posts/delete/{{post.id}}?_method=DELETE" role="form">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger"><i class="fas fa-backspace"></i>&nbsp;&nbsp; Delete post</button>
+            </form>
+          </div>
+        </div>
+      {{/if_eq}}
+      <hr>
+      {{!-- Comments section --}}
+      <h2>Comments</h2>
+      <hr class="bg-primary" style="max-width: 12%; margin-left: 0;">
+      <section class="mb-3" id="disqus_thread"></section>
+      {{!-- Disqus --}}
+      <script>
+        var disqus_config = function () {
+          this.page.url = window.location.href; // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = window.location.href.substr(window.location.href.lastIndexOf('/') + 1); // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function () { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://tes9.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the
+        <a href="https://disqus.com/?ref_noscript" title="Powered by disqus">comments powered by
+          <a href="https://disqus.com/" target="_blank" title="disqus.com">Disqus</a>.</a>
+      </noscript>
+  </section>
+
   {{!-- Related Posts Section --}}
-  <section class="col-sm-4 related-post-col">
+  <section class="col-md-4 related-post-col">
     <div class="related-section" id="perfectScrollbar">
-      <h2 class="text-info mb-3">Related posts</h2>
+      <h2 class="text-success mb-3">Related posts</h2>
       <div class="related-post">
         <h2 class="related-post-title">Lorem, ipsum dolor.</h2>
         <img class="related-post-img img-fluid" src="/images/pexels-photo-545331.jpeg" alt="Image" title="Image">
-        <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium sed vel sapiente doloribus amet
+        <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium sed vel sapiente doloribus
+          amet
           vitae minima quos. Nulla, aliquid vel?</p>
       </div>
       <hr>
       <div class="related-post">
         <h2 class="related-post-title">Lorem, ipsum dolor.</h2>
         <img class="related-post-img img-fluid" src="/images/pexels-photo-545331.jpeg" alt="Image" title="Image">
-        <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium sed vel sapiente doloribus amet
+        <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium sed vel sapiente doloribus
+          amet
           vitae minima quos. Nulla, aliquid vel?</p>
       </div>
     </div>
