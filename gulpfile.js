@@ -6,6 +6,7 @@ const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
+const csscomb = require('gulp-csscomb');
 
 gulp.task('compile:sass', () => {
   let plugins = [autoprefixer({ browsers: ['last 10 versions'] }), cssnano()];
@@ -27,6 +28,7 @@ gulp.task('autoprefix', () => {
   return gulp
     .src(['public/css/main.css', 'public/css/ribbon.css'])
     .pipe(postcss(plugins))
+    .pipe(csscomb())
     .pipe(gulp.dest('public/css'))
     .pipe(plumber())
     .pipe(postcss([cssnano()]))
