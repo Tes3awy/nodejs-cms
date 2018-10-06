@@ -35,22 +35,22 @@ const UserSchema = new mongoose.Schema({
   title: {
     type: String,
     trim: true,
-    default: ''
+    default: undefined
   },
   bio: {
     type: String,
     trim: true,
-    default: ''
+    default: undefined
   },
   website: {
     type: String,
     unique: true,
     trim: true,
-    default: ''
+    default: undefined
   },
   gender: {
     type: String,
-    default: ''
+    default: undefined
   },
   birthdate: {
     type: Date,

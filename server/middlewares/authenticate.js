@@ -1,4 +1,4 @@
-var authenticate = (req, res, next) => {
+const authenticate = (req, res, next) => {
   if (req.user) {
     return next();
   }

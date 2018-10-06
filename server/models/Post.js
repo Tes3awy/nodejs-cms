@@ -30,7 +30,7 @@ const PostSchema = new mongoose.Schema({
     min: 0,
     default: 0
   },
-  postTag: [
+  tag: [
     {
       type: String,
       required: true
@@ -53,7 +53,7 @@ const PostSchema = new mongoose.Schema({
   },
   updatedAt: {
     type: Date,
-    default: null
+    default: undefined
   }
 });
 
@@ -80,7 +80,6 @@ PostSchema.statics.findImgById = function(id) {
   return Post.findById(id);
 };
 
-// Mongoose Plugins
 const Post = mongoose.model('Post', PostSchema);
 
 module.exports = {
