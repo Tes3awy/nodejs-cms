@@ -7118,7 +7118,7 @@
         },
         "strip-ansi": {
           "version": "3.0.1",
-          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz",
+          "resolved": "http://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz",
           "integrity": "sha1-ajhfuIU9lS1f8F0Oiq+UJ43GPc8=",
           "dev": true,
           "requires": {
@@ -9918,7 +9918,7 @@
       "dependencies": {
         "kind-of": {
           "version": "2.0.1",
-          "resolved": "https://registry.npmjs.org/kind-of/-/kind-of-2.0.1.tgz",
+          "resolved": "http://registry.npmjs.org/kind-of/-/kind-of-2.0.1.tgz",
           "integrity": "sha1-AY7HpM5+OobLkUG+UZ0kyPqpgbU=",
           "dev": true,
           "requires": {
@@ -10113,9 +10113,9 @@
       }
     },
     "snyk": {
-      "version": "1.100.2",
-      "resolved": "https://registry.npmjs.org/snyk/-/snyk-1.100.2.tgz",
-      "integrity": "sha512-MiLfz42a2bo+B0FutVwM45RXKsY1VqgLlbnjdIovOECNoY0FBoe0xhJRpDfZEl+xWXS+okBLVR0K01I+me13fQ==",
+      "version": "1.101.0",
+      "resolved": "https://registry.npmjs.org/snyk/-/snyk-1.101.0.tgz",
+      "integrity": "sha512-QODiWL632Nfxd0Jc/axVY910KCKh7EjWkdVCRHoGflMHbdVPDVRELF2jkDGuBd1WB6ESVsvVeJHgDqyJTD9OjA==",
       "dev": true,
       "requires": {
         "abbrev": "^1.1.1",
@@ -10136,7 +10136,7 @@
         "snyk-config": "2.2.0",
         "snyk-docker-plugin": "1.11.0",
         "snyk-go-plugin": "1.5.2",
-        "snyk-gradle-plugin": "2.0.1",
+        "snyk-gradle-plugin": "2.1.0",
         "snyk-module": "1.8.2",
         "snyk-mvn-plugin": "2.0.0",
         "snyk-nodejs-lockfile-parser": "1.5.1",
@@ -10240,9 +10240,9 @@
       }
     },
     "snyk-gradle-plugin": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/snyk-gradle-plugin/-/snyk-gradle-plugin-2.0.1.tgz",
-      "integrity": "sha512-dL9MRlwmDP4OmOk4b61pMqvbu8gG+HVCBTryBEU+vkvjloX0lslKvA5NTUPAM2M8SShnOic54cSegGQChBhYHw==",
+      "version": "2.1.0",
+      "resolved": "https://registry.npmjs.org/snyk-gradle-plugin/-/snyk-gradle-plugin-2.1.0.tgz",
+      "integrity": "sha512-9gYJluomFZ5kaww5FoBvp4zUIsr27pEJ12jQJaVf0FJ0BmyYHmbCoxvHdqjCSYS2fVtF+fmPnvw0XKQOIwA1SA==",
       "dev": true,
       "requires": {
         "clone-deep": "^0.3.0"
