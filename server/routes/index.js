@@ -34,8 +34,8 @@ router.get('/', (req, res) => {
   };
 
   getCounts().then(counts => {
-    var posts = counts[0];
-    var users = counts[1];
+    const posts = counts[0];
+    const users = counts[1];
     res.render('home', {
       showTitle: 'Home page',
       posts,
@@ -105,7 +105,7 @@ router.post(
       req.body['g-recaptcha-response'] === '' ||
       req.body['g-recaptcha-response'] === null
     ) {
-      req.flash('captchaError', 'reCAPTCHA cannot be left unverified');
+      req.flash('captchaError', 'Unable to verify reCAPTCHA');
       return res.redirect('/contact');
     }
 
@@ -167,11 +167,11 @@ router.post(
         newContact
           .save()
           .then(() => {
-            req.flash('success', 'Message sent.');
+            req.flash('success', 'Message sent successfully.');
             return res.redirect('/contact');
           })
           .catch(_err => {
-            req.flash('error', { msg: 'Unable to save message into DB' });
+            req.flash('error', { msg: 'Something went wrong. Please try again in a while.' });
             return res.redirect('/contact');
           });
       });
