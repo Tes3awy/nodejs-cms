@@ -51,7 +51,15 @@ app.use(
 
 /** Middlewares */
 // Helmet Middleware (For Security Best Pratcices)
-app.use(helmet());
+app.use(
+  helmet({
+    referrerPolicy: true,
+    noCache: true,
+    expectCt: true,
+    crossdomain: true,
+    isNoOpen: true
+  })
+);
 // Express Middlware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

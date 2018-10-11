@@ -14,6 +14,7 @@ const nodemailer = require('nodemailer');
 
 // GET /
 router.get('/', (req, res) => {
+  console.log('req.headers', req.headers);
   var getPostsCount = () => {
     return Post.countDocuments({}).then(posts => {
       return posts;
@@ -171,7 +172,9 @@ router.post(
             return res.redirect('/contact');
           })
           .catch(_err => {
-            req.flash('error', { msg: 'Something went wrong. Please try again in a while.' });
+            req.flash('error', {
+              msg: 'Something went wrong. Please try again in a while.'
+            });
             return res.redirect('/contact');
           });
       });

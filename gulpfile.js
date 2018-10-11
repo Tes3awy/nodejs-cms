@@ -84,10 +84,7 @@ gulp.task('tinymce', () => {
 
 // Copy CSS Task
 gulp.task('copy-css', () => {
-  return gulp
-    .src([
-    ])
-    .pipe(gulp.dest('public/css'));
+  return gulp.src([]).pipe(gulp.dest('public/css'));
 });
 
 // Watch Task
