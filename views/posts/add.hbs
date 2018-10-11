@@ -70,7 +70,7 @@
       <div class="form-group">
         <div class="input-group">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" required>
+            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" onchange="ValidateSize(this)" required>
             <label class="custom-file-label" for="inputImage">Drag 'n' Drop image here</label>
           </div>
         </div>
@@ -81,7 +81,7 @@
       {{!-- Image Preview and Name --}}
       <small class="text-monospace pt-2" id="image-name"></small>
       <div id="previewImageContainer">
-        <img src="#" id="#previewImage" title="Image to upload" >
+        <img src="#" id="#previewImage" title="Image to upload">
       </div>
 
       <div class="text-right">

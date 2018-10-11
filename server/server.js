@@ -36,6 +36,7 @@ const errorhandler = require('errorhandler');
 const _ = require('lodash');
 const moment = require('moment');
 const sanitizeHtml = require('sanitize-html');
+const ms = require('ms');
 
 const publicPath = './../public';
 const port = process.env.PORT || 3000;
@@ -74,8 +75,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 3600000,
-      expires: new Date(Date.now() + 3600000)
+      maxAge: ms('7 days'),
+      expires: new Date(Date.now() + ms('7 days'))
     }
   })
 );

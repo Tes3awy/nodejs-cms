@@ -27,7 +27,7 @@ $('.navbar-toggler').on('click', function() {
 });
 
 // Count Characters in `Add Post` page
-$('.post-comp').on('input keyup', function() {
+$('.post-comp').on('input keyup keypress', function() {
   var charsCount = $(this)
     .val()
     .replace(/\s/g, '').length;
@@ -49,16 +49,24 @@ $('#inputImage').on('change', function() {
   );
 });
 
-// Preview post image before upload
+// Checking if Image size is larger than 1 MB and alert
 $('#previewImageContainer').hide();
 $('#image-name').hide();
-$('#inputImage').on('change', function() {
-  $('#previewImageContainer').slideDown(300);
-  $('#image-name').slideDown(300);
-  document.getElementById('#previewImage').src = window.URL.createObjectURL(
-    this.files[0]
-  );
-});
+function ValidateSize(file) {
+  var fileSize = file.files[0].size / 1024 / 1024; // in MB
+  if (fileSize > 1) {
+    return swal('ERROR!', 'Image size exceeds 1 MB!', 'error');
+  }
+
+  // Preview post image before upload
+  $('#inputImage').on('change', function() {
+    $('#previewImageContainer').slideDown(300);
+    $('#image-name').slideDown(300);
+    document.getElementById('#previewImage').src = window.URL.createObjectURL(
+      this.files[0]
+    );
+  });
+}
 
 // Count Contact us page's textarea characters
 $('textarea[name="message"]').on('keyup input', function() {
@@ -213,9 +221,7 @@ $(document).ready(function() {
       { title: 'Test template 1', content: 'Test 1' },
       { title: 'Test template 2', content: 'Test 2' }
     ],
-    content_css: [
-      '//www.tinymce.com/css/codepen.min.css'
-    ]
+    content_css: ['//www.tinymce.com/css/codepen.min.css']
   };
   tinymce.init(tinymceConfig);
 
@@ -348,8 +354,21 @@ if ($('.shuffle-container').length > 0) {
 
   var shuffleInstance = new Shuffle(element, {
     itemSelector: '.post-col',
-    sizer: sizer // could also be a selector: '.my-sizer-element'
+    sizer: sizer, // could also be a selector: '.my-sizer-element'
+    roundTransforms: true
   });
+
+  Shuffle.ALL_ITEMS = 'any';
+  Shuffle.FILTER_ATTRIBUTE_KEY = 'title';
+
+  // shuffleInstance.filter(function(element) {
+  //   element.on('input keyup keypress', function() {
+  //     if($(this)) {
+  //       console.length()
+  //     }
+  //   });
+  //   return element.getAttribute('data-title').length > 10;
+  // });
 }
 
 // window.onscroll = function () {
