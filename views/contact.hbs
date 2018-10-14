@@ -33,10 +33,10 @@
       <div class="card-body">
         <h2 class="text-center text-dark mt-4">Contact form</h2>
         <p class="text-center text-muted small">We are glad to hear from you <i class="far fa-smile-beam"></i></p>
-        <p class="small text-danger d-block text-right">All fields are required</p>
         {{!-- Contact Form --}}
         <form id="contactForm" method="POST" role="form">
           <fieldset>
+            <legend class="small text-danger text-right">All fields are required</legend>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="First name & Last name" name="name" minlength="8"
                 autofocus required>
