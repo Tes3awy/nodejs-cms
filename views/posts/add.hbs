@@ -10,83 +10,89 @@
       </button>
     </div>
     <form action="/posts/add" method="POST" enctype="multipart/form-data" runat="server" role="form">
-      <h2 class="mb-0">Add new post</h2>
-      <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">{{!-- Error Handling --}}
-      {{#if error}}
-        {{#each error}}
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <span><i class="fas fa-exclamation-triangle"></i> {{msg}}</span>
-            <button type="button" class="close" data-dismiss="alert">
-              <span>&times;</span>
-            </button>
+      <fieldset>
+        <h2 class="mb-0">Add new post</h2>
+        <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">{{!-- Error Handling --}}
+        {{#if error}}
+          {{#each error}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <span><i class="fas fa-exclamation-triangle"></i> {{msg}}</span>
+              <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+              </button>
+            </div>
+          {{/each}}
+        {{/if}}
+        {{!-- Check Featured post or not --}}
+        <div class="form-row my-2">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
+                <label class="form-check-label" for="featured">Featured post</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked
+                  required>
+                <label class="form-check-label" for="notFeatured">Not</label>
+              </div>
+            </div>
           </div>
-        {{/each}}
-      {{/if}}
-      {{!-- Check Featured post or not --}}
-      <div class="form-row my-2">
-        <div class="col-sm-4">
-          <div class="form-group">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
-              <label class="form-check-label" for="featured">Featured post</label>
+          {{!-- Select Tags for post --}}
+          <div class="col-sm-8">
+            <div class="form-group">
+              <div class="input-group">
+                <select name="tag" class="chosen-select form-control" data-placeholder="Choose your post's tags..."
+                  multiple>
+                  {{#each tag}}
+                    <option value="{{tag}}">{{tag}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="text-right d-block">
+                <a class="btn btn-info btn-sm" href="/tag/add">or add your own tags</a>
+              </div>
+              <small class="text-muted d-block text-right">You can choose up to <span class="text-success">three</span>
+                tags</small>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="featured" id="notFeatured" value="false" checked required>
-              <label class="form-check-label" for="notFeatured">Not</label>
-            </div>
-          </div>
-        </div>
-        {{!-- Select Tags for post --}}
-        <div class="col-sm-8">
-          <div class="form-group">
-            <div class="input-group">
-              <select name="tag" class="chosen-select form-control" data-placeholder="Choose your post's tags..."
-                multiple>
-                {{#each tag}}
-                  <option value="{{tag}}">{{tag}}</option>
-                {{/each}}
-              </select>
-            </div>
-            <div class="text-right d-block">
-              <a class="btn btn-info btn-sm" href="/tag/add">or add your own tags</a>
-            </div>
-            <small class="text-muted d-block text-right">You can choose up to <span class="text-success">three</span>
-              tags</small>
-          </div>
-        </div>
-      </div>
-      {{!-- Title --}}
-      <div class="form-group">
-        <input class="form-control post-comp" type="text" name="title" placeholder="Post title" value="{{req.body.title}}" minlength="10" maxlength="60" autofocus required>
-        <small class="text-muted title-count">Must be greater than <span class="text-success font-weight-bold">10</span> and less than <span class="text-danger font-weight-bold">60</span> characters.</small>
-      </div>
-      {{!-- TinyMCE Textarea --}}
-      <div class="form-group">
-        <textarea id="tinymce" name="content" minlength="300">{{req.body.content}}</textarea>
-        <small class="text-muted content-count">Must be <span class="text-success font-weight-bold">300 characters</span> or
-          more</small>
-      </div>
-      {{!-- File Upload --}}
-      <div class="form-group">
-        <div class="input-group">
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" onchange="ValidateSize(this)" required>
-            <label class="custom-file-label" for="inputImage">Drag 'n' Drop image here</label>
           </div>
         </div>
-        {{!-- Warning --}}
-        <small class="text-muted d-block mb-2">Max.
-          <span class="text-danger font-weight-bold">1 MB</span></small>
-      </div>
-      {{!-- Image Preview and Name --}}
-      <small class="text-monospace pt-2" id="image-name"></small>
-      <div id="previewImageContainer">
-        <img src="#" id="#previewImage" title="Image to upload">
-      </div>
-
-      <div class="text-right">
-        <input class="btn btn-info" type="submit" value="Add post">
-      </div>
+        {{!-- Title --}}
+        <div class="form-group">
+          <input class="form-control post-comp" type="text" name="title" placeholder="Post title" value="{{req.body.title}}"
+            minlength="10" maxlength="60" autofocus required>
+          <small class="text-muted title-count">Must be greater than <span class="text-success font-weight-bold">10</span>
+            and less than <span class="text-danger font-weight-bold">60</span> characters.</small>
+        </div>
+        {{!-- TinyMCE Textarea --}}
+        <div class="form-group">
+          <textarea id="tinymce" name="content" minlength="300">{{req.body.content}}</textarea>
+          <small class="text-muted content-count">Must be <span class="text-success font-weight-bold">300 characters</span>
+            or
+            more</small>
+        </div>
+        {{!-- File Upload --}}
+        <div class="form-group">
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" onchange="ValidateSize(this)"
+                required>
+              <label class="custom-file-label" for="inputImage">Drag 'n' Drop image here</label>
+            </div>
+          </div>
+          {{!-- Warning --}}
+          <small class="text-muted d-block mb-2">Max.
+            <span class="text-danger font-weight-bold">1 MB</span></small>
+        </div>
+        {{!-- Image Preview and Name --}}
+        <small class="text-monospace pt-2" id="image-name"></small>
+        <div id="previewImageContainer">
+          <img src="#" id="#previewImage" title="Image to upload">
+        </div>
+        <div class="text-right">
+          <input class="btn btn-info" type="submit" value="Add post">
+        </div>
+      </fieldset>
     </form>
   </div>
 </div>

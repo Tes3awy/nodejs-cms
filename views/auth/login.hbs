@@ -1,59 +1,62 @@
 {{!-- Login Form --}}
 <form class="form-access form-signin" method="POST" role="form">
-  <div class="text-center">
-    {{!-- <img class="mb-2" src="/favicon.ico" alt="Logo" title="Logo"> --}}
-    <h1 class="h3 mb-4 font-weight-normal">Please Login</h1>
-  </div>
-  {{!-- Error Handling --}}
-  {{#if error}}
-    {{#each error}}
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <span>{{msg}}. <a href="/auth/register">Register now?</a></span>
+  <fieldset>
+    <div class="text-center">
+      {{!-- <img class="mb-2" src="/favicon.ico" alt="Logo" title="Logo"> --}}
+      <h1 class="h3 mb-4 font-weight-normal">Please Login</h1>
+    </div>
+    {{!-- Error Handling --}}
+    {{#if error}}
+      {{#each error}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <span>{{msg}}. <a href="/auth/register">Register now?</a></span>
+          <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+          </button>
+        </div>
+      {{/each}}
+    {{/if}}
+    {{!-- Success Messages --}}
+    {{#if success}}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span>{{success}}</span>
         <button type="button" class="close" data-dismiss="alert">
           <span>&times;</span>
         </button>
       </div>
-    {{/each}}
-  {{/if}}
-  {{!-- Success Messages --}}
-  {{#if success}}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <span>{{success}}</span>
-      <button type="button" class="close" data-dismiss="alert">
-        <span>&times;</span>
-      </button>
-    </div>
-  {{/if}}
-  {{!-- Info Messages --}}
-  {{#if info}}
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-      <span><i class="far fa-smile-beam"></i> {{info}}</span>
-      <button type="button" class="close" data-dismiss="alert">
-        <span>&times;</span>
-      </button>
-    </div>
-  {{/if}}
+    {{/if}}
+    {{!-- Info Messages --}}
+    {{#if info}}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <span><i class="far fa-smile-beam"></i> {{info}}</span>
+        <button type="button" class="close" data-dismiss="alert">
+          <span>&times;</span>
+        </button>
+      </div>
+    {{/if}}
 
-  <div class="form-group">
-    <input type="email" class="form-control email-input-class" value="{{user.email}}" placeholder="Email address" name="email"
-      required autofocus>
-  </div>
-  <div class="form-group">
-    <div class="input-group">
-      <input type="password" class="form-control" placeholder="Password" name="password" required>
-      <div class="input-group-append">
-        <span class="input-group-text">
-          <i class="fas fa-eye-slash"></i>
-        </span>
+    <div class="form-group">
+      <input type="email" class="form-control email-input-class" value="{{user.email}}" placeholder="Email address"
+        name="email" required autofocus>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <i class="fas fa-eye-slash"></i>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="text-center">
-    <button class="btn btn-primary btn-block" type="submit">Login</button>
-  </div>
-  <div class="text-center pt-2">
-    <a class="text-warning" href="/auth/forget">Forgot your password?</a>
-  </div>
-  <p class="mt-4 mb-0 text-muted text-center">&copy; 2011 - {{getCurrentYear}} - Copyright Tes official website - All rights
+    <div class="text-center">
+      <button class="btn btn-primary btn-block" type="submit">Login</button>
+    </div>
+    <div class="text-center pt-2">
+      <a class="text-warning" href="/auth/forget">Forgot your password?</a>
+    </div>
+  </fieldset>
+  <p class="mt-4 mb-0 text-muted text-center">&copy; 2011 - {{getCurrentYear}} - Copyright Tes official website - All
+    rights
     reserved.</p>
 </form>
