@@ -82,11 +82,11 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-user text-info"></i></span>
                     </div>
-                    <select name="gender" class="form-control rounded-0">
-                      <option selected disabled>Select your gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
+                    <input class="form-control rounded-0" list="genders" id="gender" name="gender" placeholder="Choose your gender">
+                    <datalist id="genders">
+                      <option value="Male">
+                      <option value="Female">
+                    </datalist>
                   </div>
                 </li>
                 <li class="profile-info-list-item" title="Birthday">
