@@ -96,7 +96,7 @@ input[name='name'] {
 
 .post-border-style {
   width: 8px;
-  background-color: #639;
+  background-color: rgb(102, 51, 153);
   -webkit-border-top-left-radius: 12px;
           border-top-left-radius: 12px;
   -webkit-border-bottom-left-radius: 12px;
@@ -176,7 +176,6 @@ input[type='file'] {
 .post-title h1 {
   word-break: break-all;
   -webkit-hyphens: auto;
-     -moz-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;
 }
@@ -184,7 +183,6 @@ input[type='file'] {
 .post-body-content p {
   word-break: break-all;
   -webkit-hyphens: auto;
-     -moz-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;
 }
@@ -299,7 +297,7 @@ i.fa-chevron-right {
 
 .modal-dialog,
 .modal-title {
-  color: #495057;
+  color: rgb(73, 80, 87);
 }
 
 /* Profile Page */
