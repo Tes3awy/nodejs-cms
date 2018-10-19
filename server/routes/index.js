@@ -14,7 +14,7 @@ const nodemailer = require('nodemailer');
 
 // GET /
 router.get('/', (req, res) => {
-  console.log('req.headers', req.headers);
+  // console.log('req.headers', req.headers);
   var getPostsCount = () => {
     return Post.countDocuments({}).then(posts => {
       return posts;
