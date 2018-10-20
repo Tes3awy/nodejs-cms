@@ -418,7 +418,8 @@ router.put(
 router.get('/logout', authenticate, (req, res) => {
   req.logout();
   req.flash('info', 'Bye bye. See you soon!');
-  return res.redirect('/auth/login');
+  res.redirect('/auth/login');
+  req.session.destroy();
 });
 
 module.exports = router;
