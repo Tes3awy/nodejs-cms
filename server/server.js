@@ -74,8 +74,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: ms('7 days'),
-      expires: new Date(Date.now() + ms('7 days'))
+      maxAge: ms('14 days'),
+      expires: new Date(Date.now() + ms('14 days'))
     },
     store: new MongoStore({
       url: 'mongodb://localhost:27017/LoginApp',
