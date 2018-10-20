@@ -7,13 +7,13 @@ const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const csscomb = require('gulp-csscomb');
+const uglify = require('gulp-uglify');
 
 gulp.task('compile:sass', () => {
   let plugins = [autoprefixer({ browsers: ['last 10 versions'] }), cssnano()];
   return gulp
     .src('node_modules/bootstrap/scss/bootstrap.scss')
     .pipe(plumber())
-    .pipe(wait(50))
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(postcss(plugins))
     .pipe(rename({ suffix: '.min' }))
@@ -23,7 +23,7 @@ gulp.task('compile:sass', () => {
 // Autoprefix and minify main.css file
 gulp.task('autoprefix', () => {
   let plugins = [
-    autoprefixer({ browsers: ['last 20 versions'], cascade: true })
+    autoprefixer({ browsers: ['last 10 versions'], cascade: true })
   ];
   return gulp
     .src(['public/css/main.css', 'public/css/ribbon.css'])
@@ -60,9 +60,7 @@ gulp.task('copy-js', () => {
     .src([
       'node_modules/jquery/dist/jquery.min.js',
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
-      'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
-      'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js.map',
       'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
       'node_modules/chosen-js/chosen.jquery.min.js',
@@ -87,9 +85,18 @@ gulp.task('copy-css', () => {
   return gulp.src([]).pipe(gulp.dest('public/css'));
 });
 
+gulp.task('uglify', () => {
+  return gulp.src('public/js/main.js')
+  .pipe(plumber())
+  .pipe(uglify())
+  .pipe(rename({ basename: "index", suffix: '.min', extname: '.js'}))
+  .pipe(gulp.dest('public/js/'))
+});
+
 // Watch Task
 gulp.task('watch', () => {
   // gulp.watch('node_modules/bootstrap/scss/**/*.scss', ['compile:sass']);
+  gulp.watch('public/js/main.js', ['uglify']);
   gulp.watch(['public/css/main.css', 'public/css/ribbon.css'], ['autoprefix']);
   gulp.watch('public/sass/vendor/hamburgers/**', ['compile:ham']);
 });

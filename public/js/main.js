@@ -93,7 +93,7 @@ $('.chosen-select')
 
 // Perfect Scrollbar Init
 if ($('#perfectScrollbar').length > 0) {
-  const ps = new PerfectScrollbar('#perfectScrollbar', {
+  var ps = new PerfectScrollbar('#perfectScrollbar', {
     wheelSpeed: 0.5,
     wheelPropagation: false,
     maxScrollbarLength: 50
