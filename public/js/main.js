@@ -5,10 +5,10 @@ $('.input-group-append').on('click', function() {
     .find('.input-group-text')
     .find('i')
     .toggleClass('fa-eye fa-eye-slash');
-  if (input.attr('type') === 'password') {
-    input.attr('type', 'text');
+  if (input.prop('type') === 'password') {
+    input.prop('type', 'text');
   } else {
-    input.attr('type', 'password');
+    input.prop('type', 'password');
   }
 });
 
@@ -21,7 +21,7 @@ $('input[type="email"]').emailautocomplete({
 $('.navbar-toggler').on('click', function() {
   $(this).toggleClass('is-active');
   $('.navbar-collapse.show[id]').each(function() {
-    var target = $(this).attr('id');
+    var target = $(this).prop('id');
     $('.navbar-toggler.is-active[data-target="#' + target + '"]').click();
   });
 });
@@ -70,7 +70,7 @@ function ValidateSize(file) {
 
 // Count Contact us page's textarea characters
 $('textarea[name="message"]').on('keyup input', function() {
-  var maxLength = $(this).attr('maxlength');
+  var maxLength = $(this).prop('maxlength');
   var currentLength = $(this).val().length;
 
   if (currentLength >= maxLength) {
