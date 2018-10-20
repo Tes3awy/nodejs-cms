@@ -8,7 +8,7 @@ mongoose
     'mongodb://localhost:27017/LoginApp',
     { useNewUrlParser: true }
   )
-  .then((db, err) => {
+  .then((_db, err) => {
     if (err) {
       return console.log('Unable to connect to MongoDB server');
     }

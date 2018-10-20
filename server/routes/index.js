@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { mongoose } = require('./../db/mongoose');
-const { Post } = require('./../models/Post');
-const { User } = require('./../models/User');
-const { Contact } = require('./../models/Contact');
+const { mongoose } = require('../db/mongoose');
+const { Post } = require('../models/Post');
+const { User } = require('../models/User');
+const { Contact } = require('../models/Contact');
 
 const request = require('request');
 

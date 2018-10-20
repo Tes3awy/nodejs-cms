@@ -1,12 +1,14 @@
 // Required Modules
 const gulp = require('gulp');
-const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
+
 const rename = require('gulp-rename');
+const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const csscomb = require('gulp-csscomb');
+
 const uglify = require('gulp-uglify');
 
 gulp.task('compile:sass', () => {

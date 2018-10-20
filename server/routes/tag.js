@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { mongoose } = require('./../db/mongoose');
-const { Tag } = require('./../models/Tag');
+const { mongoose } = require('../db/mongoose');
+const { Tag } = require('../models/Tag');
 
 const _ = require('lodash');
 
-const authenticate = require('./../middlewares/authenticate');
+const authenticate = require('../middlewares/authenticate');
 
 router.get('/add', authenticate, (req, res) => {
   Tag.find().then(tag => {

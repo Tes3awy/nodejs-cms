@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const nodemailer = require('nodemailer');
-
-const _ = require('lodash');
-
-const { mongoose } = require('./../db/mongoose');
-const { User } = require('./../models/User');
+const { mongoose } = require('../db/mongoose');
+const { User } = require('../models/User');
 
 const CryptoJS = require('crypto-js');
 
-const { passportConfig } = require('./../middlewares/passport');
+const { passportConfig } = require('../middlewares/passport');
 const passport = require('passport');
 
 const { check, validationResult } = require('express-validator/check');
@@ -19,7 +15,11 @@ const gravatar = require('gravatar');
 
 const request = require('request');
 
-const authenticate = require('./../middlewares/authenticate');
+const nodemailer = require('nodemailer');
+
+const _ = require('lodash');
+
+const authenticate = require('../middlewares/authenticate');
 
 // GET /auth/register
 router.get('/register', (req, res) => {

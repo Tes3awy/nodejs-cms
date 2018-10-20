@@ -1,8 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const { mongoose } = require('./../db/mongoose');
-const { User } = require('./../models/User');
+const { mongoose } = require('../db/mongoose');
+const { User } = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 passport.use(
@@ -37,10 +37,12 @@ passport.use(
           if (res) {
             return done(null, user);
           }
+          const forgetPasswordUrl = '/auth/forget';
+          const forgetPasswordMsg = `Password is incorrect! <a href=${forgetPasswordUrl}>Forget password?</a>`
           return done(
             null,
             false,
-            req.flash('error', { msg: 'Password is incorrect!!!' })
+            req.flash('error', { msg: forgetPasswordMsg })
           );
         });
       });

@@ -12,12 +12,12 @@ const { check, validationResult } = require('express-validator/check');
 
 const { ObjectID } = require('mongodb');
 
-const { mongoose } = require('./../db/mongoose');
-const { Post } = require('./../models/Post');
-const { User } = require('./../models/User');
-const { Tag } = require('./../models/Tag');
+const { mongoose } = require('../db/mongoose');
+const { Post } = require('../models/Post');
+const { User } = require('../models/User');
+const { Tag } = require('../models/Tag');
 
-const uploadPath = path.join(__dirname, './../../public/uploads/');
+const uploadPath = path.join(__dirname, '../../public/uploads/');
 
 const maxFileSize = 1 * 1024 * 1024;
 const multer = require('multer');
@@ -37,7 +37,7 @@ const upload = multer({
   }
 }).single('image');
 
-const authenticate = require('./../middlewares/authenticate');
+const authenticate = require('../middlewares/authenticate');
 
 // GET /posts
 router.get('/', (req, res) => {
@@ -148,7 +148,6 @@ router.post('/add', authenticate, (req, res) => {
 // GET /post (Single post)
 router.get('/:slug', (req, res) => {
   const slug = req.params.slug;
-  // console.log('post slug:', slug);
   Post.findBySlug(slug)
     .then(post => {
       User.findById(post.userId)
@@ -187,6 +186,7 @@ router.get('/edit/:id', authenticate, (req, res) => {
         layout: 'postLayout',
         showTitle: `Edit - ${post.title}`,
         post,
+        featured: post.featured,
         error: req.flash('error')
       });
     })
@@ -231,7 +231,7 @@ router.put('/edit/:id', authenticate, upload, (req, res) => {
         _.toString(title)
       );
 
-      if (contentSimilarity < 0.4) {
+      if (contentSimilarity < 0.5) {
         req.flash('error', {
           msg:
             'You cannot change the whole content!!! Create a new post instead.'
@@ -239,7 +239,7 @@ router.put('/edit/:id', authenticate, upload, (req, res) => {
         return res.redirect(`/posts/edit/${id}`);
       }
 
-      if (titleSimilarity < 0.4) {
+      if (titleSimilarity < 0.5) {
         req.flash('error', {
           msg: 'You cannot change the whole title!!! Create a new post instead.'
         });

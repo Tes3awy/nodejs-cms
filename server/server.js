@@ -163,7 +163,6 @@ app.use('/tag', tagsRoutes);
 // Serving locally on port 3000
 app.listen(port, '127.0.0.1', () => {
   console.log(`Server started on port ${port}`);
-  console.log('NODE_ENV:', `${process.env.NODE_ENV} environment`);
 });
 
 module.exports = {

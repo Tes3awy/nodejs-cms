@@ -3,12 +3,12 @@ const router = express.Router();
 
 const { ObjectID } = require('mongodb');
 
-const { mongoose } = require('./../db/mongoose');
-const { User } = require('./../models/User');
+const { mongoose } = require('../db/mongoose');
+const { User } = require('../models/User');
 
 const axios = require('axios');
 
-const authenticate = require('./../middlewares/authenticate');
+const authenticate = require('../middlewares/authenticate');
 
 // const swal = require('sweetalert2');
 
