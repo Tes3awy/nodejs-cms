@@ -5,9 +5,6 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
-const mongoose = require('mongoose');
-// const { mongoose } = require('./db/mongoose');
-
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
