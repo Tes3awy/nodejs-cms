@@ -10,8 +10,7 @@
   "scripts": {
     "start:mac": "export NODE_ENV=development && nodemon server/server.js",
     "start:win": "set NODE_ENV=development && nodemon server/server.js",
-    "test": "snyk test",
-    "dev-server": "webpack-dev-server"
+    "test": "snyk test"
   },
   "engines": {
     "npm": "^6.3.0",
@@ -101,13 +100,8 @@
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-wait": "0.0.2",
+    "gulp-uglify": "^3.0.1",
     "nodemon": "^1.18.4",
-    "snyk": "^1.104.1",
-    "style-loader": "^0.23.1",
-    "uglifyjs-webpack-plugin": "^2.0.1",
-    "webpack": "^4.21.0",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "snyk": "^1.104.1"
   }
 }
