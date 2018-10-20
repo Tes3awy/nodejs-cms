@@ -5,9 +5,11 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
-const { mongoose } = require('./db/mongoose');
+const mongoose = require('mongoose');
+// const { mongoose } = require('./db/mongoose');
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const { passportConfig } = require('./middlewares/passport');
 const passport = require('passport');
@@ -77,7 +79,13 @@ app.use(
       secure: false,
       maxAge: ms('7 days'),
       expires: new Date(Date.now() + ms('7 days'))
-    }
+    },
+    store: new MongoStore({
+      url: 'mongodb://localhost:27017/LoginApp',
+      autoRemove: 'native',
+      ttl: ms('14 days') / 1000,
+      touchAfter: ms('1d') / 1000 // to be updated every 24 hours only
+    })
   })
 );
 // Passport Middlewares
