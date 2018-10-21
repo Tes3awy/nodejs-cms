@@ -178,7 +178,7 @@ input[type='file'] {
   margin-bottom: 1.5rem;
 }
 
-.post-title h1 {
+/* .post-title h1 {
   word-break: break-all;
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
@@ -190,13 +190,29 @@ input[type='file'] {
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;
-}
+} */
 
-.post-body-content::first-letter {
+/* .post-body-content::first-letter {
   float: left;
   font-size: 50px;
   line-height: 40px;
   padding: 4px;
+} */
+
+.post-body-content ol,
+.post-body-content ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.post-body-content ol li,
+.post-body-content ul li {
+  font-size: 16px;
+}
+
+.post-body-content ol li:not(:last-child),
+.post-body-content ul li:not(:last-child) {
+  margin-bottom: 0.5rem;
 }
 
 .post-body-content p:first-child {

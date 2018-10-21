@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose
   .connect(
-    process.env.MONGODBURI_LOCAL,
+    'mongodb://localhost:27017/LoginApp',
     {
       useNewUrlParser: true,
-      poolSize: 10,
+      poolSize: 5,
       useFindAndModify: false,
       useCreateIndex: true
     }

@@ -48,6 +48,7 @@ router.get('/', (req, res) => {
         showTitle: 'Posts',
         layout: 'postLayout',
         posts,
+        views: req.session.views ? req.session.views++ : 1,
         error: req.flash('error'),
         success: req.flash('success')
       });
