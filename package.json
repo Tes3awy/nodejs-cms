@@ -103,7 +103,6 @@
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.1",
-    "jshint": "^2.9.6",
     "nodemon": "^1.18.4",
     "snyk": "^1.104.1"
   }
