@@ -62,6 +62,7 @@ gulp.task('copy-js', () => {
     .src([
       'node_modules/jquery/dist/jquery.min.js',
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+      'node_modules/tinymce/tinymce.min.js',
       'node_modules/ekko-lightbox/dist/ekko-lightbox.min.js',
       'node_modules/sweetalert2/dist/sweetalert2.all.min.js',
       'node_modules/chart.js/dist/Chart.bundle.min.js',
@@ -88,11 +89,12 @@ gulp.task('copy-css', () => {
 });
 
 gulp.task('uglify', () => {
-  return gulp.src('public/js/main.js')
-  .pipe(plumber())
-  .pipe(uglify())
-  .pipe(rename({ basename: "index", suffix: '.min', extname: '.js'}))
-  .pipe(gulp.dest('public/js/'))
+  return gulp
+    .src('public/js/main.js')
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(rename({ basename: 'index', suffix: '.min', extname: '.js' }))
+    .pipe(gulp.dest('public/js/'));
 });
 
 // Watch Task

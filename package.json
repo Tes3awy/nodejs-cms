@@ -10,8 +10,7 @@
   "scripts": {
     "start:mac": "export NODE_ENV=development && nodemon server/server.js",
     "start:win": "set NODE_ENV=development && nodemon server/server.js",
-    "test": "jshint server/server.js",
-    "snyk-test": "snyk test"
+    "test": "snyk test"
   },
   "engines": {
     "npm": "^6.3.0",
@@ -71,7 +70,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.22.2",
     "mongodb": "^3.1.8",
-    "mongoose": "^5.3.5",
+    "mongoose": "^5.3.6",
     "morgan": "^1.9.1",
     "ms": "^2.1.1",
     "multer": "^1.4.1",
@@ -91,10 +90,10 @@
     "string-similarity": "^2.0.0",
     "sweetalert2": "^7.28.8",
     "tiny-date-picker": "^3.2.6",
-    "tinymce": "^4.8.3"
+    "tinymce": "^4.8.4"
   },
   "devDependencies": {
-    "autoprefixer": "^9.2.1",
+    "autoprefixer": "^9.3.0",
     "css-loader": "^1.0.0",
     "cssnano": "^4.1.7",
     "file-loader": "^2.0.0",
@@ -106,6 +105,6 @@
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.1",
     "nodemon": "^1.18.4",
-    "snyk": "^1.104.1"
+    "snyk": "^1.104.2"
   }
 }
