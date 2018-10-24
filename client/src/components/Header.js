@@ -1,10 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => (
-  <div>
-    <h1>This is my Header</h1>
-  </div>
+  <header>
+    <h1>Tes Official Website</h1>
+    <NavLink to="/" exact={true}>
+      Home
+    </NavLink>
+    <NavLink to="/posts">
+      Posts
+    </NavLink>
+  </header>
 );
 
 export default Header;
