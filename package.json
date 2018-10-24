@@ -42,7 +42,10 @@
     "TinyMCE",
     "Nodemailer",
     "Passport",
-    "multer"
+    "multer",
+    "Webpack",
+    "Babel",
+    "React.js"
   ],
   "author": "Osama Abbas <oabbas2512@gmail.com> (https://tes3awy.github.io/)",
   "license": "MIT",
