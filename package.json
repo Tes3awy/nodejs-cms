@@ -4,7 +4,7 @@
   "config": {
     "port": "3000"
   },
-  "version": "3.5.3",
+  "version": "3.5.5",
   "description": "Advanced Node.js CMS based web application",
   "main": "server/server.js",
   "scripts": {
@@ -79,8 +79,8 @@
     "passport-local": "^1.0.0",
     "perfect-scrollbar": "^1.4.0",
     "popper.js": "^1.14.4",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
     "request": "^2.88.0",
     "sanitize-html": "^1.19.1",
     "serve-favicon": "^2.5.0",
@@ -93,10 +93,8 @@
     "tinymce": "^4.8.4"
   },
   "devDependencies": {
-    "autoprefixer": "^9.3.0",
-    "css-loader": "^1.0.0",
+    "autoprefixer": "^9.3.1",
     "cssnano": "^4.1.7",
-    "file-loader": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-csscomb": "^3.0.8",
     "gulp-plumber": "^1.2.0",
