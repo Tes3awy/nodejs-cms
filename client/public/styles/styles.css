@@ -1,0 +1,10 @@
+.is-active {
+  color: firebrick;
+}
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-link:not(:last-child) {
+  margin-right: 5px;
+}
