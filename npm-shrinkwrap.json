@@ -1,6 +1,6 @@
 {
   "name": "login-test",
-  "version": "3.5.5",
+  "version": "3.7.0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -3944,7 +3944,7 @@
     },
     "es6-promisify": {
       "version": "5.0.0",
-      "resolved": "https://registry.npmjs.org/es6-promisify/-/es6-promisify-5.0.0.tgz",
+      "resolved": "http://registry.npmjs.org/es6-promisify/-/es6-promisify-5.0.0.tgz",
       "integrity": "sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=",
       "dev": true,
       "requires": {
@@ -4328,7 +4328,7 @@
     },
     "external-editor": {
       "version": "2.2.0",
-      "resolved": "https://registry.npmjs.org/external-editor/-/external-editor-2.2.0.tgz",
+      "resolved": "http://registry.npmjs.org/external-editor/-/external-editor-2.2.0.tgz",
       "integrity": "sha512-bSn6gvGxKt+b7+6TKEv1ZycHleA7aHhRHyAqJyp5pbUFuYYNIzpZnQDk7AsYckyWdEnTeAnay0aCy2aV6iTk9A==",
       "dev": true,
       "requires": {
@@ -5277,7 +5277,7 @@
         },
         "readable-stream": {
           "version": "1.1.14",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.1.14.tgz",
+          "resolved": "http://registry.npmjs.org/readable-stream/-/readable-stream-1.1.14.tgz",
           "integrity": "sha1-fPTFTvZI44EwhMY23SB54WbAgdk=",
           "dev": true,
           "requires": {
@@ -7313,7 +7313,7 @@
       "dependencies": {
         "es6-promise": {
           "version": "3.0.2",
-          "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-3.0.2.tgz",
+          "resolved": "http://registry.npmjs.org/es6-promise/-/es6-promise-3.0.2.tgz",
           "integrity": "sha1-AQ1YWEI6XxGJeWZfRkhqlcbuK7Y=",
           "dev": true
         },
@@ -7325,7 +7325,7 @@
         },
         "readable-stream": {
           "version": "2.0.6",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz",
+          "resolved": "http://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz",
           "integrity": "sha1-j5A0HmilPMySh4jaz80Rs265t44=",
           "dev": true,
           "requires": {
@@ -8435,7 +8435,7 @@
         },
         "strip-ansi": {
           "version": "3.0.1",
-          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz",
+          "resolved": "http://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz",
           "integrity": "sha1-ajhfuIU9lS1f8F0Oiq+UJ43GPc8=",
           "dev": true,
           "requires": {
@@ -8450,7 +8450,7 @@
         },
         "yargs": {
           "version": "3.32.0",
-          "resolved": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
+          "resolved": "http://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
           "integrity": "sha1-AwiOnr+edWtpdRYR0qXvWRSCyZU=",
           "dev": true,
           "requires": {
@@ -10034,7 +10034,7 @@
     },
     "proxy-agent": {
       "version": "2.3.1",
-      "resolved": "https://registry.npmjs.org/proxy-agent/-/proxy-agent-2.3.1.tgz",
+      "resolved": "http://registry.npmjs.org/proxy-agent/-/proxy-agent-2.3.1.tgz",
       "integrity": "sha512-CNKuhC1jVtm8KJYFTS2ZRO71VCBx3QSA92So/e6NrY6GoJonkx3Irnk4047EsCcswczwqAekRj3s8qLRGahSKg==",
       "dev": true,
       "requires": {
@@ -11187,7 +11187,7 @@
       "dependencies": {
         "kind-of": {
           "version": "2.0.1",
-          "resolved": "https://registry.npmjs.org/kind-of/-/kind-of-2.0.1.tgz",
+          "resolved": "http://registry.npmjs.org/kind-of/-/kind-of-2.0.1.tgz",
           "integrity": "sha1-AY7HpM5+OobLkUG+UZ0kyPqpgbU=",
           "dev": true,
           "requires": {
@@ -11388,9 +11388,9 @@
       }
     },
     "snyk": {
-      "version": "1.104.2",
-      "resolved": "https://registry.npmjs.org/snyk/-/snyk-1.104.2.tgz",
-      "integrity": "sha512-lfFELBmlRUMnAnCnIZXiBCKWwQ5AdsmpmGCiQ9UFI0mZudJN7FM6/43UH8dFIEB6hRVkz4kAeqb6oqO1iUWqiw==",
+      "version": "1.105.0",
+      "resolved": "https://registry.npmjs.org/snyk/-/snyk-1.105.0.tgz",
+      "integrity": "sha512-j4qNnZ+i9fwuS6t2xM+QSOYedbr9f10s4EC2m4fHWb22uyQYqDdRBISwY8nUAeYbJTMJvJTJzRcEEdXboSkNhA==",
       "dev": true,
       "requires": {
         "abbrev": "^1.1.1",
@@ -13828,7 +13828,7 @@
     },
     "xmlbuilder": {
       "version": "9.0.7",
-      "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz",
+      "resolved": "http://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz",
       "integrity": "sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0=",
       "dev": true
     },
