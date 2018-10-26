@@ -19,7 +19,6 @@ const { Tag } = require('../models/Tag');
 
 const uploadPath = path.join(__dirname, '../../public/uploads/');
 
-const maxFileSize = 1 * 1024 * 1024;
 const multer = require('multer');
 const storage = multer.diskStorage({
   filename: (_req, file, done) => {
@@ -32,7 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    fileSize: maxFileSize,
+    fileSize: 1 * 1024 * 1024,
     files: 1
   }
 }).single('image');
@@ -48,7 +47,6 @@ router.get('/', (req, res) => {
         showTitle: 'Posts',
         layout: 'postLayout',
         posts,
-        views: req.session.views ? req.session.views++ : 1,
         error: req.flash('error'),
         success: req.flash('success')
       });

@@ -9,7 +9,7 @@
     </span>
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav ml-auto navbar-menu">
+    <ul class="navbar-nav navbar-menu ml-auto">
       <li class="nav-item{{#if_eq showTitle 'Home page'}} active{{/if_eq}}">
         <a class="nav-link" href="/" title="Home">
           <i class="fas fa-home"></i> Home</a>
@@ -26,19 +26,18 @@
         <a class="nav-link" href="/contact" title="Contact us">
           <i class="far fa-paper-plane"></i> Contact us</a>
       </li>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav navbar-menu ml-auto">
       {{#if user}}
+        <li class="nav-item bg-primary text-center nav-name">
+          <a href="/user/profile/{{user.username}}" title="{{user.firstname}} {{user.lastname}}" class="nav-link text-white text-capitalize">Welcome {{user.username}}</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/auth/logout" title="Logout">
             Logout
             <i class="fas fa-sign-out-alt"></i>
-          </a>
-        </li>
-        <li class="nav-item bg-primary text-center nav-name">
-          <span class="nav-link text-white">Welcome {{user.username}}</span>
-        </li>
-        <li class="nav-item gravatar-item">
-          <a href="/user/profile/{{user.username}}" title="{{user.firstname}} {{user.lastname}}">
-            <img class="rounded-circle" src="{{user.gravatar}}" alt="{{user.firstname}} {{user.lastname}}" title="{{user.firstname}} {{user.lastname}}" width="38" height="38">
           </a>
         </li>
       {{else}}

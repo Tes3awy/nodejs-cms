@@ -338,13 +338,13 @@ if ($('#phone').length > 0) {
   });
 }
 
-Pace.options = {
-  ajax: false,
-  restartOnPushState: false,
-  restartOnRequestAfter: false,
-  document: false,
-  eventLag: false
-};
+// Pace.options = {
+//   ajax: false,
+//   restartOnPushState: false,
+//   restartOnRequestAfter: false,
+//   document: false,
+//   eventLag: false
+// };
 
 // Shuffle.js
 if ($('.shuffle-container').length > 0) {

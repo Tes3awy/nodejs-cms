@@ -1,7 +1,6 @@
-<div class="text-right">
+<div class="text-right mb-3">
   <span class="bg-primary px-2 py-1 text-white" title="Today">{{getToday}}</span>
 </div>
-<h1 class="mb-4">Home Page</h1>
 {{!-- Deleting account Alert--}}
 {{#unless user}}
   {{#if deleteAccount}}
@@ -24,51 +23,11 @@
   </div>
 {{/if}}
 
-{{!-- Cards section --}}
-<section class="row main-cards-row">
-  <div class="col-md-3 main-card">
-    <div class="card text-white bg-primary shadow-sm">
-      <div class="card-body">
-        <h2 class="card-title">Card #1</h2>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-          card's
-          content.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 main-card">
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h2 class="card-title">Card #2</h2>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-          card's
-          content.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 main-card">
-    <div class="card text-white-50 bg-success shadow-sm">
-      <div class="card-body">
-        <h2 class="card-title">Card #3</h2>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-          card's
-          content.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 main-card">
-    <div class="card text-white bg-secondary shadow-sm">
-      <div class="card-body">
-        <h2 class="card-title">Card #4</h2>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-          card's
-          content.
-        </p>
-      </div>
-    </div>
+{{!-- Jumbotron --}}
+<section class="jumbotron bg-danger text-white rounded-0">
+  <div class="container">
+    <h1 class="display-4">Fluid jumbotron</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
   </div>
 </section>
 

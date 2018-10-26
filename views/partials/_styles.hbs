@@ -1,6 +1,6 @@
-{{!-- Bootstrap CSS --}}
+{{!-- Bootstrap 4.1.3 CSS --}}
 <link rel="stylesheet" href="/css/bootstrap.min.css">
-{{!-- Font Awesome 5.2.0 CDN --}}
+{{!-- Font Awesome 5.4.1 CDN --}}
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.4.1/css/all.css">
 {{!-- Hamburger CSS --}}
 <link rel="stylesheet" href="/css/hamburgers.min.css">
@@ -12,32 +12,32 @@
 <link rel="stylesheet" href="/css/ribbon.css">
 {{!-- Chosen CSS --}}
 <link rel="stylesheet" href="/css/chosen.min.css">
-{{!-- Cookie Content --}}
+{{!-- Cookie Content CSS CDN --}}
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css">
-{{!-- DataTables CDN --}}
+{{!-- DataTables CSS CDN --}}
 <link rel="stylesheet" href="//cdn.datatables.net/v/bs4/dt-1.10.18/fh-3.1.4/r-2.2.2/rr-1.2.4/datatables.min.css">
 {{!-- Perfect Scrollbar CSS --}}
 <link rel="stylesheet" href="/css/perfect-scrollbar.css">
 {{!-- Country Flags CSS --}}
 <link rel="stylesheet" href="/css/intlTelInput.min.css">
-{{!-- Prism CSS --}}
+{{!-- Prism For TextEditors CSS --}}
 <link rel="stylesheet" href="/css/prism.css">
+{{!-- Tiny Date Picker CSS --}}
+<link rel="stylesheet" href="/css/tiny-date-picker.css">
 {{!-- Custom CSS --}}
 <link rel="stylesheet" href="/css/main.css">
 {{!-- Ad-alert --}}
 <link rel="stylesheet" href="/css/ad-alert.css">
-{{!-- Tiny Date Picker CSS --}}
-<link rel="stylesheet" href="/css/tiny-date-picker.css">
 {{!-- Chart JS --}}
 <script src="/js/Chart.bundle.min.js"></script>
 {{!-- TinyMCE JS --}}
-<script src='/js/vendor/tinymce/tinymce.min.js?apiKey=ra300emlgjlf29l3mqlayily2m0p6szeo4n4tyss110pvk19'></script>
+<script src='/js/vendor/tinymce/tinymce.min.js?apiKey=ra300emlgjlf29l3mqlayily2m0p6szeo4n4tyss110pvk19' async></script>
 {{!-- Cookie Consent --}}
 {{#unless user}}
   {{!-- Begin Cookie Consent plugin by Silktide - //silktide.com/cookieconsent --}}
-  <script type="text/javascript">
+  <script>
     window.cookieconsent_options = { "message": "This website uses cookies to ensure you get the best experience on our website", "dismiss": "Got it!", "learnMore": "More info", "link": '/terms', "theme": "dark-top" };
   </script>
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js" async></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js" async></script>
   {{!-- End Cookie Consent plugin --}}
 {{/unless}}
