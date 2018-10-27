@@ -22,12 +22,19 @@ p {
 }
 
 .nav-name {
-  transition: transform .3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+          transition: -webkit-transform 0.3s ease-in-out;
+       -o-transition:         transform 0.3s ease-in-out;
+          transition:         transform 0.3s ease-in-out;
+          transition:         transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 }
 
 .nav-name:hover {
-  transform: scale(1.1);
-  backface-visibility: hidden;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
 }
 

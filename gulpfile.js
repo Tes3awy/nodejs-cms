@@ -1,13 +1,14 @@
 // Required Modules
 const gulp = require('gulp');
 const plumber = require('gulp-plumber');
-
 const rename = require('gulp-rename');
-const sass = require('gulp-sass');
-const postcss = require('gulp-postcss');
-const cssnano = require('cssnano');
+
 const autoprefixer = require('autoprefixer');
 const csscomb = require('gulp-csscomb');
+const cssnano = require('cssnano');
+const postcss = require('gulp-postcss');
+const rtlcss = require('rtlcss');
+const sass = require('gulp-sass');
 
 const uglify = require('gulp-uglify');
 
@@ -22,7 +23,7 @@ gulp.task('compile:sass', () => {
     .pipe(gulp.dest('public/css'));
 });
 
-// Autoprefix and minify main.css file
+// Autoprefix, Prettify and Minify main.css file
 gulp.task('autoprefix', () => {
   let plugins = [
     autoprefixer({ browsers: ['last 10 versions'], cascade: true })
@@ -31,6 +32,19 @@ gulp.task('autoprefix', () => {
     .src(['public/css/main.css', 'public/css/ribbon.css'])
     .pipe(postcss(plugins))
     .pipe(csscomb())
+    .pipe(gulp.dest('public/css'))
+    .pipe(plumber())
+    .pipe(postcss([cssnano()]))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('public/css'));
+});
+
+// Generate RTL CSS for main.css file
+gulp.task('rtlcss', () => {
+  return gulp
+    .src('public/css/main.css')
+    .pipe(postcss([rtlcss()]))
+    .pipe(rename({ basename: 'main', suffix: '-rtl', extname: '.css' }))
     .pipe(gulp.dest('public/css'))
     .pipe(plumber())
     .pipe(postcss([cssnano()]))
@@ -101,7 +115,8 @@ gulp.task('uglify', () => {
 gulp.task('watch', () => {
   // gulp.watch('node_modules/bootstrap/scss/**/*.scss', ['compile:sass']);
   gulp.watch('public/js/main.js', ['uglify']);
-  gulp.watch(['public/css/main.css', 'public/css/ribbon.css'], ['autoprefix']);
+  gulp.watch(['public/css/main.css'], ['autoprefix', 'rtlcss']);
+  // gulp.watch(['public/css/ribbon.css'], ['autoprefix', 'rtlcss']);
   gulp.watch('public/sass/vendor/hamburgers/**', ['compile:ham']);
 });
 
