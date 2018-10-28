@@ -4,8 +4,8 @@
   "description": "Advanced Node.js & React.js CMS based Web Application (LTR & RTL)",
   "main": "server/server.js",
   "scripts": {
-    "start:mac": "export NODE_ENV=development && nodemon server/server.js",
-    "start:win": "set NODE_ENV=development && nodemon server/server.js",
+    "dev-mac": "export NODE_ENV=development && nodemon server/server.js",
+    "dev-win": "set NODE_ENV=development && nodemon server/server.js",
     "test": "snyk test",
     "dev-server": "webpack-dev-server",
     "build:dev": "webpack",
