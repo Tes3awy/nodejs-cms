@@ -12206,9 +12206,9 @@
       }
     },
     "sweetalert2": {
-      "version": "7.28.10",
-      "resolved": "https://registry.npmjs.org/sweetalert2/-/sweetalert2-7.28.10.tgz",
-      "integrity": "sha512-+h5pnfe3uPThvhhtKjuAWVoEV6PbiRgjO4RfqoVqi9CXuLY5QIRLBEanD80ONG5o9WMdXA0/Eu6R2I5LK1cOAw=="
+      "version": "7.28.11",
+      "resolved": "https://registry.npmjs.org/sweetalert2/-/sweetalert2-7.28.11.tgz",
+      "integrity": "sha512-092ZTfHz45ZdH5wADNsfvSHG93Mn+QRc4vV96fIMECaeW38B7Fm77F7/cWO8Fwr8NaOHbzXDhsgTirMHcsnBAA=="
     },
     "tapable": {
       "version": "1.1.0",
