@@ -12,7 +12,8 @@
     <form action="/posts/add" method="POST" enctype="multipart/form-data" runat="server" role="form">
       <fieldset>
         <h2 class="mb-0">Add new post</h2>
-        <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">{{!-- Error Handling --}}
+        <hr class="bg-primary" style="max-width: 11%; margin-left: 0;">
+        {{!-- Error Handling --}}
         {{#if error}}
           {{#each error}}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -25,7 +26,7 @@
         {{/if}}
         {{!-- Check Featured post or not --}}
         <div class="form-row my-2">
-          <div class="col-sm-4">
+          <div class="col-lg-4 col-md-12">
             <div class="form-group">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="featured" id="featured" value="true" required>
@@ -39,21 +40,19 @@
             </div>
           </div>
           {{!-- Select Tags for post --}}
-          <div class="col-sm-8">
+          <div class="col-lg-8 col-md-12">
             <div class="form-group">
               <div class="input-group">
-                <select name="tag" class="chosen-select form-control" data-placeholder="Choose your post's tags..."
+                <select name="tag" class="chosen-select form-control" data-placeholder="Select 3 tags for your post"
                   multiple>
                   {{#each tag}}
                     <option value="{{tag}}">{{tag}}</option>
                   {{/each}}
                 </select>
+                <div class="input-group-append">
+                  <a class="btn btn-info btn-sm" href="/tag/add" title="Add your own tags"><i class="fas fa-plus-circle"></i></a>
+                </div>
               </div>
-              <div class="text-right d-block">
-                <a class="btn btn-info btn-sm" href="/tag/add">or add your own tags</a>
-              </div>
-              <small class="text-muted d-block text-right">You can choose up to <span class="text-success">three</span>
-                tags</small>
             </div>
           </div>
         </div>
@@ -80,7 +79,7 @@
               <label class="custom-file-label" for="inputImage">Drag 'n' Drop image here</label>
             </div>
           </div>
-          {{!-- Warning --}}
+          {{!-- Upload Size Warning --}}
           <small class="text-muted d-block mb-2">Max.
             <span class="text-danger font-weight-bold">1 MB</span></small>
         </div>

@@ -116,7 +116,7 @@ router.post(
       req.connection.remoteAddress
     }&response=${req.body['g-recaptcha-response']}`;
 
-    request(verifyURL, (_err, _response, body) => {
+    request.get({ uri: verifyURL, time: true }, (_err, _response, body) => {
       const verify = JSON.parse(body);
       if (!verify.success) {
         req.flash('captchaError', 'Unable to verify reCAPTCHA');

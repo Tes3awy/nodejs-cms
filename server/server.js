@@ -91,9 +91,17 @@ app.use(passport.session());
 // Flash Middleware
 app.use(flash());
 // Error Handler
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-  app.use(errorhandler());
+if (process.env.NODE_ENV === 'development') {
+  app.use(errorhandler({ log: errorNotification }));
 }
+// Custom Error Handler (Notification)
+var errorNotification = (_err, message, req) => {
+  const title = `Error in ${req.method} ${req.url}`;
+  notifier.notify({
+    title,
+    message
+  });
+};
 // Global Vars
 app.use(function(req, res, next) {
   res.locals.user = req.user || null;

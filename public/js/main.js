@@ -1,3 +1,6 @@
+// Console Logging
+console.log("%c!!أقفل يالا بتبص على ايه أنت", "font-size:64px;color:#F04124;");
+
 // Show/Hide Password Fields
 $('.input-group-append').on('click', function() {
   var input = $(this).siblings();
@@ -5,11 +8,9 @@ $('.input-group-append').on('click', function() {
     .find('.input-group-text')
     .find('i')
     .toggleClass('fa-eye fa-eye-slash');
-  if (input.prop('type') === 'password') {
-    input.prop('type', 'text');
-  } else {
-    input.prop('type', 'password');
-  }
+  input.prop('type') === 'password'
+    ? input.prop('type', 'text')
+    : input.prop('type', 'password');
 });
 
 // Autocomplete Email Init
@@ -54,9 +55,7 @@ $('#previewImageContainer').hide();
 $('#image-name').hide();
 function ValidateSize(file) {
   var fileSize = file.files[0].size / 1024 / 1024; // in MB
-  if (fileSize > 1) {
-    return swal('ERROR!', 'Image size exceeds 1 MB!', 'error');
-  }
+  fileSize > 1 ? swal('ERROR!', 'Image size exceeds 1 MB!', 'error') : '';
 
   // Preview post image before upload
   $('#inputImage').on('change', function() {
@@ -72,14 +71,13 @@ function ValidateSize(file) {
 $('textarea[name="message"]').on('keyup input', function() {
   var maxLength = $(this).prop('maxlength');
   var currentLength = $(this).val().length;
-
-  if (currentLength >= maxLength) {
-    $('#suggestionCount').html(
-      'You have reached the maximum number of characters.'
-    );
-  } else {
-    $('#suggestionCount').html(maxLength - currentLength + ' characters left');
-  }
+  currentLength >= maxLength
+    ? $('#suggestionCount').html(
+        'You have reached the maximum number of characters.'
+      )
+    : $('#suggestionCount').html(
+        maxLength - currentLength + ' characters left'
+      );
 });
 
 // Chosen for category select
@@ -217,11 +215,7 @@ $(document).ready(function() {
       { start: '* ', cmd: 'InsertUnorderedList' },
       { start: '- ', cmd: 'InsertUnorderedList' }
     ],
-    templates: [
-      { title: 'Test template 1', content: 'Test 1' },
-      { title: 'Test template 2', content: 'Test 2' }
-    ],
-    content_css: ['//www.tinymce.com/css/codepen.min.css']
+    // content_css: 'http://www.tinymce.com/css/codepen.min.css'
   };
   tinymce.init(tinymceConfig);
 
@@ -275,11 +269,9 @@ $(document).ready(function() {
   // Auto detect text direction in input and textarea
   $('input[type="text"], textarea').each(function() {
     $(this).on('input keyup keypress', function() {
-      if (isUnicode($(this).val())) {
-        $(this).css('direction', 'rtl');
-      } else {
-        $(this).css('direction', 'ltr');
-      }
+      isUnicode($(this).val())
+        ? $(this).css('direction', 'rtl')
+        : $(this).css('direction', 'ltr');
     });
   });
 
@@ -287,9 +279,7 @@ $(document).ready(function() {
     var letters = [];
     for (var i = 0; i <= str.length; i++) {
       letters[i] = str.substring(i - 1, i);
-      if (letters[i].charCodeAt() > 255) {
-        return true;
-      }
+      letters[i].charCodeAt() > 255 ? true : '';
     }
     return false;
   }
@@ -338,13 +328,13 @@ if ($('#phone').length > 0) {
   });
 }
 
-// Pace.options = {
-//   ajax: false,
-//   restartOnPushState: false,
-//   restartOnRequestAfter: false,
-//   document: false,
-//   eventLag: false
-// };
+Pace.options = {
+  ajax: false,
+  restartOnPushState: false,
+  restartOnRequestAfter: false,
+  document: false,
+  eventLag: false
+};
 
 // Shuffle.js
 if ($('.shuffle-container').length > 0) {
