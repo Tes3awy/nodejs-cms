@@ -8,6 +8,7 @@ const AppRouter = () => (
       <Header />
       <Switch>
         <Route path="/" exact={true} />
+        <Route path="/about" />
       </Switch>
     </div>
   </BrowserRouter>
