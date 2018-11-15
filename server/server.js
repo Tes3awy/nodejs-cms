@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const path = require('path');
 
 const express = require('express');
@@ -31,6 +30,7 @@ const compression = require('compression');
 
 const logger = require('morgan');
 const errorhandler = require('errorhandler');
+const notifier = require('node-notifier');
 
 const _ = require('lodash');
 const moment = require('moment');
@@ -175,7 +175,10 @@ app.use('/tag', tagsRoutes);
 
 // Serving locally on port 3000
 app.listen(port, '127.0.0.1', () => {
-  console.log(`Server started on port ${port}`);
+  notifier.notify({
+    title: 'Server is up and running',
+    message: `Server started on port ${port}`
+  });
 });
 
 module.exports = {
