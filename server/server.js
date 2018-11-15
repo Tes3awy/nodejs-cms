@@ -27,6 +27,7 @@ const flash = require('connect-flash');
 
 const helmet = require('helmet');
 const compression = require('compression');
+const cors = require('cors');
 
 const logger = require('morgan');
 const errorhandler = require('errorhandler');
@@ -64,11 +65,16 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Compression Middleware
-app.use(compression({ level: 1 }));
+app.use(compression({ level: 3 }));
+// CORS Middleware
+app.use(cors({
+  origin: 'localhost:3000',
+  optionsSuccessStatus: 200
+}));
 // Session Middleware
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: '123',
     name: 'sessionid',
     resave: false,
     saveUninitialized: true,
