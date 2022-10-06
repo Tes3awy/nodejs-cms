@@ -98,7 +98,7 @@
     "sweetalert2": "^7.32.2",
     "tiny-date-picker": "^3.2.8",
     "tinymce": "^4.9.1",
-    "snyk": "^1.216.0"
+    "snyk": "^1.996.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.2",
